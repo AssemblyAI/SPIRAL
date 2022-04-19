@@ -38,6 +38,7 @@ from nemo.core.classes import Dataset, IterableDataset
 from nemo.core.neural_types import *
 from nemo.utils import logging
 from nemo.utils.decorators import experimental
+from datasets import load_from_disk
 
 __all__ = [
     'AudioToCharDataset',
@@ -216,6 +217,69 @@ class _AudioTextDataset(Dataset):
     def _collate_fn(self, batch):
         return _speech_collate_fn(batch, pad_id=self.pad_id)
 
+class ArrowAudioTextDataset(Dataset):
+    def __init__(
+        self,
+        dataset_filepath: str,
+        parser: Union[str, Callable],
+        sample_rate: int,
+        int_values: bool = False,
+        augmentor: 'nemo.collections.asr.parts.perturb.AudioAugmentor' = None,
+        max_duration: Optional[int] = 120,
+        min_duration: Optional[int] = 0,
+        max_utts: int = 0,
+        trim: bool = False,
+        bos_id: Optional[int] = None,
+        eos_id: Optional[int] = None,
+        pad_id: int = 0,
+        load_audio: bool = True,
+        data_dir: str = '',
+    ):
+        self.parser = parser
+        self.load_audio = load_audio
+        self.eos_id = eos_id
+        self.bos_id = bos_id
+        self.pad_id = pad_id
+        self.dataset = load_from_disk(dataset_filepath)
+        self.sample_rate = sample_rate
+        self.featurizer = WaveformFeaturizer(sample_rate=sample_rate, int_values=int_values, augmentor=augmentor)
+        self.trim = trim
+        self.data_dir = data_dir.strip()
+        # TODO add support for duration filtering
+        parsed_text = self.parser(self.dataset.labels)
+        self.dataset = self.dataset.add_column("text_tokens", parsed_text)
+        self.dataset = self.dataset.filter(lambda row: min_duration<=row['input_length']/self.sample_rate<=max_duration)
+
+    def __getitem__(self, index):
+        sample = self.dataset[index]
+        if self.load_audio:
+            offset = sample.get('offset', default=0)
+            audio = sample.input_values
+            sr = sample.get('sample_rate', default=16000)
+            # assumes waveform is preprocessed properly only perturbing
+            features = self.featurizer.process_segment(audio)
+            f, fl = features, torch.tensor(features.shape[0]).long()
+        else:
+            f, fl = None
+        t, tl = sample.text_tokens, len(sample.text_tokens)
+
+        if self.bos_id is not None:
+            t = [self.bos_id] + t
+            tl += 1
+        if self.eos_id is not None:
+            t = t + [self.eos_id]
+            tl += 1
+        output = f, fl, torch.tensor(t).long(), torch.tensor(tl).long()
+        return output
+
+    def __len__(self):
+        return len(self.collection)
+
+    def _collate_fn(self, batch):
+        if self.return_both:
+            return _both_speech_only_collate_fn(batch)
+        else:
+            return _speech_only_collate_fn(batch)
 
 class AudioDataset(Dataset):
     @property
