@@ -19,23 +19,37 @@
 # You can also put more than one data_set comma-separated:
 # --data_set=dev_clean,train_clean_100
 import argparse
-import fnmatch
 import json
-import logging
 import os
 import subprocess
-import tarfile
-import urllib.request
 
 from tqdm import tqdm
+from tqdm.contrib.concurrent import process_map  # or thread_map
+import random
+
+import os 
+
+import glob
+import warnings
+import os
+import json
+
+warnings.filterwarnings("ignore")
+os.environ['TRANSFORMERS_CACHE'] = '/media/4TBNVME/cache'
+os.environ['HF_DATASETS_CACHE'] = '/media/4TBNVME/cache'
+
+import random 
+import multiprocessing
 
 parser = argparse.ArgumentParser(description='Generate training JSON from wav files')
 parser.add_argument("--data_root", required=True, default=None, type=str)
+parser.add_argument("--manifest_root", required=True, default=None, type=str)
 parser.add_argument("--preprocess", required=False, default=False, type=bool)
+parser.add_argument("--train_split", required=False, default=0.8, type=float)
+
 args = parser.parse_args()
 
-
-def __process_data(data_folder: str, manifest_file: str):
+def __process_data(pid, data_folder, manifest_file):
     """
     Converts flac to wav and build manifests's json
     Args:
@@ -44,40 +58,64 @@ def __process_data(data_folder: str, manifest_file: str):
     Returns:
     """
 
-    files = []
-    entries = []
+    train_entries = []
+    test_entries = []
+    count = 0
+    failed_files = 0
+    for filename in os.listdir(data_folder):
+        wav_file = os.path.join(data_folder, filename)
+        try:
+            count+=1
+            with open(wav_file, encoding="utf-8") as fin:
+                # check duration
+                duration = subprocess.check_output("soxi -D {0}".format(wav_file), shell=True)
 
-    for root, dirnames, filenames in os.walk(data_folder):
-        for filename in filenames:
-            files.append((os.path.join(root, filename), root))
+                entry = {}
+                entry['audio_filepath'] = os.path.abspath(wav_file)
+                entry['duration'] = float(duration)
+                entry['text'] = ''
+                if count%1000/1000 <= args.train_split:
+                    train_entries.append(entry)
+                else:
+                    test_entries.append(entry)
+        except:
+            failed_files+=1
+            print('failed files :', failed_files, wav_file)
+        if count%10000==1:
+            print('saving: ', manifest_file)
+            with open(manifest_file+'_train.json', 'w') as fout:
+                for m in train_entries:
+                    fout.write(json.dumps(m) + '\n')
 
-    for wav_file, root in tqdm(files):
-        with open(wav_file, encoding="utf-8") as fin:
-            # check duration
-            duration = subprocess.check_output("soxi -D {0}".format(wav_file), shell=True)
-
-            entry = {}
-            entry['audio_filepath'] = os.path.abspath(wav_file)
-            entry['duration'] = float(duration)
-            entry['text'] = ''
-            entries.append(entry)
-
-    with open(manifest_file, 'w') as fout:
-        for m in entries:
+            with open(manifest_file+'_test.json', 'w') as fout:
+                for m in test_entries:
+                    fout.write(json.dumps(m) + '\n')
+    with open(manifest_file+'_train.json', 'w') as fout:
+        for m in train_entries:
             fout.write(json.dumps(m) + '\n')
 
+    with open(manifest_file+'_test.json', 'w') as fout:
+        for m in test_entries:
+            fout.write(json.dumps(m) + '\n')
+    return None
 
 def main():
     data_root = args.data_root
-    datasets = ['downloads_ssl_fr']
-    # TODO(frmccann) add support for multiple directories 
+    manifest_root = args.manifest_root
+    if not os.path.exists(os.path.dirname(manifest_root)):
+        os.makedirs(os.path.dirname(manifest_root))
+    datasets = ['dutch/downloads_ssl_nl','french/downloads_ssl_fr', 'german/downloads_ssl_de', 'italian/downloads_ssl_it', 'spanish/downloads_ssl_es']
+    arguments = []
     for dataset in datasets:
-        directory = os.path.join(data_root, dataset)
-        logging.info("Processing {0}".format(dataset))
-        __process_data(directory,
-            os.path.join(data_root, dataset + ".json"),
-        )
-        logging.info('Done!')
+        language = dataset.split('/')[0]
+        arguments.append((os.path.join(data_root, dataset), os.path.join(manifest_root, language)))
+    
+    pool = multiprocessing.Pool(processes=len(datasets))
+    jobs = [pool.apply_async(__process_data, args=(pid, data_f, manifest_f)) for pid, (data_f,manifest_f) in enumerate(arguments)]
+    pool.close()
+    _ = [job.get() for job in jobs]
+    print("\n" * (len(argument_list) + 1))
+
 
 
 if __name__ == "__main__":
