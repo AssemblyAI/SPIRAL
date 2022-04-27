@@ -26,10 +26,10 @@ import pandas
 import pytorch_lightning as pl
 from omegaconf import OmegaConf
 
-from nemo.collections.asr.parts import compute_wer
+from spiral_nemo.collections.asr.parts import compute_wer
 from nemo.utils import logging
 from nemo.utils.exp_manager import exp_manager
-
+import IPython
 
 """
 Pre-train a wav2vec 2.0 transformer model on audio. Uses a contrastive loss function to pre-train on unlabelled audio,
@@ -100,19 +100,26 @@ def main(cfg, args):
         trainer = pl.Trainer(gpus=gpu, precision=cfg.trainer.precision)
     else:
         trainer = pl.Trainer(**cfg.trainer)
+        # IPython.embed()
         exp_manager(trainer, cfg.get("exp_manager", None))
 
     if args.model_type == 'spiral':
-        from nemo.collections.asr.models.st2vec.st2vec_pretrain import ST2VecPretrainModel
+        from spiral_nemo.collections.asr.models.st2vec.st2vec_pretrain import ST2VecPretrainModel
         model = ST2VecPretrainModel(cfg=cfg.model, trainer=trainer)
     elif args.model_type == 'ctc_finetune':
-        from nemo.collections.asr.models.spec2vec.ctc_finetune import CTCFinetuneModel
+        from spiral_nemo.collections.asr.models.spec2vec.ctc_finetune import CTCFinetuneModel
         model = CTCFinetuneModel(cfg=cfg.model, trainer=trainer)
+    elif args.model_type == 'rnnt_finetune':
+        from spiral_nemo.collections.asr.models.spec2vec.rnnt_finetune import RNNTFinetuneModel
+        model = RNNTFinetuneModel(cfg=cfg.model, trainer=trainer)
+    elif args.model_type == 'w2v':
+        from spiral_nemo.collections.asr.models.wav2vec.wav2vec_model import Wav2VecEncoderModel
+        model = Wav2VecEncoderModel(cfg=cfg.model, trainer=trainer)
     else:
         raise ValueError('Unknown model type: {}'.format(args.model_type))
-    print('\nmodel structure:')
-    print(model)
-    print()
+    # print('\nmodel structure:')
+    # print(model)
+    # print()
 
     if args.run_mode == 'test':
         assert args.init_chkpt_dir and args.init_chkpt_file

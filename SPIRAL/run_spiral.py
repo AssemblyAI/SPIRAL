@@ -20,7 +20,7 @@ from importlib import import_module
 
 from hydra.experimental import compose, initialize
 from omegaconf import OmegaConf, ValidationError
-
+import IPython
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description='Run training',
@@ -46,7 +46,7 @@ def main(argv=None):
     parser.add_argument('--use_chkpt_hparams', type=str2bool, default=False)
     parser.add_argument('--load_model_skip_var', type=str, default='')
     parser.add_argument('--test_manifest', type=str, default='')
-    parser.add_argument('--model_type', type=str, default='spiral', choices=['spiral', 'ctc_finetune'])
+    parser.add_argument('--model_type', type=str, default='spiral', choices=['spiral', 'ctc_finetune', 'rnnt_finetune'])
     parser.add_argument('--finetune_from_scratch', type=str2bool, default=False)
     parser.add_argument('--dev_data_dup_factor', type=int, default=0)
     parser.add_argument('--use_teacher_encoder', type=str2bool, default=False)
@@ -88,7 +88,7 @@ def main(argv=None):
             cfg.trainer.gpus = args.num_gpus
             cfg.trainer.num_nodes = args.num_nodes
 
-        if args.model_type == 'ctc_finetune':
+        if args.model_type in set(['ctc_finetune', 'rnnt_finetune']):
             if args.run_mode == 'test':
                 cfg.model.pretrain_chkpt_path = None
             elif args.finetune_from_scratch:
@@ -100,7 +100,6 @@ def main(argv=None):
 
             if args.use_teacher_encoder:
                 cfg.model.use_teacher_encoder = True
-
         try:
             cfg = OmegaConf.structured(cfg)
             OmegaConf.set_struct(cfg, True)
