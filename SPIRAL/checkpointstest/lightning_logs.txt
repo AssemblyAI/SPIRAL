@@ -1,0 +1,417 @@
+GPU available: True, used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+`Trainer(limit_train_batches=1.0)` was configured so 100% of the batches per epoch will be used..
+`Trainer(limit_val_batches=1.0)` was configured so 100% of the batches will be used..
+`Trainer(limit_test_batches=1.0)` was configured so 100% of the batches will be used..
+`Trainer(limit_predict_batches=1.0)` was configured so 100% of the batches will be used..
+`Trainer(val_check_interval=1.0)` was configured so validation will run at the end of the training epoch..
+GPU available: True, used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+`Trainer(limit_train_batches=1.0)` was configured so 100% of the batches per epoch will be used..
+`Trainer(limit_val_batches=1.0)` was configured so 100% of the batches will be used..
+`Trainer(limit_test_batches=1.0)` was configured so 100% of the batches will be used..
+`Trainer(limit_predict_batches=1.0)` was configured so 100% of the batches will be used..
+`Trainer(val_check_interval=1.0)` was configured so validation will run at the end of the training epoch..
+GPU available: True, used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+`Trainer(limit_train_batches=1.0)` was configured so 100% of the batches per epoch will be used..
+`Trainer(limit_val_batches=1.0)` was configured so 100% of the batches will be used..
+`Trainer(limit_test_batches=1.0)` was configured so 100% of the batches will be used..
+`Trainer(limit_predict_batches=1.0)` was configured so 100% of the batches will be used..
+`Trainer(val_check_interval=1.0)` was configured so validation will run at the end of the training epoch..
+GPU available: True, used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+`Trainer(limit_train_batches=1.0)` was configured so 100% of the batches per epoch will be used..
+`Trainer(limit_val_batches=1.0)` was configured so 100% of the batches will be used..
+`Trainer(limit_test_batches=1.0)` was configured so 100% of the batches will be used..
+`Trainer(limit_predict_batches=1.0)` was configured so 100% of the batches will be used..
+`Trainer(val_check_interval=1.0)` was configured so validation will run at the end of the training epoch..
+GPU available: True, used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+`Trainer(limit_train_batches=1.0)` was configured so 100% of the batches per epoch will be used..
+`Trainer(limit_val_batches=1.0)` was configured so 100% of the batches will be used..
+`Trainer(limit_test_batches=1.0)` was configured so 100% of the batches will be used..
+`Trainer(limit_predict_batches=1.0)` was configured so 100% of the batches will be used..
+`Trainer(val_check_interval=1.0)` was configured so validation will run at the end of the training epoch..
+GPU available: True, used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+`Trainer(limit_train_batches=1.0)` was configured so 100% of the batches per epoch will be used..
+`Trainer(limit_val_batches=1.0)` was configured so 100% of the batches will be used..
+`Trainer(limit_test_batches=1.0)` was configured so 100% of the batches will be used..
+`Trainer(limit_predict_batches=1.0)` was configured so 100% of the batches will be used..
+`Trainer(val_check_interval=1.0)` was configured so validation will run at the end of the training epoch..
+Initializing distributed: GLOBAL_RANK: 0, MEMBER: 1/1
+----------------------------------------------------------------------------------------------------
+distributed_backend=nccl
+All distributed processes registered. Starting with 1 processes
+----------------------------------------------------------------------------------------------------
+
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+
+    | Name                                                     | Type                            | Params
+---------------------------------------------------------------------------------------------------------------
+0   | feature_extractor                                        | ConvFeatureEncoder              | 4.2 M 
+1   | feature_extractor.conv_layers                            | ModuleList                      | 4.2 M 
+2   | feature_extractor.conv_layers.0                          | Sequential                      | 6.1 K 
+3   | feature_extractor.conv_layers.0.0                        | Conv1d                          | 5.1 K 
+4   | feature_extractor.conv_layers.0.1                        | GroupNorm                       | 1.0 K 
+5   | feature_extractor.conv_layers.0.2                        | GELU                            | 0     
+6   | feature_extractor.conv_layers.1                          | Sequential                      | 786 K 
+7   | feature_extractor.conv_layers.1.0                        | Conv1d                          | 786 K 
+8   | feature_extractor.conv_layers.1.1                        | GELU                            | 0     
+9   | feature_extractor.conv_layers.2                          | Sequential                      | 786 K 
+10  | feature_extractor.conv_layers.2.0                        | Conv1d                          | 786 K 
+11  | feature_extractor.conv_layers.2.1                        | GELU                            | 0     
+12  | feature_extractor.conv_layers.3                          | Sequential                      | 786 K 
+13  | feature_extractor.conv_layers.3.0                        | Conv1d                          | 786 K 
+14  | feature_extractor.conv_layers.3.1                        | GELU                            | 0     
+15  | feature_extractor.conv_layers.4                          | Sequential                      | 786 K 
+16  | feature_extractor.conv_layers.4.0                        | Conv1d                          | 786 K 
+17  | feature_extractor.conv_layers.4.1                        | GELU                            | 0     
+18  | feature_extractor.conv_layers.5                          | Sequential                      | 524 K 
+19  | feature_extractor.conv_layers.5.0                        | Conv1d                          | 524 K 
+20  | feature_extractor.conv_layers.5.1                        | GELU                            | 0     
+21  | feature_extractor.conv_layers.6                          | Sequential                      | 524 K 
+22  | feature_extractor.conv_layers.6.0                        | Conv1d                          | 524 K 
+23  | feature_extractor.conv_layers.6.1                        | GELU                            | 0     
+24  | post_extract_proj                                        | Linear                          | 393 K 
+25  | dropout_input                                            | Dropout                         | 0     
+26  | dropout_features                                         | Dropout                         | 0     
+27  | quantizer                                                | GumbelVectorQuantizer           | 574 K 
+28  | quantizer.weight_proj                                    | Linear                          | 328 K 
+29  | project_q                                                | Linear                          | 590 K 
+30  | encoder                                                  | Wav2VecTransformerEncoder       | 89.8 M
+31  | encoder.pos_conv                                         | Sequential                      | 4.7 M 
+32  | encoder.pos_conv.0                                       | Conv1d                          | 4.7 M 
+33  | encoder.pos_conv.1                                       | SamePad                         | 0     
+34  | encoder.pos_conv.2                                       | GELU                            | 0     
+35  | encoder.feature_dropout                                  | Dropout                         | 0     
+36  | encoder.transformer_encoder                              | TransformerEncoder              | 85.1 M
+37  | encoder.transformer_encoder.layers                       | ModuleList                      | 85.1 M
+38  | encoder.transformer_encoder.layers.0                     | TransformerEncoderLayer         | 7.1 M 
+39  | encoder.transformer_encoder.layers.0.self_attn           | MultiheadAttention              | 2.4 M 
+40  | encoder.transformer_encoder.layers.0.self_attn.out_proj  | NonDynamicallyQuantizableLinear | 590 K 
+41  | encoder.transformer_encoder.layers.0.linear1             | Linear                          | 2.4 M 
+42  | encoder.transformer_encoder.layers.0.dropout             | Dropout                         | 0     
+43  | encoder.transformer_encoder.layers.0.linear2             | Linear                          | 2.4 M 
+44  | encoder.transformer_encoder.layers.0.norm1               | LayerNorm                       | 1.5 K 
+45  | encoder.transformer_encoder.layers.0.norm2               | LayerNorm                       | 1.5 K 
+46  | encoder.transformer_encoder.layers.0.dropout1            | Dropout                         | 0     
+47  | encoder.transformer_encoder.layers.0.dropout2            | Dropout                         | 0     
+48  | encoder.transformer_encoder.layers.1                     | TransformerEncoderLayer         | 7.1 M 
+49  | encoder.transformer_encoder.layers.1.self_attn           | MultiheadAttention              | 2.4 M 
+50  | encoder.transformer_encoder.layers.1.self_attn.out_proj  | NonDynamicallyQuantizableLinear | 590 K 
+51  | encoder.transformer_encoder.layers.1.linear1             | Linear                          | 2.4 M 
+52  | encoder.transformer_encoder.layers.1.dropout             | Dropout                         | 0     
+53  | encoder.transformer_encoder.layers.1.linear2             | Linear                          | 2.4 M 
+54  | encoder.transformer_encoder.layers.1.norm1               | LayerNorm                       | 1.5 K 
+55  | encoder.transformer_encoder.layers.1.norm2               | LayerNorm                       | 1.5 K 
+56  | encoder.transformer_encoder.layers.1.dropout1            | Dropout                         | 0     
+57  | encoder.transformer_encoder.layers.1.dropout2            | Dropout                         | 0     
+58  | encoder.transformer_encoder.layers.2                     | TransformerEncoderLayer         | 7.1 M 
+59  | encoder.transformer_encoder.layers.2.self_attn           | MultiheadAttention              | 2.4 M 
+60  | encoder.transformer_encoder.layers.2.self_attn.out_proj  | NonDynamicallyQuantizableLinear | 590 K 
+61  | encoder.transformer_encoder.layers.2.linear1             | Linear                          | 2.4 M 
+62  | encoder.transformer_encoder.layers.2.dropout             | Dropout                         | 0     
+63  | encoder.transformer_encoder.layers.2.linear2             | Linear                          | 2.4 M 
+64  | encoder.transformer_encoder.layers.2.norm1               | LayerNorm                       | 1.5 K 
+65  | encoder.transformer_encoder.layers.2.norm2               | LayerNorm                       | 1.5 K 
+66  | encoder.transformer_encoder.layers.2.dropout1            | Dropout                         | 0     
+67  | encoder.transformer_encoder.layers.2.dropout2            | Dropout                         | 0     
+68  | encoder.transformer_encoder.layers.3                     | TransformerEncoderLayer         | 7.1 M 
+69  | encoder.transformer_encoder.layers.3.self_attn           | MultiheadAttention              | 2.4 M 
+70  | encoder.transformer_encoder.layers.3.self_attn.out_proj  | NonDynamicallyQuantizableLinear | 590 K 
+71  | encoder.transformer_encoder.layers.3.linear1             | Linear                          | 2.4 M 
+72  | encoder.transformer_encoder.layers.3.dropout             | Dropout                         | 0     
+73  | encoder.transformer_encoder.layers.3.linear2             | Linear                          | 2.4 M 
+74  | encoder.transformer_encoder.layers.3.norm1               | LayerNorm                       | 1.5 K 
+75  | encoder.transformer_encoder.layers.3.norm2               | LayerNorm                       | 1.5 K 
+76  | encoder.transformer_encoder.layers.3.dropout1            | Dropout                         | 0     
+77  | encoder.transformer_encoder.layers.3.dropout2            | Dropout                         | 0     
+78  | encoder.transformer_encoder.layers.4                     | TransformerEncoderLayer         | 7.1 M 
+79  | encoder.transformer_encoder.layers.4.self_attn           | MultiheadAttention              | 2.4 M 
+80  | encoder.transformer_encoder.layers.4.self_attn.out_proj  | NonDynamicallyQuantizableLinear | 590 K 
+81  | encoder.transformer_encoder.layers.4.linear1             | Linear                          | 2.4 M 
+82  | encoder.transformer_encoder.layers.4.dropout             | Dropout                         | 0     
+83  | encoder.transformer_encoder.layers.4.linear2             | Linear                          | 2.4 M 
+84  | encoder.transformer_encoder.layers.4.norm1               | LayerNorm                       | 1.5 K 
+85  | encoder.transformer_encoder.layers.4.norm2               | LayerNorm                       | 1.5 K 
+86  | encoder.transformer_encoder.layers.4.dropout1            | Dropout                         | 0     
+87  | encoder.transformer_encoder.layers.4.dropout2            | Dropout                         | 0     
+88  | encoder.transformer_encoder.layers.5                     | TransformerEncoderLayer         | 7.1 M 
+89  | encoder.transformer_encoder.layers.5.self_attn           | MultiheadAttention              | 2.4 M 
+90  | encoder.transformer_encoder.layers.5.self_attn.out_proj  | NonDynamicallyQuantizableLinear | 590 K 
+91  | encoder.transformer_encoder.layers.5.linear1             | Linear                          | 2.4 M 
+92  | encoder.transformer_encoder.layers.5.dropout             | Dropout                         | 0     
+93  | encoder.transformer_encoder.layers.5.linear2             | Linear                          | 2.4 M 
+94  | encoder.transformer_encoder.layers.5.norm1               | LayerNorm                       | 1.5 K 
+95  | encoder.transformer_encoder.layers.5.norm2               | LayerNorm                       | 1.5 K 
+96  | encoder.transformer_encoder.layers.5.dropout1            | Dropout                         | 0     
+97  | encoder.transformer_encoder.layers.5.dropout2            | Dropout                         | 0     
+98  | encoder.transformer_encoder.layers.6                     | TransformerEncoderLayer         | 7.1 M 
+99  | encoder.transformer_encoder.layers.6.self_attn           | MultiheadAttention              | 2.4 M 
+100 | encoder.transformer_encoder.layers.6.self_attn.out_proj  | NonDynamicallyQuantizableLinear | 590 K 
+101 | encoder.transformer_encoder.layers.6.linear1             | Linear                          | 2.4 M 
+102 | encoder.transformer_encoder.layers.6.dropout             | Dropout                         | 0     
+103 | encoder.transformer_encoder.layers.6.linear2             | Linear                          | 2.4 M 
+104 | encoder.transformer_encoder.layers.6.norm1               | LayerNorm                       | 1.5 K 
+105 | encoder.transformer_encoder.layers.6.norm2               | LayerNorm                       | 1.5 K 
+106 | encoder.transformer_encoder.layers.6.dropout1            | Dropout                         | 0     
+107 | encoder.transformer_encoder.layers.6.dropout2            | Dropout                         | 0     
+108 | encoder.transformer_encoder.layers.7                     | TransformerEncoderLayer         | 7.1 M 
+109 | encoder.transformer_encoder.layers.7.self_attn           | MultiheadAttention              | 2.4 M 
+110 | encoder.transformer_encoder.layers.7.self_attn.out_proj  | NonDynamicallyQuantizableLinear | 590 K 
+111 | encoder.transformer_encoder.layers.7.linear1             | Linear                          | 2.4 M 
+112 | encoder.transformer_encoder.layers.7.dropout             | Dropout                         | 0     
+113 | encoder.transformer_encoder.layers.7.linear2             | Linear                          | 2.4 M 
+114 | encoder.transformer_encoder.layers.7.norm1               | LayerNorm                       | 1.5 K 
+115 | encoder.transformer_encoder.layers.7.norm2               | LayerNorm                       | 1.5 K 
+116 | encoder.transformer_encoder.layers.7.dropout1            | Dropout                         | 0     
+117 | encoder.transformer_encoder.layers.7.dropout2            | Dropout                         | 0     
+118 | encoder.transformer_encoder.layers.8                     | TransformerEncoderLayer         | 7.1 M 
+119 | encoder.transformer_encoder.layers.8.self_attn           | MultiheadAttention              | 2.4 M 
+120 | encoder.transformer_encoder.layers.8.self_attn.out_proj  | NonDynamicallyQuantizableLinear | 590 K 
+121 | encoder.transformer_encoder.layers.8.linear1             | Linear                          | 2.4 M 
+122 | encoder.transformer_encoder.layers.8.dropout             | Dropout                         | 0     
+123 | encoder.transformer_encoder.layers.8.linear2             | Linear                          | 2.4 M 
+124 | encoder.transformer_encoder.layers.8.norm1               | LayerNorm                       | 1.5 K 
+125 | encoder.transformer_encoder.layers.8.norm2               | LayerNorm                       | 1.5 K 
+126 | encoder.transformer_encoder.layers.8.dropout1            | Dropout                         | 0     
+127 | encoder.transformer_encoder.layers.8.dropout2            | Dropout                         | 0     
+128 | encoder.transformer_encoder.layers.9                     | TransformerEncoderLayer         | 7.1 M 
+129 | encoder.transformer_encoder.layers.9.self_attn           | MultiheadAttention              | 2.4 M 
+130 | encoder.transformer_encoder.layers.9.self_attn.out_proj  | NonDynamicallyQuantizableLinear | 590 K 
+131 | encoder.transformer_encoder.layers.9.linear1             | Linear                          | 2.4 M 
+132 | encoder.transformer_encoder.layers.9.dropout             | Dropout                         | 0     
+133 | encoder.transformer_encoder.layers.9.linear2             | Linear                          | 2.4 M 
+134 | encoder.transformer_encoder.layers.9.norm1               | LayerNorm                       | 1.5 K 
+135 | encoder.transformer_encoder.layers.9.norm2               | LayerNorm                       | 1.5 K 
+136 | encoder.transformer_encoder.layers.9.dropout1            | Dropout                         | 0     
+137 | encoder.transformer_encoder.layers.9.dropout2            | Dropout                         | 0     
+138 | encoder.transformer_encoder.layers.10                    | TransformerEncoderLayer         | 7.1 M 
+139 | encoder.transformer_encoder.layers.10.self_attn          | MultiheadAttention              | 2.4 M 
+140 | encoder.transformer_encoder.layers.10.self_attn.out_proj | NonDynamicallyQuantizableLinear | 590 K 
+141 | encoder.transformer_encoder.layers.10.linear1            | Linear                          | 2.4 M 
+142 | encoder.transformer_encoder.layers.10.dropout            | Dropout                         | 0     
+143 | encoder.transformer_encoder.layers.10.linear2            | Linear                          | 2.4 M 
+144 | encoder.transformer_encoder.layers.10.norm1              | LayerNorm                       | 1.5 K 
+145 | encoder.transformer_encoder.layers.10.norm2              | LayerNorm                       | 1.5 K 
+146 | encoder.transformer_encoder.layers.10.dropout1           | Dropout                         | 0     
+147 | encoder.transformer_encoder.layers.10.dropout2           | Dropout                         | 0     
+148 | encoder.transformer_encoder.layers.11                    | TransformerEncoderLayer         | 7.1 M 
+149 | encoder.transformer_encoder.layers.11.self_attn          | MultiheadAttention              | 2.4 M 
+150 | encoder.transformer_encoder.layers.11.self_attn.out_proj | NonDynamicallyQuantizableLinear | 590 K 
+151 | encoder.transformer_encoder.layers.11.linear1            | Linear                          | 2.4 M 
+152 | encoder.transformer_encoder.layers.11.dropout            | Dropout                         | 0     
+153 | encoder.transformer_encoder.layers.11.linear2            | Linear                          | 2.4 M 
+154 | encoder.transformer_encoder.layers.11.norm1              | LayerNorm                       | 1.5 K 
+155 | encoder.transformer_encoder.layers.11.norm2              | LayerNorm                       | 1.5 K 
+156 | encoder.transformer_encoder.layers.11.dropout1           | Dropout                         | 0     
+157 | encoder.transformer_encoder.layers.11.dropout2           | Dropout                         | 0     
+158 | encoder.layer_norm                                       | LayerNorm                       | 1.5 K 
+159 | layer_norm                                               | LayerNorm                       | 1.0 K 
+160 | final_proj                                               | Linear                          | 590 K 
+161 | loss                                                     | Wav2VecLoss                     | 0     
+---------------------------------------------------------------------------------------------------------------
+96.1 M    Trainable params
+0         Non-trainable params
+96.1 M    Total params
+384.508   Total estimated model params size (MB)
+GPU available: True, used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+`Trainer(limit_train_batches=1.0)` was configured so 100% of the batches per epoch will be used..
+`Trainer(limit_val_batches=1.0)` was configured so 100% of the batches will be used..
+`Trainer(limit_test_batches=1.0)` was configured so 100% of the batches will be used..
+`Trainer(limit_predict_batches=1.0)` was configured so 100% of the batches will be used..
+`Trainer(val_check_interval=1.0)` was configured so validation will run at the end of the training epoch..
+Initializing distributed: GLOBAL_RANK: 0, MEMBER: 1/1
+----------------------------------------------------------------------------------------------------
+distributed_backend=nccl
+All distributed processes registered. Starting with 1 processes
+----------------------------------------------------------------------------------------------------
+
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+
+    | Name                                                     | Type                            | Params
+---------------------------------------------------------------------------------------------------------------
+0   | feature_extractor                                        | ConvFeatureEncoder              | 4.2 M 
+1   | feature_extractor.conv_layers                            | ModuleList                      | 4.2 M 
+2   | feature_extractor.conv_layers.0                          | Sequential                      | 6.1 K 
+3   | feature_extractor.conv_layers.0.0                        | Conv1d                          | 5.1 K 
+4   | feature_extractor.conv_layers.0.1                        | GroupNorm                       | 1.0 K 
+5   | feature_extractor.conv_layers.0.2                        | GELU                            | 0     
+6   | feature_extractor.conv_layers.1                          | Sequential                      | 786 K 
+7   | feature_extractor.conv_layers.1.0                        | Conv1d                          | 786 K 
+8   | feature_extractor.conv_layers.1.1                        | GELU                            | 0     
+9   | feature_extractor.conv_layers.2                          | Sequential                      | 786 K 
+10  | feature_extractor.conv_layers.2.0                        | Conv1d                          | 786 K 
+11  | feature_extractor.conv_layers.2.1                        | GELU                            | 0     
+12  | feature_extractor.conv_layers.3                          | Sequential                      | 786 K 
+13  | feature_extractor.conv_layers.3.0                        | Conv1d                          | 786 K 
+14  | feature_extractor.conv_layers.3.1                        | GELU                            | 0     
+15  | feature_extractor.conv_layers.4                          | Sequential                      | 786 K 
+16  | feature_extractor.conv_layers.4.0                        | Conv1d                          | 786 K 
+17  | feature_extractor.conv_layers.4.1                        | GELU                            | 0     
+18  | feature_extractor.conv_layers.5                          | Sequential                      | 524 K 
+19  | feature_extractor.conv_layers.5.0                        | Conv1d                          | 524 K 
+20  | feature_extractor.conv_layers.5.1                        | GELU                            | 0     
+21  | feature_extractor.conv_layers.6                          | Sequential                      | 524 K 
+22  | feature_extractor.conv_layers.6.0                        | Conv1d                          | 524 K 
+23  | feature_extractor.conv_layers.6.1                        | GELU                            | 0     
+24  | post_extract_proj                                        | Linear                          | 393 K 
+25  | dropout_input                                            | Dropout                         | 0     
+26  | dropout_features                                         | Dropout                         | 0     
+27  | quantizer                                                | GumbelVectorQuantizer           | 574 K 
+28  | quantizer.weight_proj                                    | Linear                          | 328 K 
+29  | project_q                                                | Linear                          | 590 K 
+30  | encoder                                                  | Wav2VecTransformerEncoder       | 89.8 M
+31  | encoder.pos_conv                                         | Sequential                      | 4.7 M 
+32  | encoder.pos_conv.0                                       | Conv1d                          | 4.7 M 
+33  | encoder.pos_conv.1                                       | SamePad                         | 0     
+34  | encoder.pos_conv.2                                       | GELU                            | 0     
+35  | encoder.feature_dropout                                  | Dropout                         | 0     
+36  | encoder.transformer_encoder                              | TransformerEncoder              | 85.1 M
+37  | encoder.transformer_encoder.layers                       | ModuleList                      | 85.1 M
+38  | encoder.transformer_encoder.layers.0                     | TransformerEncoderLayer         | 7.1 M 
+39  | encoder.transformer_encoder.layers.0.self_attn           | MultiheadAttention              | 2.4 M 
+40  | encoder.transformer_encoder.layers.0.self_attn.out_proj  | NonDynamicallyQuantizableLinear | 590 K 
+41  | encoder.transformer_encoder.layers.0.linear1             | Linear                          | 2.4 M 
+42  | encoder.transformer_encoder.layers.0.dropout             | Dropout                         | 0     
+43  | encoder.transformer_encoder.layers.0.linear2             | Linear                          | 2.4 M 
+44  | encoder.transformer_encoder.layers.0.norm1               | LayerNorm                       | 1.5 K 
+45  | encoder.transformer_encoder.layers.0.norm2               | LayerNorm                       | 1.5 K 
+46  | encoder.transformer_encoder.layers.0.dropout1            | Dropout                         | 0     
+47  | encoder.transformer_encoder.layers.0.dropout2            | Dropout                         | 0     
+48  | encoder.transformer_encoder.layers.1                     | TransformerEncoderLayer         | 7.1 M 
+49  | encoder.transformer_encoder.layers.1.self_attn           | MultiheadAttention              | 2.4 M 
+50  | encoder.transformer_encoder.layers.1.self_attn.out_proj  | NonDynamicallyQuantizableLinear | 590 K 
+51  | encoder.transformer_encoder.layers.1.linear1             | Linear                          | 2.4 M 
+52  | encoder.transformer_encoder.layers.1.dropout             | Dropout                         | 0     
+53  | encoder.transformer_encoder.layers.1.linear2             | Linear                          | 2.4 M 
+54  | encoder.transformer_encoder.layers.1.norm1               | LayerNorm                       | 1.5 K 
+55  | encoder.transformer_encoder.layers.1.norm2               | LayerNorm                       | 1.5 K 
+56  | encoder.transformer_encoder.layers.1.dropout1            | Dropout                         | 0     
+57  | encoder.transformer_encoder.layers.1.dropout2            | Dropout                         | 0     
+58  | encoder.transformer_encoder.layers.2                     | TransformerEncoderLayer         | 7.1 M 
+59  | encoder.transformer_encoder.layers.2.self_attn           | MultiheadAttention              | 2.4 M 
+60  | encoder.transformer_encoder.layers.2.self_attn.out_proj  | NonDynamicallyQuantizableLinear | 590 K 
+61  | encoder.transformer_encoder.layers.2.linear1             | Linear                          | 2.4 M 
+62  | encoder.transformer_encoder.layers.2.dropout             | Dropout                         | 0     
+63  | encoder.transformer_encoder.layers.2.linear2             | Linear                          | 2.4 M 
+64  | encoder.transformer_encoder.layers.2.norm1               | LayerNorm                       | 1.5 K 
+65  | encoder.transformer_encoder.layers.2.norm2               | LayerNorm                       | 1.5 K 
+66  | encoder.transformer_encoder.layers.2.dropout1            | Dropout                         | 0     
+67  | encoder.transformer_encoder.layers.2.dropout2            | Dropout                         | 0     
+68  | encoder.transformer_encoder.layers.3                     | TransformerEncoderLayer         | 7.1 M 
+69  | encoder.transformer_encoder.layers.3.self_attn           | MultiheadAttention              | 2.4 M 
+70  | encoder.transformer_encoder.layers.3.self_attn.out_proj  | NonDynamicallyQuantizableLinear | 590 K 
+71  | encoder.transformer_encoder.layers.3.linear1             | Linear                          | 2.4 M 
+72  | encoder.transformer_encoder.layers.3.dropout             | Dropout                         | 0     
+73  | encoder.transformer_encoder.layers.3.linear2             | Linear                          | 2.4 M 
+74  | encoder.transformer_encoder.layers.3.norm1               | LayerNorm                       | 1.5 K 
+75  | encoder.transformer_encoder.layers.3.norm2               | LayerNorm                       | 1.5 K 
+76  | encoder.transformer_encoder.layers.3.dropout1            | Dropout                         | 0     
+77  | encoder.transformer_encoder.layers.3.dropout2            | Dropout                         | 0     
+78  | encoder.transformer_encoder.layers.4                     | TransformerEncoderLayer         | 7.1 M 
+79  | encoder.transformer_encoder.layers.4.self_attn           | MultiheadAttention              | 2.4 M 
+80  | encoder.transformer_encoder.layers.4.self_attn.out_proj  | NonDynamicallyQuantizableLinear | 590 K 
+81  | encoder.transformer_encoder.layers.4.linear1             | Linear                          | 2.4 M 
+82  | encoder.transformer_encoder.layers.4.dropout             | Dropout                         | 0     
+83  | encoder.transformer_encoder.layers.4.linear2             | Linear                          | 2.4 M 
+84  | encoder.transformer_encoder.layers.4.norm1               | LayerNorm                       | 1.5 K 
+85  | encoder.transformer_encoder.layers.4.norm2               | LayerNorm                       | 1.5 K 
+86  | encoder.transformer_encoder.layers.4.dropout1            | Dropout                         | 0     
+87  | encoder.transformer_encoder.layers.4.dropout2            | Dropout                         | 0     
+88  | encoder.transformer_encoder.layers.5                     | TransformerEncoderLayer         | 7.1 M 
+89  | encoder.transformer_encoder.layers.5.self_attn           | MultiheadAttention              | 2.4 M 
+90  | encoder.transformer_encoder.layers.5.self_attn.out_proj  | NonDynamicallyQuantizableLinear | 590 K 
+91  | encoder.transformer_encoder.layers.5.linear1             | Linear                          | 2.4 M 
+92  | encoder.transformer_encoder.layers.5.dropout             | Dropout                         | 0     
+93  | encoder.transformer_encoder.layers.5.linear2             | Linear                          | 2.4 M 
+94  | encoder.transformer_encoder.layers.5.norm1               | LayerNorm                       | 1.5 K 
+95  | encoder.transformer_encoder.layers.5.norm2               | LayerNorm                       | 1.5 K 
+96  | encoder.transformer_encoder.layers.5.dropout1            | Dropout                         | 0     
+97  | encoder.transformer_encoder.layers.5.dropout2            | Dropout                         | 0     
+98  | encoder.transformer_encoder.layers.6                     | TransformerEncoderLayer         | 7.1 M 
+99  | encoder.transformer_encoder.layers.6.self_attn           | MultiheadAttention              | 2.4 M 
+100 | encoder.transformer_encoder.layers.6.self_attn.out_proj  | NonDynamicallyQuantizableLinear | 590 K 
+101 | encoder.transformer_encoder.layers.6.linear1             | Linear                          | 2.4 M 
+102 | encoder.transformer_encoder.layers.6.dropout             | Dropout                         | 0     
+103 | encoder.transformer_encoder.layers.6.linear2             | Linear                          | 2.4 M 
+104 | encoder.transformer_encoder.layers.6.norm1               | LayerNorm                       | 1.5 K 
+105 | encoder.transformer_encoder.layers.6.norm2               | LayerNorm                       | 1.5 K 
+106 | encoder.transformer_encoder.layers.6.dropout1            | Dropout                         | 0     
+107 | encoder.transformer_encoder.layers.6.dropout2            | Dropout                         | 0     
+108 | encoder.transformer_encoder.layers.7                     | TransformerEncoderLayer         | 7.1 M 
+109 | encoder.transformer_encoder.layers.7.self_attn           | MultiheadAttention              | 2.4 M 
+110 | encoder.transformer_encoder.layers.7.self_attn.out_proj  | NonDynamicallyQuantizableLinear | 590 K 
+111 | encoder.transformer_encoder.layers.7.linear1             | Linear                          | 2.4 M 
+112 | encoder.transformer_encoder.layers.7.dropout             | Dropout                         | 0     
+113 | encoder.transformer_encoder.layers.7.linear2             | Linear                          | 2.4 M 
+114 | encoder.transformer_encoder.layers.7.norm1               | LayerNorm                       | 1.5 K 
+115 | encoder.transformer_encoder.layers.7.norm2               | LayerNorm                       | 1.5 K 
+116 | encoder.transformer_encoder.layers.7.dropout1            | Dropout                         | 0     
+117 | encoder.transformer_encoder.layers.7.dropout2            | Dropout                         | 0     
+118 | encoder.transformer_encoder.layers.8                     | TransformerEncoderLayer         | 7.1 M 
+119 | encoder.transformer_encoder.layers.8.self_attn           | MultiheadAttention              | 2.4 M 
+120 | encoder.transformer_encoder.layers.8.self_attn.out_proj  | NonDynamicallyQuantizableLinear | 590 K 
+121 | encoder.transformer_encoder.layers.8.linear1             | Linear                          | 2.4 M 
+122 | encoder.transformer_encoder.layers.8.dropout             | Dropout                         | 0     
+123 | encoder.transformer_encoder.layers.8.linear2             | Linear                          | 2.4 M 
+124 | encoder.transformer_encoder.layers.8.norm1               | LayerNorm                       | 1.5 K 
+125 | encoder.transformer_encoder.layers.8.norm2               | LayerNorm                       | 1.5 K 
+126 | encoder.transformer_encoder.layers.8.dropout1            | Dropout                         | 0     
+127 | encoder.transformer_encoder.layers.8.dropout2            | Dropout                         | 0     
+128 | encoder.transformer_encoder.layers.9                     | TransformerEncoderLayer         | 7.1 M 
+129 | encoder.transformer_encoder.layers.9.self_attn           | MultiheadAttention              | 2.4 M 
+130 | encoder.transformer_encoder.layers.9.self_attn.out_proj  | NonDynamicallyQuantizableLinear | 590 K 
+131 | encoder.transformer_encoder.layers.9.linear1             | Linear                          | 2.4 M 
+132 | encoder.transformer_encoder.layers.9.dropout             | Dropout                         | 0     
+133 | encoder.transformer_encoder.layers.9.linear2             | Linear                          | 2.4 M 
+134 | encoder.transformer_encoder.layers.9.norm1               | LayerNorm                       | 1.5 K 
+135 | encoder.transformer_encoder.layers.9.norm2               | LayerNorm                       | 1.5 K 
+136 | encoder.transformer_encoder.layers.9.dropout1            | Dropout                         | 0     
+137 | encoder.transformer_encoder.layers.9.dropout2            | Dropout                         | 0     
+138 | encoder.transformer_encoder.layers.10                    | TransformerEncoderLayer         | 7.1 M 
+139 | encoder.transformer_encoder.layers.10.self_attn          | MultiheadAttention              | 2.4 M 
+140 | encoder.transformer_encoder.layers.10.self_attn.out_proj | NonDynamicallyQuantizableLinear | 590 K 
+141 | encoder.transformer_encoder.layers.10.linear1            | Linear                          | 2.4 M 
+142 | encoder.transformer_encoder.layers.10.dropout            | Dropout                         | 0     
+143 | encoder.transformer_encoder.layers.10.linear2            | Linear                          | 2.4 M 
+144 | encoder.transformer_encoder.layers.10.norm1              | LayerNorm                       | 1.5 K 
+145 | encoder.transformer_encoder.layers.10.norm2              | LayerNorm                       | 1.5 K 
+146 | encoder.transformer_encoder.layers.10.dropout1           | Dropout                         | 0     
+147 | encoder.transformer_encoder.layers.10.dropout2           | Dropout                         | 0     
+148 | encoder.transformer_encoder.layers.11                    | TransformerEncoderLayer         | 7.1 M 
+149 | encoder.transformer_encoder.layers.11.self_attn          | MultiheadAttention              | 2.4 M 
+150 | encoder.transformer_encoder.layers.11.self_attn.out_proj | NonDynamicallyQuantizableLinear | 590 K 
+151 | encoder.transformer_encoder.layers.11.linear1            | Linear                          | 2.4 M 
+152 | encoder.transformer_encoder.layers.11.dropout            | Dropout                         | 0     
+153 | encoder.transformer_encoder.layers.11.linear2            | Linear                          | 2.4 M 
+154 | encoder.transformer_encoder.layers.11.norm1              | LayerNorm                       | 1.5 K 
+155 | encoder.transformer_encoder.layers.11.norm2              | LayerNorm                       | 1.5 K 
+156 | encoder.transformer_encoder.layers.11.dropout1           | Dropout                         | 0     
+157 | encoder.transformer_encoder.layers.11.dropout2           | Dropout                         | 0     
+158 | encoder.layer_norm                                       | LayerNorm                       | 1.5 K 
+159 | layer_norm                                               | LayerNorm                       | 1.0 K 
+160 | final_proj                                               | Linear                          | 590 K 
+161 | loss                                                     | Wav2VecLoss                     | 0     
+---------------------------------------------------------------------------------------------------------------
+96.1 M    Trainable params
+0         Non-trainable params
+96.1 M    Total params
+384.508   Total estimated model params size (MB)

@@ -46,7 +46,7 @@ def main(argv=None):
     parser.add_argument('--use_chkpt_hparams', type=str2bool, default=False)
     parser.add_argument('--load_model_skip_var', type=str, default='')
     parser.add_argument('--test_manifest', type=str, default='')
-    parser.add_argument('--model_type', type=str, default='spiral', choices=['spiral', 'ctc_finetune', 'rnnt_finetune'])
+    parser.add_argument('--model_type', type=str, default='spiral', choices=['spiral', 'ctc_finetune', 'rnnt_finetune', 'w2v'])
     parser.add_argument('--finetune_from_scratch', type=str2bool, default=False)
     parser.add_argument('--dev_data_dup_factor', type=int, default=0)
     parser.add_argument('--use_teacher_encoder', type=str2bool, default=False)

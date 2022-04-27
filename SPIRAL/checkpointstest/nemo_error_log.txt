@@ -1,0 +1,285 @@
+[NeMo W 2022-04-27 21:53:24 optimizers:55] Apex was not found. Using the lamb or fused_adam optimizer will error out.
+[NeMo W 2022-04-27 21:53:24 experimental:27] Module <class 'spiral_nemo.collections.asr.losses.ctc.CTCLoss'> is experimental, not ready for production and is not fully supported. Use at your own risk.
+[NeMo W 2022-04-27 21:53:25 nemo_logging:349] /usr/local/lib/python3.8/dist-packages/pytorch_lightning/trainer/connectors/accelerator_connector.py:292: LightningDeprecationWarning: Passing `Trainer(accelerator='ddp')` has been deprecated in v1.5 and will be removed in v1.7. Use `Trainer(strategy='ddp')` instead.
+      rank_zero_deprecation(
+    
+[NeMo W 2022-04-27 21:53:25 nemo_logging:349] /usr/local/lib/python3.8/dist-packages/pytorch_lightning/loops/epoch/training_epoch_loop.py:52: LightningDeprecationWarning: Setting `max_steps = None` is deprecated in v1.5 and will no longer be supported in v1.7. Use `max_steps = -1` instead.
+      rank_zero_deprecation(
+    
+[NeMo W 2022-04-27 21:53:25 nemo_logging:349] /usr/local/lib/python3.8/dist-packages/pytorch_lightning/trainer/connectors/callback_connector.py:151: LightningDeprecationWarning: Setting `Trainer(checkpoint_callback=False)` is deprecated in v1.5 and will be removed in v1.7. Please consider using `Trainer(enable_checkpointing=False)`.
+      rank_zero_deprecation(
+    
+[NeMo W 2022-04-27 21:53:25 nemo_logging:349] /usr/local/lib/python3.8/dist-packages/pytorch_lightning/trainer/connectors/callback_connector.py:96: LightningDeprecationWarning: Setting `Trainer(progress_bar_refresh_rate=50)` is deprecated in v1.5 and will be removed in v1.7. Please pass `pytorch_lightning.callbacks.progress.TQDMProgressBar` with `refresh_rate` directly to the Trainer's `callbacks` argument instead. Or, to disable the progress bar pass `enable_progress_bar = False` to the Trainer.
+      rank_zero_deprecation(
+    
+[NeMo W 2022-04-27 21:53:25 nemo_logging:349] /usr/local/lib/python3.8/dist-packages/pytorch_lightning/trainer/connectors/callback_connector.py:191: LightningDeprecationWarning: Setting `Trainer(weights_summary=full)` is deprecated in v1.5 and will be removed in v1.7. Please pass `pytorch_lightning.callbacks.model_summary.ModelSummary` with `max_depth` directly to the Trainer's `callbacks` argument instead.
+      rank_zero_deprecation(
+    
+[NeMo W 2022-04-27 21:53:25 nemo_logging:349] /usr/local/lib/python3.8/dist-packages/pytorch_lightning/trainer/connectors/data_connector.py:81: LightningDeprecationWarning: Setting `prepare_data_per_node` with the trainer flag is deprecated in v1.5.0 and will be removed in v1.7.0. Please set `prepare_data_per_node` in `LightningDataModule` and/or `LightningModule` directly instead.
+      rank_zero_deprecation(
+    
+[NeMo W 2022-04-27 21:53:25 nemo_logging:349] /usr/local/lib/python3.8/dist-packages/pytorch_lightning/trainer/trainer.py:569: LightningDeprecationWarning: Trainer argument `terminate_on_nan` was deprecated in v1.5 and will be removed in 1.7. Please use `Trainer(detect_anomaly=True)` instead.
+      rank_zero_deprecation(
+    
+[NeMo W 2022-04-27 21:53:25 nemo_logging:349] /usr/local/lib/python3.8/dist-packages/pytorch_lightning/trainer/connectors/logger_connector/logger_connector.py:61: LightningDeprecationWarning: Setting `Trainer(flush_logs_every_n_steps=100)` is deprecated in v1.5 and will be removed in v1.7. Please configure flushing in the logger instead.
+      rank_zero_deprecation(
+    
+[NeMo W 2022-04-27 21:53:25 nemo_logging:349] /usr/local/lib/python3.8/dist-packages/pytorch_lightning/trainer/trainer.py:2302: LightningDeprecationWarning: `Trainer.weights_save_path` has been deprecated in v1.6 and will be removed in v1.8.
+      rank_zero_deprecation("`Trainer.weights_save_path` has been deprecated in v1.6 and will be removed in v1.8.")
+    
+[NeMo W 2022-04-27 21:53:25 exp_manager:881] The checkpoint callback was told to monitor a validation value and trainer's max_steps was set to -1. Please ensure that max_steps will run for at least 4 epochs to ensure that checkpointing will not error out.
+[NeMo W 2022-04-27 21:53:25 experimental:27] Module <class 'spiral_nemo.collections.asr.data.audio_to_text.AudioToCharDataset'> is experimental, not ready for production and is not fully supported. Use at your own risk.
+[NeMo W 2022-04-27 21:53:25 experimental:27] Module <class 'spiral_nemo.collections.asr.data.audio_to_text.AudioToBPEDataset'> is experimental, not ready for production and is not fully supported. Use at your own risk.
+[NeMo W 2022-04-27 21:53:25 experimental:27] Module <class 'spiral_nemo.collections.asr.data.audio_to_text.AudioLabelDataset'> is experimental, not ready for production and is not fully supported. Use at your own risk.
+[NeMo W 2022-04-27 21:53:25 experimental:27] Module <class 'spiral_nemo.collections.asr.data.audio_to_text._TarredAudioToTextDataset'> is experimental, not ready for production and is not fully supported. Use at your own risk.
+[NeMo W 2022-04-27 21:53:25 experimental:27] Module <class 'spiral_nemo.collections.asr.data.audio_to_text.TarredAudioToCharDataset'> is experimental, not ready for production and is not fully supported. Use at your own risk.
+[NeMo W 2022-04-27 21:53:25 experimental:27] Module <class 'spiral_nemo.collections.asr.data.audio_to_text.TarredAudioToBPEDataset'> is experimental, not ready for production and is not fully supported. Use at your own risk.
+[NeMo W 2022-04-27 21:54:51 optimizers:55] Apex was not found. Using the lamb or fused_adam optimizer will error out.
+[NeMo W 2022-04-27 21:54:51 experimental:27] Module <class 'spiral_nemo.collections.asr.losses.ctc.CTCLoss'> is experimental, not ready for production and is not fully supported. Use at your own risk.
+[NeMo W 2022-04-27 21:54:52 nemo_logging:349] /usr/local/lib/python3.8/dist-packages/pytorch_lightning/trainer/connectors/accelerator_connector.py:292: LightningDeprecationWarning: Passing `Trainer(accelerator='ddp')` has been deprecated in v1.5 and will be removed in v1.7. Use `Trainer(strategy='ddp')` instead.
+      rank_zero_deprecation(
+    
+[NeMo W 2022-04-27 21:54:52 nemo_logging:349] /usr/local/lib/python3.8/dist-packages/pytorch_lightning/loops/epoch/training_epoch_loop.py:52: LightningDeprecationWarning: Setting `max_steps = None` is deprecated in v1.5 and will no longer be supported in v1.7. Use `max_steps = -1` instead.
+      rank_zero_deprecation(
+    
+[NeMo W 2022-04-27 21:54:52 nemo_logging:349] /usr/local/lib/python3.8/dist-packages/pytorch_lightning/trainer/connectors/callback_connector.py:151: LightningDeprecationWarning: Setting `Trainer(checkpoint_callback=False)` is deprecated in v1.5 and will be removed in v1.7. Please consider using `Trainer(enable_checkpointing=False)`.
+      rank_zero_deprecation(
+    
+[NeMo W 2022-04-27 21:54:52 nemo_logging:349] /usr/local/lib/python3.8/dist-packages/pytorch_lightning/trainer/connectors/callback_connector.py:96: LightningDeprecationWarning: Setting `Trainer(progress_bar_refresh_rate=50)` is deprecated in v1.5 and will be removed in v1.7. Please pass `pytorch_lightning.callbacks.progress.TQDMProgressBar` with `refresh_rate` directly to the Trainer's `callbacks` argument instead. Or, to disable the progress bar pass `enable_progress_bar = False` to the Trainer.
+      rank_zero_deprecation(
+    
+[NeMo W 2022-04-27 21:54:52 nemo_logging:349] /usr/local/lib/python3.8/dist-packages/pytorch_lightning/trainer/connectors/callback_connector.py:191: LightningDeprecationWarning: Setting `Trainer(weights_summary=full)` is deprecated in v1.5 and will be removed in v1.7. Please pass `pytorch_lightning.callbacks.model_summary.ModelSummary` with `max_depth` directly to the Trainer's `callbacks` argument instead.
+      rank_zero_deprecation(
+    
+[NeMo W 2022-04-27 21:54:52 nemo_logging:349] /usr/local/lib/python3.8/dist-packages/pytorch_lightning/trainer/connectors/data_connector.py:81: LightningDeprecationWarning: Setting `prepare_data_per_node` with the trainer flag is deprecated in v1.5.0 and will be removed in v1.7.0. Please set `prepare_data_per_node` in `LightningDataModule` and/or `LightningModule` directly instead.
+      rank_zero_deprecation(
+    
+[NeMo W 2022-04-27 21:54:52 nemo_logging:349] /usr/local/lib/python3.8/dist-packages/pytorch_lightning/trainer/trainer.py:569: LightningDeprecationWarning: Trainer argument `terminate_on_nan` was deprecated in v1.5 and will be removed in 1.7. Please use `Trainer(detect_anomaly=True)` instead.
+      rank_zero_deprecation(
+    
+[NeMo W 2022-04-27 21:54:52 nemo_logging:349] /usr/local/lib/python3.8/dist-packages/pytorch_lightning/trainer/connectors/logger_connector/logger_connector.py:61: LightningDeprecationWarning: Setting `Trainer(flush_logs_every_n_steps=100)` is deprecated in v1.5 and will be removed in v1.7. Please configure flushing in the logger instead.
+      rank_zero_deprecation(
+    
+[NeMo W 2022-04-27 21:54:52 exp_manager:492] Exp_manager is logging to ./checkpointstest, but it already exists.
+[NeMo W 2022-04-27 21:54:52 nemo_logging:349] /usr/local/lib/python3.8/dist-packages/pytorch_lightning/trainer/trainer.py:2302: LightningDeprecationWarning: `Trainer.weights_save_path` has been deprecated in v1.6 and will be removed in v1.8.
+      rank_zero_deprecation("`Trainer.weights_save_path` has been deprecated in v1.6 and will be removed in v1.8.")
+    
+[NeMo W 2022-04-27 21:54:52 exp_manager:881] The checkpoint callback was told to monitor a validation value and trainer's max_steps was set to -1. Please ensure that max_steps will run for at least 4 epochs to ensure that checkpointing will not error out.
+[NeMo W 2022-04-27 21:54:52 experimental:27] Module <class 'spiral_nemo.collections.asr.data.audio_to_text.AudioToCharDataset'> is experimental, not ready for production and is not fully supported. Use at your own risk.
+[NeMo W 2022-04-27 21:54:52 experimental:27] Module <class 'spiral_nemo.collections.asr.data.audio_to_text.AudioToBPEDataset'> is experimental, not ready for production and is not fully supported. Use at your own risk.
+[NeMo W 2022-04-27 21:54:52 experimental:27] Module <class 'spiral_nemo.collections.asr.data.audio_to_text.AudioLabelDataset'> is experimental, not ready for production and is not fully supported. Use at your own risk.
+[NeMo W 2022-04-27 21:54:52 experimental:27] Module <class 'spiral_nemo.collections.asr.data.audio_to_text._TarredAudioToTextDataset'> is experimental, not ready for production and is not fully supported. Use at your own risk.
+[NeMo W 2022-04-27 21:54:52 experimental:27] Module <class 'spiral_nemo.collections.asr.data.audio_to_text.TarredAudioToCharDataset'> is experimental, not ready for production and is not fully supported. Use at your own risk.
+[NeMo W 2022-04-27 21:54:52 experimental:27] Module <class 'spiral_nemo.collections.asr.data.audio_to_text.TarredAudioToBPEDataset'> is experimental, not ready for production and is not fully supported. Use at your own risk.
+[NeMo W 2022-04-27 21:54:52 nemo_logging:349] /usr/local/lib/python3.8/dist-packages/pytorch_lightning/trainer/trainer.py:2109: LightningDeprecationWarning: `Trainer.num_gpus` was deprecated in v1.6 and will be removed in v1.8. Please use `Trainer.num_devices` instead.
+      rank_zero_deprecation(
+    
+[NeMo W 2022-04-27 21:57:26 optimizers:55] Apex was not found. Using the lamb or fused_adam optimizer will error out.
+[NeMo W 2022-04-27 21:57:26 experimental:27] Module <class 'spiral_nemo.collections.asr.losses.ctc.CTCLoss'> is experimental, not ready for production and is not fully supported. Use at your own risk.
+[NeMo W 2022-04-27 21:57:27 nemo_logging:349] /usr/local/lib/python3.8/dist-packages/pytorch_lightning/trainer/connectors/accelerator_connector.py:292: LightningDeprecationWarning: Passing `Trainer(accelerator='ddp')` has been deprecated in v1.5 and will be removed in v1.7. Use `Trainer(strategy='ddp')` instead.
+      rank_zero_deprecation(
+    
+[NeMo W 2022-04-27 21:57:27 nemo_logging:349] /usr/local/lib/python3.8/dist-packages/pytorch_lightning/loops/epoch/training_epoch_loop.py:52: LightningDeprecationWarning: Setting `max_steps = None` is deprecated in v1.5 and will no longer be supported in v1.7. Use `max_steps = -1` instead.
+      rank_zero_deprecation(
+    
+[NeMo W 2022-04-27 21:57:27 nemo_logging:349] /usr/local/lib/python3.8/dist-packages/pytorch_lightning/trainer/connectors/callback_connector.py:151: LightningDeprecationWarning: Setting `Trainer(checkpoint_callback=False)` is deprecated in v1.5 and will be removed in v1.7. Please consider using `Trainer(enable_checkpointing=False)`.
+      rank_zero_deprecation(
+    
+[NeMo W 2022-04-27 21:57:27 nemo_logging:349] /usr/local/lib/python3.8/dist-packages/pytorch_lightning/trainer/connectors/callback_connector.py:96: LightningDeprecationWarning: Setting `Trainer(progress_bar_refresh_rate=50)` is deprecated in v1.5 and will be removed in v1.7. Please pass `pytorch_lightning.callbacks.progress.TQDMProgressBar` with `refresh_rate` directly to the Trainer's `callbacks` argument instead. Or, to disable the progress bar pass `enable_progress_bar = False` to the Trainer.
+      rank_zero_deprecation(
+    
+[NeMo W 2022-04-27 21:57:27 nemo_logging:349] /usr/local/lib/python3.8/dist-packages/pytorch_lightning/trainer/connectors/callback_connector.py:191: LightningDeprecationWarning: Setting `Trainer(weights_summary=full)` is deprecated in v1.5 and will be removed in v1.7. Please pass `pytorch_lightning.callbacks.model_summary.ModelSummary` with `max_depth` directly to the Trainer's `callbacks` argument instead.
+      rank_zero_deprecation(
+    
+[NeMo W 2022-04-27 21:57:27 nemo_logging:349] /usr/local/lib/python3.8/dist-packages/pytorch_lightning/trainer/connectors/data_connector.py:81: LightningDeprecationWarning: Setting `prepare_data_per_node` with the trainer flag is deprecated in v1.5.0 and will be removed in v1.7.0. Please set `prepare_data_per_node` in `LightningDataModule` and/or `LightningModule` directly instead.
+      rank_zero_deprecation(
+    
+[NeMo W 2022-04-27 21:57:27 nemo_logging:349] /usr/local/lib/python3.8/dist-packages/pytorch_lightning/trainer/trainer.py:569: LightningDeprecationWarning: Trainer argument `terminate_on_nan` was deprecated in v1.5 and will be removed in 1.7. Please use `Trainer(detect_anomaly=True)` instead.
+      rank_zero_deprecation(
+    
+[NeMo W 2022-04-27 21:57:27 nemo_logging:349] /usr/local/lib/python3.8/dist-packages/pytorch_lightning/trainer/connectors/logger_connector/logger_connector.py:61: LightningDeprecationWarning: Setting `Trainer(flush_logs_every_n_steps=100)` is deprecated in v1.5 and will be removed in v1.7. Please configure flushing in the logger instead.
+      rank_zero_deprecation(
+    
+[NeMo W 2022-04-27 21:57:27 exp_manager:492] Exp_manager is logging to ./checkpointstest, but it already exists.
+[NeMo W 2022-04-27 21:57:27 nemo_logging:349] /usr/local/lib/python3.8/dist-packages/pytorch_lightning/trainer/trainer.py:2302: LightningDeprecationWarning: `Trainer.weights_save_path` has been deprecated in v1.6 and will be removed in v1.8.
+      rank_zero_deprecation("`Trainer.weights_save_path` has been deprecated in v1.6 and will be removed in v1.8.")
+    
+[NeMo W 2022-04-27 21:57:27 exp_manager:881] The checkpoint callback was told to monitor a validation value and trainer's max_steps was set to -1. Please ensure that max_steps will run for at least 4 epochs to ensure that checkpointing will not error out.
+[NeMo W 2022-04-27 21:57:27 experimental:27] Module <class 'spiral_nemo.collections.asr.data.audio_to_text.AudioToCharDataset'> is experimental, not ready for production and is not fully supported. Use at your own risk.
+[NeMo W 2022-04-27 21:57:27 experimental:27] Module <class 'spiral_nemo.collections.asr.data.audio_to_text.AudioToBPEDataset'> is experimental, not ready for production and is not fully supported. Use at your own risk.
+[NeMo W 2022-04-27 21:57:27 experimental:27] Module <class 'spiral_nemo.collections.asr.data.audio_to_text.AudioLabelDataset'> is experimental, not ready for production and is not fully supported. Use at your own risk.
+[NeMo W 2022-04-27 21:57:27 experimental:27] Module <class 'spiral_nemo.collections.asr.data.audio_to_text._TarredAudioToTextDataset'> is experimental, not ready for production and is not fully supported. Use at your own risk.
+[NeMo W 2022-04-27 21:57:27 experimental:27] Module <class 'spiral_nemo.collections.asr.data.audio_to_text.TarredAudioToCharDataset'> is experimental, not ready for production and is not fully supported. Use at your own risk.
+[NeMo W 2022-04-27 21:57:27 experimental:27] Module <class 'spiral_nemo.collections.asr.data.audio_to_text.TarredAudioToBPEDataset'> is experimental, not ready for production and is not fully supported. Use at your own risk.
+[NeMo W 2022-04-27 21:57:27 nemo_logging:349] /usr/local/lib/python3.8/dist-packages/pytorch_lightning/trainer/trainer.py:2109: LightningDeprecationWarning: `Trainer.num_gpus` was deprecated in v1.6 and will be removed in v1.8. Please use `Trainer.num_devices` instead.
+      rank_zero_deprecation(
+    
+[NeMo W 2022-04-27 22:09:04 optimizers:55] Apex was not found. Using the lamb or fused_adam optimizer will error out.
+[NeMo W 2022-04-27 22:09:04 experimental:27] Module <class 'spiral_nemo.collections.asr.losses.ctc.CTCLoss'> is experimental, not ready for production and is not fully supported. Use at your own risk.
+[NeMo W 2022-04-27 22:09:05 nemo_logging:349] /usr/local/lib/python3.8/dist-packages/pytorch_lightning/trainer/connectors/accelerator_connector.py:292: LightningDeprecationWarning: Passing `Trainer(accelerator='ddp')` has been deprecated in v1.5 and will be removed in v1.7. Use `Trainer(strategy='ddp')` instead.
+      rank_zero_deprecation(
+    
+[NeMo W 2022-04-27 22:09:05 nemo_logging:349] /usr/local/lib/python3.8/dist-packages/pytorch_lightning/loops/epoch/training_epoch_loop.py:52: LightningDeprecationWarning: Setting `max_steps = None` is deprecated in v1.5 and will no longer be supported in v1.7. Use `max_steps = -1` instead.
+      rank_zero_deprecation(
+    
+[NeMo W 2022-04-27 22:09:05 nemo_logging:349] /usr/local/lib/python3.8/dist-packages/pytorch_lightning/trainer/connectors/callback_connector.py:151: LightningDeprecationWarning: Setting `Trainer(checkpoint_callback=False)` is deprecated in v1.5 and will be removed in v1.7. Please consider using `Trainer(enable_checkpointing=False)`.
+      rank_zero_deprecation(
+    
+[NeMo W 2022-04-27 22:09:05 nemo_logging:349] /usr/local/lib/python3.8/dist-packages/pytorch_lightning/trainer/connectors/callback_connector.py:96: LightningDeprecationWarning: Setting `Trainer(progress_bar_refresh_rate=50)` is deprecated in v1.5 and will be removed in v1.7. Please pass `pytorch_lightning.callbacks.progress.TQDMProgressBar` with `refresh_rate` directly to the Trainer's `callbacks` argument instead. Or, to disable the progress bar pass `enable_progress_bar = False` to the Trainer.
+      rank_zero_deprecation(
+    
+[NeMo W 2022-04-27 22:09:05 nemo_logging:349] /usr/local/lib/python3.8/dist-packages/pytorch_lightning/trainer/connectors/callback_connector.py:191: LightningDeprecationWarning: Setting `Trainer(weights_summary=full)` is deprecated in v1.5 and will be removed in v1.7. Please pass `pytorch_lightning.callbacks.model_summary.ModelSummary` with `max_depth` directly to the Trainer's `callbacks` argument instead.
+      rank_zero_deprecation(
+    
+[NeMo W 2022-04-27 22:09:05 nemo_logging:349] /usr/local/lib/python3.8/dist-packages/pytorch_lightning/trainer/connectors/data_connector.py:81: LightningDeprecationWarning: Setting `prepare_data_per_node` with the trainer flag is deprecated in v1.5.0 and will be removed in v1.7.0. Please set `prepare_data_per_node` in `LightningDataModule` and/or `LightningModule` directly instead.
+      rank_zero_deprecation(
+    
+[NeMo W 2022-04-27 22:09:05 nemo_logging:349] /usr/local/lib/python3.8/dist-packages/pytorch_lightning/trainer/trainer.py:569: LightningDeprecationWarning: Trainer argument `terminate_on_nan` was deprecated in v1.5 and will be removed in 1.7. Please use `Trainer(detect_anomaly=True)` instead.
+      rank_zero_deprecation(
+    
+[NeMo W 2022-04-27 22:09:05 nemo_logging:349] /usr/local/lib/python3.8/dist-packages/pytorch_lightning/trainer/connectors/logger_connector/logger_connector.py:61: LightningDeprecationWarning: Setting `Trainer(flush_logs_every_n_steps=100)` is deprecated in v1.5 and will be removed in v1.7. Please configure flushing in the logger instead.
+      rank_zero_deprecation(
+    
+[NeMo W 2022-04-27 22:09:05 exp_manager:492] Exp_manager is logging to ./checkpointstest, but it already exists.
+[NeMo W 2022-04-27 22:09:05 nemo_logging:349] /usr/local/lib/python3.8/dist-packages/pytorch_lightning/trainer/trainer.py:2302: LightningDeprecationWarning: `Trainer.weights_save_path` has been deprecated in v1.6 and will be removed in v1.8.
+      rank_zero_deprecation("`Trainer.weights_save_path` has been deprecated in v1.6 and will be removed in v1.8.")
+    
+[NeMo W 2022-04-27 22:09:05 exp_manager:881] The checkpoint callback was told to monitor a validation value and trainer's max_steps was set to -1. Please ensure that max_steps will run for at least 4 epochs to ensure that checkpointing will not error out.
+[NeMo W 2022-04-27 22:09:05 experimental:27] Module <class 'spiral_nemo.collections.asr.data.audio_to_text.AudioToCharDataset'> is experimental, not ready for production and is not fully supported. Use at your own risk.
+[NeMo W 2022-04-27 22:09:05 experimental:27] Module <class 'spiral_nemo.collections.asr.data.audio_to_text.AudioToBPEDataset'> is experimental, not ready for production and is not fully supported. Use at your own risk.
+[NeMo W 2022-04-27 22:09:05 experimental:27] Module <class 'spiral_nemo.collections.asr.data.audio_to_text.AudioLabelDataset'> is experimental, not ready for production and is not fully supported. Use at your own risk.
+[NeMo W 2022-04-27 22:09:05 experimental:27] Module <class 'spiral_nemo.collections.asr.data.audio_to_text._TarredAudioToTextDataset'> is experimental, not ready for production and is not fully supported. Use at your own risk.
+[NeMo W 2022-04-27 22:09:05 experimental:27] Module <class 'spiral_nemo.collections.asr.data.audio_to_text.TarredAudioToCharDataset'> is experimental, not ready for production and is not fully supported. Use at your own risk.
+[NeMo W 2022-04-27 22:09:05 experimental:27] Module <class 'spiral_nemo.collections.asr.data.audio_to_text.TarredAudioToBPEDataset'> is experimental, not ready for production and is not fully supported. Use at your own risk.
+[NeMo W 2022-04-27 22:09:05 nemo_logging:349] /usr/local/lib/python3.8/dist-packages/pytorch_lightning/trainer/trainer.py:2109: LightningDeprecationWarning: `Trainer.num_gpus` was deprecated in v1.6 and will be removed in v1.8. Please use `Trainer.num_devices` instead.
+      rank_zero_deprecation(
+    
+[NeMo W 2022-04-27 22:11:04 optimizers:55] Apex was not found. Using the lamb or fused_adam optimizer will error out.
+[NeMo W 2022-04-27 22:11:04 experimental:27] Module <class 'spiral_nemo.collections.asr.losses.ctc.CTCLoss'> is experimental, not ready for production and is not fully supported. Use at your own risk.
+[NeMo W 2022-04-27 22:11:05 nemo_logging:349] /usr/local/lib/python3.8/dist-packages/pytorch_lightning/trainer/connectors/accelerator_connector.py:292: LightningDeprecationWarning: Passing `Trainer(accelerator='ddp')` has been deprecated in v1.5 and will be removed in v1.7. Use `Trainer(strategy='ddp')` instead.
+      rank_zero_deprecation(
+    
+[NeMo W 2022-04-27 22:11:05 nemo_logging:349] /usr/local/lib/python3.8/dist-packages/pytorch_lightning/loops/epoch/training_epoch_loop.py:52: LightningDeprecationWarning: Setting `max_steps = None` is deprecated in v1.5 and will no longer be supported in v1.7. Use `max_steps = -1` instead.
+      rank_zero_deprecation(
+    
+[NeMo W 2022-04-27 22:11:05 nemo_logging:349] /usr/local/lib/python3.8/dist-packages/pytorch_lightning/trainer/connectors/callback_connector.py:151: LightningDeprecationWarning: Setting `Trainer(checkpoint_callback=False)` is deprecated in v1.5 and will be removed in v1.7. Please consider using `Trainer(enable_checkpointing=False)`.
+      rank_zero_deprecation(
+    
+[NeMo W 2022-04-27 22:11:05 nemo_logging:349] /usr/local/lib/python3.8/dist-packages/pytorch_lightning/trainer/connectors/callback_connector.py:96: LightningDeprecationWarning: Setting `Trainer(progress_bar_refresh_rate=50)` is deprecated in v1.5 and will be removed in v1.7. Please pass `pytorch_lightning.callbacks.progress.TQDMProgressBar` with `refresh_rate` directly to the Trainer's `callbacks` argument instead. Or, to disable the progress bar pass `enable_progress_bar = False` to the Trainer.
+      rank_zero_deprecation(
+    
+[NeMo W 2022-04-27 22:11:05 nemo_logging:349] /usr/local/lib/python3.8/dist-packages/pytorch_lightning/trainer/connectors/callback_connector.py:191: LightningDeprecationWarning: Setting `Trainer(weights_summary=full)` is deprecated in v1.5 and will be removed in v1.7. Please pass `pytorch_lightning.callbacks.model_summary.ModelSummary` with `max_depth` directly to the Trainer's `callbacks` argument instead.
+      rank_zero_deprecation(
+    
+[NeMo W 2022-04-27 22:11:05 nemo_logging:349] /usr/local/lib/python3.8/dist-packages/pytorch_lightning/trainer/connectors/data_connector.py:81: LightningDeprecationWarning: Setting `prepare_data_per_node` with the trainer flag is deprecated in v1.5.0 and will be removed in v1.7.0. Please set `prepare_data_per_node` in `LightningDataModule` and/or `LightningModule` directly instead.
+      rank_zero_deprecation(
+    
+[NeMo W 2022-04-27 22:11:05 nemo_logging:349] /usr/local/lib/python3.8/dist-packages/pytorch_lightning/trainer/trainer.py:569: LightningDeprecationWarning: Trainer argument `terminate_on_nan` was deprecated in v1.5 and will be removed in 1.7. Please use `Trainer(detect_anomaly=True)` instead.
+      rank_zero_deprecation(
+    
+[NeMo W 2022-04-27 22:11:05 nemo_logging:349] /usr/local/lib/python3.8/dist-packages/pytorch_lightning/trainer/connectors/logger_connector/logger_connector.py:61: LightningDeprecationWarning: Setting `Trainer(flush_logs_every_n_steps=100)` is deprecated in v1.5 and will be removed in v1.7. Please configure flushing in the logger instead.
+      rank_zero_deprecation(
+    
+[NeMo W 2022-04-27 22:11:05 exp_manager:492] Exp_manager is logging to ./checkpointstest, but it already exists.
+[NeMo W 2022-04-27 22:11:05 nemo_logging:349] /usr/local/lib/python3.8/dist-packages/pytorch_lightning/trainer/trainer.py:2302: LightningDeprecationWarning: `Trainer.weights_save_path` has been deprecated in v1.6 and will be removed in v1.8.
+      rank_zero_deprecation("`Trainer.weights_save_path` has been deprecated in v1.6 and will be removed in v1.8.")
+    
+[NeMo W 2022-04-27 22:11:05 exp_manager:881] The checkpoint callback was told to monitor a validation value and trainer's max_steps was set to -1. Please ensure that max_steps will run for at least 4 epochs to ensure that checkpointing will not error out.
+[NeMo W 2022-04-27 22:11:05 experimental:27] Module <class 'spiral_nemo.collections.asr.data.audio_to_text.AudioToCharDataset'> is experimental, not ready for production and is not fully supported. Use at your own risk.
+[NeMo W 2022-04-27 22:11:05 experimental:27] Module <class 'spiral_nemo.collections.asr.data.audio_to_text.AudioToBPEDataset'> is experimental, not ready for production and is not fully supported. Use at your own risk.
+[NeMo W 2022-04-27 22:11:05 experimental:27] Module <class 'spiral_nemo.collections.asr.data.audio_to_text.AudioLabelDataset'> is experimental, not ready for production and is not fully supported. Use at your own risk.
+[NeMo W 2022-04-27 22:11:05 experimental:27] Module <class 'spiral_nemo.collections.asr.data.audio_to_text._TarredAudioToTextDataset'> is experimental, not ready for production and is not fully supported. Use at your own risk.
+[NeMo W 2022-04-27 22:11:05 experimental:27] Module <class 'spiral_nemo.collections.asr.data.audio_to_text.TarredAudioToCharDataset'> is experimental, not ready for production and is not fully supported. Use at your own risk.
+[NeMo W 2022-04-27 22:11:05 experimental:27] Module <class 'spiral_nemo.collections.asr.data.audio_to_text.TarredAudioToBPEDataset'> is experimental, not ready for production and is not fully supported. Use at your own risk.
+[NeMo W 2022-04-27 22:11:05 nemo_logging:349] /usr/local/lib/python3.8/dist-packages/pytorch_lightning/trainer/trainer.py:2109: LightningDeprecationWarning: `Trainer.num_gpus` was deprecated in v1.6 and will be removed in v1.8. Please use `Trainer.num_devices` instead.
+      rank_zero_deprecation(
+    
+[NeMo W 2022-04-27 22:11:53 optimizers:55] Apex was not found. Using the lamb or fused_adam optimizer will error out.
+[NeMo W 2022-04-27 22:11:53 experimental:27] Module <class 'spiral_nemo.collections.asr.losses.ctc.CTCLoss'> is experimental, not ready for production and is not fully supported. Use at your own risk.
+[NeMo W 2022-04-27 22:11:54 nemo_logging:349] /usr/local/lib/python3.8/dist-packages/pytorch_lightning/trainer/connectors/accelerator_connector.py:292: LightningDeprecationWarning: Passing `Trainer(accelerator='ddp')` has been deprecated in v1.5 and will be removed in v1.7. Use `Trainer(strategy='ddp')` instead.
+      rank_zero_deprecation(
+    
+[NeMo W 2022-04-27 22:11:54 nemo_logging:349] /usr/local/lib/python3.8/dist-packages/pytorch_lightning/loops/epoch/training_epoch_loop.py:52: LightningDeprecationWarning: Setting `max_steps = None` is deprecated in v1.5 and will no longer be supported in v1.7. Use `max_steps = -1` instead.
+      rank_zero_deprecation(
+    
+[NeMo W 2022-04-27 22:11:54 nemo_logging:349] /usr/local/lib/python3.8/dist-packages/pytorch_lightning/trainer/connectors/callback_connector.py:151: LightningDeprecationWarning: Setting `Trainer(checkpoint_callback=False)` is deprecated in v1.5 and will be removed in v1.7. Please consider using `Trainer(enable_checkpointing=False)`.
+      rank_zero_deprecation(
+    
+[NeMo W 2022-04-27 22:11:54 nemo_logging:349] /usr/local/lib/python3.8/dist-packages/pytorch_lightning/trainer/connectors/callback_connector.py:96: LightningDeprecationWarning: Setting `Trainer(progress_bar_refresh_rate=50)` is deprecated in v1.5 and will be removed in v1.7. Please pass `pytorch_lightning.callbacks.progress.TQDMProgressBar` with `refresh_rate` directly to the Trainer's `callbacks` argument instead. Or, to disable the progress bar pass `enable_progress_bar = False` to the Trainer.
+      rank_zero_deprecation(
+    
+[NeMo W 2022-04-27 22:11:54 nemo_logging:349] /usr/local/lib/python3.8/dist-packages/pytorch_lightning/trainer/connectors/callback_connector.py:191: LightningDeprecationWarning: Setting `Trainer(weights_summary=full)` is deprecated in v1.5 and will be removed in v1.7. Please pass `pytorch_lightning.callbacks.model_summary.ModelSummary` with `max_depth` directly to the Trainer's `callbacks` argument instead.
+      rank_zero_deprecation(
+    
+[NeMo W 2022-04-27 22:11:54 nemo_logging:349] /usr/local/lib/python3.8/dist-packages/pytorch_lightning/trainer/connectors/data_connector.py:81: LightningDeprecationWarning: Setting `prepare_data_per_node` with the trainer flag is deprecated in v1.5.0 and will be removed in v1.7.0. Please set `prepare_data_per_node` in `LightningDataModule` and/or `LightningModule` directly instead.
+      rank_zero_deprecation(
+    
+[NeMo W 2022-04-27 22:11:54 nemo_logging:349] /usr/local/lib/python3.8/dist-packages/pytorch_lightning/trainer/trainer.py:569: LightningDeprecationWarning: Trainer argument `terminate_on_nan` was deprecated in v1.5 and will be removed in 1.7. Please use `Trainer(detect_anomaly=True)` instead.
+      rank_zero_deprecation(
+    
+[NeMo W 2022-04-27 22:11:54 nemo_logging:349] /usr/local/lib/python3.8/dist-packages/pytorch_lightning/trainer/connectors/logger_connector/logger_connector.py:61: LightningDeprecationWarning: Setting `Trainer(flush_logs_every_n_steps=100)` is deprecated in v1.5 and will be removed in v1.7. Please configure flushing in the logger instead.
+      rank_zero_deprecation(
+    
+[NeMo W 2022-04-27 22:11:54 exp_manager:492] Exp_manager is logging to ./checkpointstest, but it already exists.
+[NeMo W 2022-04-27 22:11:54 nemo_logging:349] /usr/local/lib/python3.8/dist-packages/pytorch_lightning/trainer/trainer.py:2302: LightningDeprecationWarning: `Trainer.weights_save_path` has been deprecated in v1.6 and will be removed in v1.8.
+      rank_zero_deprecation("`Trainer.weights_save_path` has been deprecated in v1.6 and will be removed in v1.8.")
+    
+[NeMo W 2022-04-27 22:11:54 exp_manager:881] The checkpoint callback was told to monitor a validation value and trainer's max_steps was set to -1. Please ensure that max_steps will run for at least 4 epochs to ensure that checkpointing will not error out.
+[NeMo W 2022-04-27 22:11:54 experimental:27] Module <class 'spiral_nemo.collections.asr.data.audio_to_text.AudioToCharDataset'> is experimental, not ready for production and is not fully supported. Use at your own risk.
+[NeMo W 2022-04-27 22:11:54 experimental:27] Module <class 'spiral_nemo.collections.asr.data.audio_to_text.AudioToBPEDataset'> is experimental, not ready for production and is not fully supported. Use at your own risk.
+[NeMo W 2022-04-27 22:11:54 experimental:27] Module <class 'spiral_nemo.collections.asr.data.audio_to_text.AudioLabelDataset'> is experimental, not ready for production and is not fully supported. Use at your own risk.
+[NeMo W 2022-04-27 22:11:54 experimental:27] Module <class 'spiral_nemo.collections.asr.data.audio_to_text._TarredAudioToTextDataset'> is experimental, not ready for production and is not fully supported. Use at your own risk.
+[NeMo W 2022-04-27 22:11:54 experimental:27] Module <class 'spiral_nemo.collections.asr.data.audio_to_text.TarredAudioToCharDataset'> is experimental, not ready for production and is not fully supported. Use at your own risk.
+[NeMo W 2022-04-27 22:11:54 experimental:27] Module <class 'spiral_nemo.collections.asr.data.audio_to_text.TarredAudioToBPEDataset'> is experimental, not ready for production and is not fully supported. Use at your own risk.
+[NeMo W 2022-04-27 22:11:54 nemo_logging:349] /usr/local/lib/python3.8/dist-packages/pytorch_lightning/trainer/trainer.py:2109: LightningDeprecationWarning: `Trainer.num_gpus` was deprecated in v1.6 and will be removed in v1.8. Please use `Trainer.num_devices` instead.
+      rank_zero_deprecation(
+    
+[NeMo W 2022-04-27 22:13:05 nemo_logging:349] /home/cirrascale/frmccann/SPIRAL/SPIRAL/spiral_nemo/collections/asr/parts/wav2vec.py:126: UserWarning: __floordiv__ is deprecated, and its behavior will change in a future version of pytorch. It currently rounds toward 0 (like the 'trunc' function NOT 'floor'). This results in incorrect rounding for negative values. To keep the current behavior, use torch.div(a, b, rounding_mode='trunc'), or for actual floor division, use torch.div(a, b, rounding_mode='floor').
+      lens = (lens + 2 * conv.padding[0] - conv.dilation[0] * (conv.kernel_size[0] - 1) - 1) // conv.stride[0] + 1
+    
+[NeMo W 2022-04-27 22:14:16 optimizers:55] Apex was not found. Using the lamb or fused_adam optimizer will error out.
+[NeMo W 2022-04-27 22:14:16 experimental:27] Module <class 'spiral_nemo.collections.asr.losses.ctc.CTCLoss'> is experimental, not ready for production and is not fully supported. Use at your own risk.
+[NeMo W 2022-04-27 22:14:16 nemo_logging:349] /usr/local/lib/python3.8/dist-packages/pytorch_lightning/trainer/connectors/accelerator_connector.py:292: LightningDeprecationWarning: Passing `Trainer(accelerator='ddp')` has been deprecated in v1.5 and will be removed in v1.7. Use `Trainer(strategy='ddp')` instead.
+      rank_zero_deprecation(
+    
+[NeMo W 2022-04-27 22:14:16 nemo_logging:349] /usr/local/lib/python3.8/dist-packages/pytorch_lightning/loops/epoch/training_epoch_loop.py:52: LightningDeprecationWarning: Setting `max_steps = None` is deprecated in v1.5 and will no longer be supported in v1.7. Use `max_steps = -1` instead.
+      rank_zero_deprecation(
+    
+[NeMo W 2022-04-27 22:14:16 nemo_logging:349] /usr/local/lib/python3.8/dist-packages/pytorch_lightning/trainer/connectors/callback_connector.py:151: LightningDeprecationWarning: Setting `Trainer(checkpoint_callback=False)` is deprecated in v1.5 and will be removed in v1.7. Please consider using `Trainer(enable_checkpointing=False)`.
+      rank_zero_deprecation(
+    
+[NeMo W 2022-04-27 22:14:16 nemo_logging:349] /usr/local/lib/python3.8/dist-packages/pytorch_lightning/trainer/connectors/callback_connector.py:96: LightningDeprecationWarning: Setting `Trainer(progress_bar_refresh_rate=50)` is deprecated in v1.5 and will be removed in v1.7. Please pass `pytorch_lightning.callbacks.progress.TQDMProgressBar` with `refresh_rate` directly to the Trainer's `callbacks` argument instead. Or, to disable the progress bar pass `enable_progress_bar = False` to the Trainer.
+      rank_zero_deprecation(
+    
+[NeMo W 2022-04-27 22:14:16 nemo_logging:349] /usr/local/lib/python3.8/dist-packages/pytorch_lightning/trainer/connectors/callback_connector.py:191: LightningDeprecationWarning: Setting `Trainer(weights_summary=full)` is deprecated in v1.5 and will be removed in v1.7. Please pass `pytorch_lightning.callbacks.model_summary.ModelSummary` with `max_depth` directly to the Trainer's `callbacks` argument instead.
+      rank_zero_deprecation(
+    
+[NeMo W 2022-04-27 22:14:16 nemo_logging:349] /usr/local/lib/python3.8/dist-packages/pytorch_lightning/trainer/connectors/data_connector.py:81: LightningDeprecationWarning: Setting `prepare_data_per_node` with the trainer flag is deprecated in v1.5.0 and will be removed in v1.7.0. Please set `prepare_data_per_node` in `LightningDataModule` and/or `LightningModule` directly instead.
+      rank_zero_deprecation(
+    
+[NeMo W 2022-04-27 22:14:16 nemo_logging:349] /usr/local/lib/python3.8/dist-packages/pytorch_lightning/trainer/trainer.py:569: LightningDeprecationWarning: Trainer argument `terminate_on_nan` was deprecated in v1.5 and will be removed in 1.7. Please use `Trainer(detect_anomaly=True)` instead.
+      rank_zero_deprecation(
+    
+[NeMo W 2022-04-27 22:14:16 nemo_logging:349] /usr/local/lib/python3.8/dist-packages/pytorch_lightning/trainer/connectors/logger_connector/logger_connector.py:61: LightningDeprecationWarning: Setting `Trainer(flush_logs_every_n_steps=100)` is deprecated in v1.5 and will be removed in v1.7. Please configure flushing in the logger instead.
+      rank_zero_deprecation(
+    
+[NeMo W 2022-04-27 22:14:16 exp_manager:492] Exp_manager is logging to ./checkpointstest, but it already exists.
+[NeMo W 2022-04-27 22:14:16 nemo_logging:349] /usr/local/lib/python3.8/dist-packages/pytorch_lightning/trainer/trainer.py:2302: LightningDeprecationWarning: `Trainer.weights_save_path` has been deprecated in v1.6 and will be removed in v1.8.
+      rank_zero_deprecation("`Trainer.weights_save_path` has been deprecated in v1.6 and will be removed in v1.8.")
+    
+[NeMo W 2022-04-27 22:14:16 exp_manager:881] The checkpoint callback was told to monitor a validation value and trainer's max_steps was set to -1. Please ensure that max_steps will run for at least 4 epochs to ensure that checkpointing will not error out.
+[NeMo W 2022-04-27 22:14:16 experimental:27] Module <class 'spiral_nemo.collections.asr.data.audio_to_text.AudioToCharDataset'> is experimental, not ready for production and is not fully supported. Use at your own risk.
+[NeMo W 2022-04-27 22:14:16 experimental:27] Module <class 'spiral_nemo.collections.asr.data.audio_to_text.AudioToBPEDataset'> is experimental, not ready for production and is not fully supported. Use at your own risk.
+[NeMo W 2022-04-27 22:14:16 experimental:27] Module <class 'spiral_nemo.collections.asr.data.audio_to_text.AudioLabelDataset'> is experimental, not ready for production and is not fully supported. Use at your own risk.
+[NeMo W 2022-04-27 22:14:16 experimental:27] Module <class 'spiral_nemo.collections.asr.data.audio_to_text._TarredAudioToTextDataset'> is experimental, not ready for production and is not fully supported. Use at your own risk.
+[NeMo W 2022-04-27 22:14:16 experimental:27] Module <class 'spiral_nemo.collections.asr.data.audio_to_text.TarredAudioToCharDataset'> is experimental, not ready for production and is not fully supported. Use at your own risk.
+[NeMo W 2022-04-27 22:14:16 experimental:27] Module <class 'spiral_nemo.collections.asr.data.audio_to_text.TarredAudioToBPEDataset'> is experimental, not ready for production and is not fully supported. Use at your own risk.
+[NeMo W 2022-04-27 22:14:16 nemo_logging:349] /usr/local/lib/python3.8/dist-packages/pytorch_lightning/trainer/trainer.py:2109: LightningDeprecationWarning: `Trainer.num_gpus` was deprecated in v1.6 and will be removed in v1.8. Please use `Trainer.num_devices` instead.
+      rank_zero_deprecation(
+    
+[NeMo W 2022-04-27 22:15:26 nemo_logging:349] /home/cirrascale/frmccann/SPIRAL/SPIRAL/spiral_nemo/collections/asr/parts/wav2vec.py:126: UserWarning: __floordiv__ is deprecated, and its behavior will change in a future version of pytorch. It currently rounds toward 0 (like the 'trunc' function NOT 'floor'). This results in incorrect rounding for negative values. To keep the current behavior, use torch.div(a, b, rounding_mode='trunc'), or for actual floor division, use torch.div(a, b, rounding_mode='floor').
+      lens = (lens + 2 * conv.padding[0] - conv.dilation[0] * (conv.kernel_size[0] - 1) - 1) // conv.stride[0] + 1
+    
+[NeMo W 2022-04-27 22:18:28 nemo_logging:349] /usr/local/lib/python3.8/dist-packages/pytorch_lightning/trainer/trainer.py:724: UserWarning: Detected KeyboardInterrupt, attempting graceful shutdown...
+      rank_zero_warn("Detected KeyboardInterrupt, attempting graceful shutdown...")
+    

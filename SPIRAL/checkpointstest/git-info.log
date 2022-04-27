@@ -1,0 +1,364 @@
+commit hash: 17c240000f6ca7078c31b878157b9577419d8c3a
+diff --git a/SPIRAL/run_spiral.py b/SPIRAL/run_spiral.py
+index 3b1d757..f360cd4 100644
+--- a/SPIRAL/run_spiral.py
++++ b/SPIRAL/run_spiral.py
+@@ -46,7 +46,7 @@ def main(argv=None):
+     parser.add_argument('--use_chkpt_hparams', type=str2bool, default=False)
+     parser.add_argument('--load_model_skip_var', type=str, default='')
+     parser.add_argument('--test_manifest', type=str, default='')
+-    parser.add_argument('--model_type', type=str, default='spiral', choices=['spiral', 'ctc_finetune', 'rnnt_finetune'])
++    parser.add_argument('--model_type', type=str, default='spiral', choices=['spiral', 'ctc_finetune', 'rnnt_finetune', 'w2v'])
+     parser.add_argument('--finetune_from_scratch', type=str2bool, default=False)
+     parser.add_argument('--dev_data_dup_factor', type=int, default=0)
+     parser.add_argument('--use_teacher_encoder', type=str2bool, default=False)
+diff --git a/SPIRAL/spiral_nemo/__pycache__/__init__.cpython-38.pyc b/SPIRAL/spiral_nemo/__pycache__/__init__.cpython-38.pyc
+index 624b24c..19ef2df 100644
+Binary files a/SPIRAL/spiral_nemo/__pycache__/__init__.cpython-38.pyc and b/SPIRAL/spiral_nemo/__pycache__/__init__.cpython-38.pyc differ
+diff --git a/SPIRAL/spiral_nemo/__pycache__/constants.cpython-38.pyc b/SPIRAL/spiral_nemo/__pycache__/constants.cpython-38.pyc
+index d472003..93937dd 100644
+Binary files a/SPIRAL/spiral_nemo/__pycache__/constants.cpython-38.pyc and b/SPIRAL/spiral_nemo/__pycache__/constants.cpython-38.pyc differ
+diff --git a/SPIRAL/spiral_nemo/__pycache__/package_info.cpython-38.pyc b/SPIRAL/spiral_nemo/__pycache__/package_info.cpython-38.pyc
+index 43d789b..fc45b98 100644
+Binary files a/SPIRAL/spiral_nemo/__pycache__/package_info.cpython-38.pyc and b/SPIRAL/spiral_nemo/__pycache__/package_info.cpython-38.pyc differ
+diff --git a/SPIRAL/spiral_nemo/collections/__pycache__/__init__.cpython-38.pyc b/SPIRAL/spiral_nemo/collections/__pycache__/__init__.cpython-38.pyc
+index 401c76f..40bc433 100644
+Binary files a/SPIRAL/spiral_nemo/collections/__pycache__/__init__.cpython-38.pyc and b/SPIRAL/spiral_nemo/collections/__pycache__/__init__.cpython-38.pyc differ
+diff --git a/SPIRAL/spiral_nemo/collections/asr/__pycache__/__init__.cpython-38.pyc b/SPIRAL/spiral_nemo/collections/asr/__pycache__/__init__.cpython-38.pyc
+index af30038..31dcbd8 100644
+Binary files a/SPIRAL/spiral_nemo/collections/asr/__pycache__/__init__.cpython-38.pyc and b/SPIRAL/spiral_nemo/collections/asr/__pycache__/__init__.cpython-38.pyc differ
+diff --git a/SPIRAL/spiral_nemo/collections/asr/data/__pycache__/__init__.cpython-38.pyc b/SPIRAL/spiral_nemo/collections/asr/data/__pycache__/__init__.cpython-38.pyc
+index fe8bd01..c24757b 100644
+Binary files a/SPIRAL/spiral_nemo/collections/asr/data/__pycache__/__init__.cpython-38.pyc and b/SPIRAL/spiral_nemo/collections/asr/data/__pycache__/__init__.cpython-38.pyc differ
+diff --git a/SPIRAL/spiral_nemo/collections/asr/data/__pycache__/audio_to_text.cpython-38.pyc b/SPIRAL/spiral_nemo/collections/asr/data/__pycache__/audio_to_text.cpython-38.pyc
+index 5bd7092..2d29c36 100644
+Binary files a/SPIRAL/spiral_nemo/collections/asr/data/__pycache__/audio_to_text.cpython-38.pyc and b/SPIRAL/spiral_nemo/collections/asr/data/__pycache__/audio_to_text.cpython-38.pyc differ
+diff --git a/SPIRAL/spiral_nemo/collections/asr/data/__pycache__/audio_to_text_dataset.cpython-38.pyc b/SPIRAL/spiral_nemo/collections/asr/data/__pycache__/audio_to_text_dataset.cpython-38.pyc
+index a8d1f95..cc7669b 100644
+Binary files a/SPIRAL/spiral_nemo/collections/asr/data/__pycache__/audio_to_text_dataset.cpython-38.pyc and b/SPIRAL/spiral_nemo/collections/asr/data/__pycache__/audio_to_text_dataset.cpython-38.pyc differ
+diff --git a/SPIRAL/spiral_nemo/collections/asr/losses/__pycache__/__init__.cpython-38.pyc b/SPIRAL/spiral_nemo/collections/asr/losses/__pycache__/__init__.cpython-38.pyc
+index 9e49ff1..348639d 100644
+Binary files a/SPIRAL/spiral_nemo/collections/asr/losses/__pycache__/__init__.cpython-38.pyc and b/SPIRAL/spiral_nemo/collections/asr/losses/__pycache__/__init__.cpython-38.pyc differ
+diff --git a/SPIRAL/spiral_nemo/collections/asr/losses/__pycache__/ctc.cpython-38.pyc b/SPIRAL/spiral_nemo/collections/asr/losses/__pycache__/ctc.cpython-38.pyc
+index af91e8a..1568cf2 100644
+Binary files a/SPIRAL/spiral_nemo/collections/asr/losses/__pycache__/ctc.cpython-38.pyc and b/SPIRAL/spiral_nemo/collections/asr/losses/__pycache__/ctc.cpython-38.pyc differ
+diff --git a/SPIRAL/spiral_nemo/collections/asr/losses/__pycache__/wav2vecloss.cpython-38.pyc b/SPIRAL/spiral_nemo/collections/asr/losses/__pycache__/wav2vecloss.cpython-38.pyc
+index 79f129b..cb8b2e3 100644
+Binary files a/SPIRAL/spiral_nemo/collections/asr/losses/__pycache__/wav2vecloss.cpython-38.pyc and b/SPIRAL/spiral_nemo/collections/asr/losses/__pycache__/wav2vecloss.cpython-38.pyc differ
+diff --git a/SPIRAL/spiral_nemo/collections/asr/models/__pycache__/__init__.cpython-38.pyc b/SPIRAL/spiral_nemo/collections/asr/models/__pycache__/__init__.cpython-38.pyc
+index 517904b..253b1d0 100644
+Binary files a/SPIRAL/spiral_nemo/collections/asr/models/__pycache__/__init__.cpython-38.pyc and b/SPIRAL/spiral_nemo/collections/asr/models/__pycache__/__init__.cpython-38.pyc differ
+diff --git a/SPIRAL/spiral_nemo/collections/asr/models/__pycache__/asr_model.cpython-38.pyc b/SPIRAL/spiral_nemo/collections/asr/models/__pycache__/asr_model.cpython-38.pyc
+index 1bb910f..ed742c3 100644
+Binary files a/SPIRAL/spiral_nemo/collections/asr/models/__pycache__/asr_model.cpython-38.pyc and b/SPIRAL/spiral_nemo/collections/asr/models/__pycache__/asr_model.cpython-38.pyc differ
+diff --git a/SPIRAL/spiral_nemo/collections/asr/models/configs/__pycache__/__init__.cpython-38.pyc b/SPIRAL/spiral_nemo/collections/asr/models/configs/__pycache__/__init__.cpython-38.pyc
+index 03301c4..800b249 100644
+Binary files a/SPIRAL/spiral_nemo/collections/asr/models/configs/__pycache__/__init__.cpython-38.pyc and b/SPIRAL/spiral_nemo/collections/asr/models/configs/__pycache__/__init__.cpython-38.pyc differ
+diff --git a/SPIRAL/spiral_nemo/collections/asr/models/configs/__pycache__/common_config.cpython-38.pyc b/SPIRAL/spiral_nemo/collections/asr/models/configs/__pycache__/common_config.cpython-38.pyc
+index ac73ce7..99e780d 100644
+Binary files a/SPIRAL/spiral_nemo/collections/asr/models/configs/__pycache__/common_config.cpython-38.pyc and b/SPIRAL/spiral_nemo/collections/asr/models/configs/__pycache__/common_config.cpython-38.pyc differ
+diff --git a/SPIRAL/spiral_nemo/collections/asr/models/configs/__pycache__/ctc_models_config.cpython-38.pyc b/SPIRAL/spiral_nemo/collections/asr/models/configs/__pycache__/ctc_models_config.cpython-38.pyc
+index d6885d0..52f815f 100644
+Binary files a/SPIRAL/spiral_nemo/collections/asr/models/configs/__pycache__/ctc_models_config.cpython-38.pyc and b/SPIRAL/spiral_nemo/collections/asr/models/configs/__pycache__/ctc_models_config.cpython-38.pyc differ
+diff --git a/SPIRAL/spiral_nemo/collections/asr/models/spec2vec/__pycache__/__init__.cpython-38.pyc b/SPIRAL/spiral_nemo/collections/asr/models/spec2vec/__pycache__/__init__.cpython-38.pyc
+index a33ad49..dd5a6d0 100644
+Binary files a/SPIRAL/spiral_nemo/collections/asr/models/spec2vec/__pycache__/__init__.cpython-38.pyc and b/SPIRAL/spiral_nemo/collections/asr/models/spec2vec/__pycache__/__init__.cpython-38.pyc differ
+diff --git a/SPIRAL/spiral_nemo/collections/asr/models/spec2vec/__pycache__/spec2vec_config.cpython-38.pyc b/SPIRAL/spiral_nemo/collections/asr/models/spec2vec/__pycache__/spec2vec_config.cpython-38.pyc
+index b742821..3771340 100644
+Binary files a/SPIRAL/spiral_nemo/collections/asr/models/spec2vec/__pycache__/spec2vec_config.cpython-38.pyc and b/SPIRAL/spiral_nemo/collections/asr/models/spec2vec/__pycache__/spec2vec_config.cpython-38.pyc differ
+diff --git a/SPIRAL/spiral_nemo/collections/asr/models/wav2vec/__pycache__/__init__.cpython-38.pyc b/SPIRAL/spiral_nemo/collections/asr/models/wav2vec/__pycache__/__init__.cpython-38.pyc
+index e99eeb1..f33416c 100644
+Binary files a/SPIRAL/spiral_nemo/collections/asr/models/wav2vec/__pycache__/__init__.cpython-38.pyc and b/SPIRAL/spiral_nemo/collections/asr/models/wav2vec/__pycache__/__init__.cpython-38.pyc differ
+diff --git a/SPIRAL/spiral_nemo/collections/asr/models/wav2vec/__pycache__/wav2vec_config.cpython-38.pyc b/SPIRAL/spiral_nemo/collections/asr/models/wav2vec/__pycache__/wav2vec_config.cpython-38.pyc
+index 684f57c..fc41281 100644
+Binary files a/SPIRAL/spiral_nemo/collections/asr/models/wav2vec/__pycache__/wav2vec_config.cpython-38.pyc and b/SPIRAL/spiral_nemo/collections/asr/models/wav2vec/__pycache__/wav2vec_config.cpython-38.pyc differ
+diff --git a/SPIRAL/spiral_nemo/collections/asr/models/wav2vec/wav2vec_config.py b/SPIRAL/spiral_nemo/collections/asr/models/wav2vec/wav2vec_config.py
+index 4613703..708b289 100644
+--- a/SPIRAL/spiral_nemo/collections/asr/models/wav2vec/wav2vec_config.py
++++ b/SPIRAL/spiral_nemo/collections/asr/models/wav2vec/wav2vec_config.py
+@@ -21,7 +21,9 @@ from dataclasses import dataclass, field
+ from enum import Enum, auto
+ from typing import Any, Dict, List, Optional
+ 
+-
++from spiral_nemo.core.config.modelPT import ModelConfig
++from omegaconf import MISSING
++from spiral_nemo.collections.asr.models.configs.common_config import AudioDatasetConfig, OptimConfig
+ class Wav2VecActivationType(Enum):
+     relu = 'relu'
+     gelu = 'gelu'
+@@ -158,7 +160,7 @@ class Wav2VecMaskingConfig:
+ 
+ 
+ @dataclass
+-class Wav2VecEncoderModelConfig:
++class Wav2VecEncoderModelConfig(ModelConfig):
+     loss: LossConfig = LossConfig()
+     quantizer: QuantizerConfig = QuantizerConfig()
+     conv_feature_encoder: ConvFeatureEncoderConfig = ConvFeatureEncoderConfig()
+@@ -184,8 +186,8 @@ class Wav2VecEncoderModelConfig:
+     target_glu: bool = field(default=False, metadata={'help': 'Adds project and applies GLU to targets'})
+     feature_grad_mult: float = field(default=0.1, metadata={'help': 'Multiply extracted feature gradients'})
+ 
+-    train_ds: Optional[Dict[Any, Any]] = None
+-    validation_ds: Optional[Dict[Any, Any]] = None
+-    test_ds: Optional[Dict[Any, Any]] = None
++    train_ds: AudioDatasetConfig = MISSING
++    validation_ds: AudioDatasetConfig = MISSING
++    test_ds: AudioDatasetConfig = MISSING
++    optim: OptimConfig = MISSING
+     expected_gpu_num: int = 1
+-    optim: Optional[Dict[Any, Any]] = None
+diff --git a/SPIRAL/spiral_nemo/collections/asr/models/wav2vec/wav2vec_model.py b/SPIRAL/spiral_nemo/collections/asr/models/wav2vec/wav2vec_model.py
+index 7444079..90129da 100644
+--- a/SPIRAL/spiral_nemo/collections/asr/models/wav2vec/wav2vec_model.py
++++ b/SPIRAL/spiral_nemo/collections/asr/models/wav2vec/wav2vec_model.py
+@@ -58,7 +58,7 @@ from spiral_nemo.core import ModelPT
+ from spiral_nemo.core.classes.common import PretrainedModelInfo, typecheck
+ from spiral_nemo.core.neural_types import AudioSignal, EncodedRepresentation, LossType, MaskType, NeuralType
+ from spiral_nemo.core.neural_types.elements import BoolType, FloatType
+-
++import IPython
+ 
+ def buffered_arange(max):
+     if not hasattr(buffered_arange, "buf"):
+@@ -72,13 +72,13 @@ def buffered_arange(max):
+ class Wav2VecEncoderModel(ModelPT):
+     def __init__(self, cfg: DictConfig, trainer: Trainer = None):
+         # Get global rank and total number of GPU workers for IterableDataset partitioning, if applicable
+-        self.global_rank = 0
+-        self.world_size = 1
+-        self.local_rank = 0
++        self.hparams['global_rank'] = 0
++        self.hparams['world_size'] = 1
++        self.hparams['local_rank'] = 0
+         if trainer is not None:
+-            self.global_rank = (trainer.node_rank * trainer.num_gpus) + trainer.local_rank
+-            self.world_size = trainer.num_nodes * trainer.num_gpus
+-            self.local_rank = trainer.local_rank
++            self.hparams['global_rank'] = (trainer.node_rank * trainer.num_gpus) + trainer.local_rank
++            self.hparams['world_size'] = trainer.num_nodes * trainer.num_gpus
++            self.hparams['local_rank'] = trainer.local_rank
+ 
+         super().__init__(cfg=cfg, trainer=trainer)
+ 
+@@ -89,7 +89,8 @@ class Wav2VecEncoderModel(ModelPT):
+             raise ValueError(f"cfg was type: {type(cfg)}. Expected either a dict or a DictConfig")
+ 
+         cfg = OmegaConf.create(OmegaConf.to_container(cfg, resolve=True))
+-        cfg = OmegaConf.merge(schema, cfg)
++        # IPython.embed()
++        # cfg = OmegaConf.merge(schema, cfg)
+ 
+         feature_enc_layers = cfg.conv_feature_encoder.conv_feature_layers
+         self.embed = feature_enc_layers[-1][0]  # Select last conv output layer dimension
+diff --git a/SPIRAL/spiral_nemo/collections/asr/modules/__pycache__/__init__.cpython-38.pyc b/SPIRAL/spiral_nemo/collections/asr/modules/__pycache__/__init__.cpython-38.pyc
+index 6c20375..a599152 100644
+Binary files a/SPIRAL/spiral_nemo/collections/asr/modules/__pycache__/__init__.cpython-38.pyc and b/SPIRAL/spiral_nemo/collections/asr/modules/__pycache__/__init__.cpython-38.pyc differ
+diff --git a/SPIRAL/spiral_nemo/collections/asr/modules/__pycache__/audio_preprocessing.cpython-38.pyc b/SPIRAL/spiral_nemo/collections/asr/modules/__pycache__/audio_preprocessing.cpython-38.pyc
+index 870f5de..75ae99e 100644
+Binary files a/SPIRAL/spiral_nemo/collections/asr/modules/__pycache__/audio_preprocessing.cpython-38.pyc and b/SPIRAL/spiral_nemo/collections/asr/modules/__pycache__/audio_preprocessing.cpython-38.pyc differ
+diff --git a/SPIRAL/spiral_nemo/collections/asr/modules/__pycache__/conv_asr.cpython-38.pyc b/SPIRAL/spiral_nemo/collections/asr/modules/__pycache__/conv_asr.cpython-38.pyc
+index c4b5ba0..333dc39 100644
+Binary files a/SPIRAL/spiral_nemo/collections/asr/modules/__pycache__/conv_asr.cpython-38.pyc and b/SPIRAL/spiral_nemo/collections/asr/modules/__pycache__/conv_asr.cpython-38.pyc differ
+diff --git a/SPIRAL/spiral_nemo/collections/asr/modules/__pycache__/wav2vec_modules.cpython-38.pyc b/SPIRAL/spiral_nemo/collections/asr/modules/__pycache__/wav2vec_modules.cpython-38.pyc
+index 71f7197..3c8425e 100644
+Binary files a/SPIRAL/spiral_nemo/collections/asr/modules/__pycache__/wav2vec_modules.cpython-38.pyc and b/SPIRAL/spiral_nemo/collections/asr/modules/__pycache__/wav2vec_modules.cpython-38.pyc differ
+diff --git a/SPIRAL/spiral_nemo/collections/asr/parts/__pycache__/__init__.cpython-38.pyc b/SPIRAL/spiral_nemo/collections/asr/parts/__pycache__/__init__.cpython-38.pyc
+index 2ba4f28..7c7acb6 100644
+Binary files a/SPIRAL/spiral_nemo/collections/asr/parts/__pycache__/__init__.cpython-38.pyc and b/SPIRAL/spiral_nemo/collections/asr/parts/__pycache__/__init__.cpython-38.pyc differ
+diff --git a/SPIRAL/spiral_nemo/collections/asr/parts/__pycache__/activations.cpython-38.pyc b/SPIRAL/spiral_nemo/collections/asr/parts/__pycache__/activations.cpython-38.pyc
+index 488ac39..2e141a4 100644
+Binary files a/SPIRAL/spiral_nemo/collections/asr/parts/__pycache__/activations.cpython-38.pyc and b/SPIRAL/spiral_nemo/collections/asr/parts/__pycache__/activations.cpython-38.pyc differ
+diff --git a/SPIRAL/spiral_nemo/collections/asr/parts/__pycache__/cleaners.cpython-38.pyc b/SPIRAL/spiral_nemo/collections/asr/parts/__pycache__/cleaners.cpython-38.pyc
+index aba15ea..78b02eb 100644
+Binary files a/SPIRAL/spiral_nemo/collections/asr/parts/__pycache__/cleaners.cpython-38.pyc and b/SPIRAL/spiral_nemo/collections/asr/parts/__pycache__/cleaners.cpython-38.pyc differ
+diff --git a/SPIRAL/spiral_nemo/collections/asr/parts/__pycache__/collections.cpython-38.pyc b/SPIRAL/spiral_nemo/collections/asr/parts/__pycache__/collections.cpython-38.pyc
+index 15aa20c..4418e4a 100644
+Binary files a/SPIRAL/spiral_nemo/collections/asr/parts/__pycache__/collections.cpython-38.pyc and b/SPIRAL/spiral_nemo/collections/asr/parts/__pycache__/collections.cpython-38.pyc differ
+diff --git a/SPIRAL/spiral_nemo/collections/asr/parts/__pycache__/compute_wer.cpython-38.pyc b/SPIRAL/spiral_nemo/collections/asr/parts/__pycache__/compute_wer.cpython-38.pyc
+index bc68763..4820f13 100644
+Binary files a/SPIRAL/spiral_nemo/collections/asr/parts/__pycache__/compute_wer.cpython-38.pyc and b/SPIRAL/spiral_nemo/collections/asr/parts/__pycache__/compute_wer.cpython-38.pyc differ
+diff --git a/SPIRAL/spiral_nemo/collections/asr/parts/__pycache__/convolution_layers.cpython-38.pyc b/SPIRAL/spiral_nemo/collections/asr/parts/__pycache__/convolution_layers.cpython-38.pyc
+index 9d2fad1..ae8cf77 100644
+Binary files a/SPIRAL/spiral_nemo/collections/asr/parts/__pycache__/convolution_layers.cpython-38.pyc and b/SPIRAL/spiral_nemo/collections/asr/parts/__pycache__/convolution_layers.cpython-38.pyc differ
+diff --git a/SPIRAL/spiral_nemo/collections/asr/parts/__pycache__/features.cpython-38.pyc b/SPIRAL/spiral_nemo/collections/asr/parts/__pycache__/features.cpython-38.pyc
+index f57a227..285d9f8 100644
+Binary files a/SPIRAL/spiral_nemo/collections/asr/parts/__pycache__/features.cpython-38.pyc and b/SPIRAL/spiral_nemo/collections/asr/parts/__pycache__/features.cpython-38.pyc differ
+diff --git a/SPIRAL/spiral_nemo/collections/asr/parts/__pycache__/jasper.cpython-38.pyc b/SPIRAL/spiral_nemo/collections/asr/parts/__pycache__/jasper.cpython-38.pyc
+index a33582d..2136b47 100644
+Binary files a/SPIRAL/spiral_nemo/collections/asr/parts/__pycache__/jasper.cpython-38.pyc and b/SPIRAL/spiral_nemo/collections/asr/parts/__pycache__/jasper.cpython-38.pyc differ
+diff --git a/SPIRAL/spiral_nemo/collections/asr/parts/__pycache__/layer_norm.cpython-38.pyc b/SPIRAL/spiral_nemo/collections/asr/parts/__pycache__/layer_norm.cpython-38.pyc
+index 583eb0e..862334e 100644
+Binary files a/SPIRAL/spiral_nemo/collections/asr/parts/__pycache__/layer_norm.cpython-38.pyc and b/SPIRAL/spiral_nemo/collections/asr/parts/__pycache__/layer_norm.cpython-38.pyc differ
+diff --git a/SPIRAL/spiral_nemo/collections/asr/parts/__pycache__/manifest.cpython-38.pyc b/SPIRAL/spiral_nemo/collections/asr/parts/__pycache__/manifest.cpython-38.pyc
+index 546a635..824eb66 100644
+Binary files a/SPIRAL/spiral_nemo/collections/asr/parts/__pycache__/manifest.cpython-38.pyc and b/SPIRAL/spiral_nemo/collections/asr/parts/__pycache__/manifest.cpython-38.pyc differ
+diff --git a/SPIRAL/spiral_nemo/collections/asr/parts/__pycache__/multihead_attention.cpython-38.pyc b/SPIRAL/spiral_nemo/collections/asr/parts/__pycache__/multihead_attention.cpython-38.pyc
+index 01ef24b..024ce24 100644
+Binary files a/SPIRAL/spiral_nemo/collections/asr/parts/__pycache__/multihead_attention.cpython-38.pyc and b/SPIRAL/spiral_nemo/collections/asr/parts/__pycache__/multihead_attention.cpython-38.pyc differ
+diff --git a/SPIRAL/spiral_nemo/collections/asr/parts/__pycache__/numba_utils.cpython-38.pyc b/SPIRAL/spiral_nemo/collections/asr/parts/__pycache__/numba_utils.cpython-38.pyc
+index fdf8059..da7f9eb 100644
+Binary files a/SPIRAL/spiral_nemo/collections/asr/parts/__pycache__/numba_utils.cpython-38.pyc and b/SPIRAL/spiral_nemo/collections/asr/parts/__pycache__/numba_utils.cpython-38.pyc differ
+diff --git a/SPIRAL/spiral_nemo/collections/asr/parts/__pycache__/parsers.cpython-38.pyc b/SPIRAL/spiral_nemo/collections/asr/parts/__pycache__/parsers.cpython-38.pyc
+index f5c348a..3fb1c51 100644
+Binary files a/SPIRAL/spiral_nemo/collections/asr/parts/__pycache__/parsers.cpython-38.pyc and b/SPIRAL/spiral_nemo/collections/asr/parts/__pycache__/parsers.cpython-38.pyc differ
+diff --git a/SPIRAL/spiral_nemo/collections/asr/parts/__pycache__/perturb.cpython-38.pyc b/SPIRAL/spiral_nemo/collections/asr/parts/__pycache__/perturb.cpython-38.pyc
+index 4031918..18b0763 100644
+Binary files a/SPIRAL/spiral_nemo/collections/asr/parts/__pycache__/perturb.cpython-38.pyc and b/SPIRAL/spiral_nemo/collections/asr/parts/__pycache__/perturb.cpython-38.pyc differ
+diff --git a/SPIRAL/spiral_nemo/collections/asr/parts/__pycache__/segment.cpython-38.pyc b/SPIRAL/spiral_nemo/collections/asr/parts/__pycache__/segment.cpython-38.pyc
+index 4fd571d..696c312 100644
+Binary files a/SPIRAL/spiral_nemo/collections/asr/parts/__pycache__/segment.cpython-38.pyc and b/SPIRAL/spiral_nemo/collections/asr/parts/__pycache__/segment.cpython-38.pyc differ
+diff --git a/SPIRAL/spiral_nemo/collections/asr/parts/__pycache__/simple_wer_v2.cpython-38.pyc b/SPIRAL/spiral_nemo/collections/asr/parts/__pycache__/simple_wer_v2.cpython-38.pyc
+index 62b84ac..2d33126 100644
+Binary files a/SPIRAL/spiral_nemo/collections/asr/parts/__pycache__/simple_wer_v2.cpython-38.pyc and b/SPIRAL/spiral_nemo/collections/asr/parts/__pycache__/simple_wer_v2.cpython-38.pyc differ
+diff --git a/SPIRAL/spiral_nemo/collections/asr/parts/__pycache__/spectr_augment.cpython-38.pyc b/SPIRAL/spiral_nemo/collections/asr/parts/__pycache__/spectr_augment.cpython-38.pyc
+index ac63e1b..73e80a0 100644
+Binary files a/SPIRAL/spiral_nemo/collections/asr/parts/__pycache__/spectr_augment.cpython-38.pyc and b/SPIRAL/spiral_nemo/collections/asr/parts/__pycache__/spectr_augment.cpython-38.pyc differ
+diff --git a/SPIRAL/spiral_nemo/collections/asr/parts/__pycache__/wav2vec.cpython-38.pyc b/SPIRAL/spiral_nemo/collections/asr/parts/__pycache__/wav2vec.cpython-38.pyc
+index dcc33e2..7ba8924 100644
+Binary files a/SPIRAL/spiral_nemo/collections/asr/parts/__pycache__/wav2vec.cpython-38.pyc and b/SPIRAL/spiral_nemo/collections/asr/parts/__pycache__/wav2vec.cpython-38.pyc differ
+diff --git a/SPIRAL/spiral_nemo/core/__pycache__/__init__.cpython-38.pyc b/SPIRAL/spiral_nemo/core/__pycache__/__init__.cpython-38.pyc
+index b2be33f..4b7e680 100644
+Binary files a/SPIRAL/spiral_nemo/core/__pycache__/__init__.cpython-38.pyc and b/SPIRAL/spiral_nemo/core/__pycache__/__init__.cpython-38.pyc differ
+diff --git a/SPIRAL/spiral_nemo/core/classes/__pycache__/__init__.cpython-38.pyc b/SPIRAL/spiral_nemo/core/classes/__pycache__/__init__.cpython-38.pyc
+index 8c7d724..e59a599 100644
+Binary files a/SPIRAL/spiral_nemo/core/classes/__pycache__/__init__.cpython-38.pyc and b/SPIRAL/spiral_nemo/core/classes/__pycache__/__init__.cpython-38.pyc differ
+diff --git a/SPIRAL/spiral_nemo/core/classes/__pycache__/common.cpython-38.pyc b/SPIRAL/spiral_nemo/core/classes/__pycache__/common.cpython-38.pyc
+index ad4e6ed..4a342ce 100644
+Binary files a/SPIRAL/spiral_nemo/core/classes/__pycache__/common.cpython-38.pyc and b/SPIRAL/spiral_nemo/core/classes/__pycache__/common.cpython-38.pyc differ
+diff --git a/SPIRAL/spiral_nemo/core/classes/__pycache__/dataset.cpython-38.pyc b/SPIRAL/spiral_nemo/core/classes/__pycache__/dataset.cpython-38.pyc
+index e661f81..153956a 100644
+Binary files a/SPIRAL/spiral_nemo/core/classes/__pycache__/dataset.cpython-38.pyc and b/SPIRAL/spiral_nemo/core/classes/__pycache__/dataset.cpython-38.pyc differ
+diff --git a/SPIRAL/spiral_nemo/core/classes/__pycache__/exportable.cpython-38.pyc b/SPIRAL/spiral_nemo/core/classes/__pycache__/exportable.cpython-38.pyc
+index a271bf6..8d6a23a 100644
+Binary files a/SPIRAL/spiral_nemo/core/classes/__pycache__/exportable.cpython-38.pyc and b/SPIRAL/spiral_nemo/core/classes/__pycache__/exportable.cpython-38.pyc differ
+diff --git a/SPIRAL/spiral_nemo/core/classes/__pycache__/loss.cpython-38.pyc b/SPIRAL/spiral_nemo/core/classes/__pycache__/loss.cpython-38.pyc
+index 2d8504f..38e08ff 100644
+Binary files a/SPIRAL/spiral_nemo/core/classes/__pycache__/loss.cpython-38.pyc and b/SPIRAL/spiral_nemo/core/classes/__pycache__/loss.cpython-38.pyc differ
+diff --git a/SPIRAL/spiral_nemo/core/classes/__pycache__/modelPT.cpython-38.pyc b/SPIRAL/spiral_nemo/core/classes/__pycache__/modelPT.cpython-38.pyc
+index fac7739..14bf3d9 100644
+Binary files a/SPIRAL/spiral_nemo/core/classes/__pycache__/modelPT.cpython-38.pyc and b/SPIRAL/spiral_nemo/core/classes/__pycache__/modelPT.cpython-38.pyc differ
+diff --git a/SPIRAL/spiral_nemo/core/classes/__pycache__/module.cpython-38.pyc b/SPIRAL/spiral_nemo/core/classes/__pycache__/module.cpython-38.pyc
+index f10ad50..888d313 100644
+Binary files a/SPIRAL/spiral_nemo/core/classes/__pycache__/module.cpython-38.pyc and b/SPIRAL/spiral_nemo/core/classes/__pycache__/module.cpython-38.pyc differ
+diff --git a/SPIRAL/spiral_nemo/core/config/__pycache__/__init__.cpython-38.pyc b/SPIRAL/spiral_nemo/core/config/__pycache__/__init__.cpython-38.pyc
+index b4a68b0..513fe8e 100644
+Binary files a/SPIRAL/spiral_nemo/core/config/__pycache__/__init__.cpython-38.pyc and b/SPIRAL/spiral_nemo/core/config/__pycache__/__init__.cpython-38.pyc differ
+diff --git a/SPIRAL/spiral_nemo/core/config/__pycache__/base_config.cpython-38.pyc b/SPIRAL/spiral_nemo/core/config/__pycache__/base_config.cpython-38.pyc
+index 66343a5..7efbb1a 100644
+Binary files a/SPIRAL/spiral_nemo/core/config/__pycache__/base_config.cpython-38.pyc and b/SPIRAL/spiral_nemo/core/config/__pycache__/base_config.cpython-38.pyc differ
+diff --git a/SPIRAL/spiral_nemo/core/config/__pycache__/modelPT.cpython-38.pyc b/SPIRAL/spiral_nemo/core/config/__pycache__/modelPT.cpython-38.pyc
+index 32c26dc..c3ed0b3 100644
+Binary files a/SPIRAL/spiral_nemo/core/config/__pycache__/modelPT.cpython-38.pyc and b/SPIRAL/spiral_nemo/core/config/__pycache__/modelPT.cpython-38.pyc differ
+diff --git a/SPIRAL/spiral_nemo/core/config/__pycache__/optimizers.cpython-38.pyc b/SPIRAL/spiral_nemo/core/config/__pycache__/optimizers.cpython-38.pyc
+index eed6b27..c49b16b 100644
+Binary files a/SPIRAL/spiral_nemo/core/config/__pycache__/optimizers.cpython-38.pyc and b/SPIRAL/spiral_nemo/core/config/__pycache__/optimizers.cpython-38.pyc differ
+diff --git a/SPIRAL/spiral_nemo/core/config/__pycache__/pytorch.cpython-38.pyc b/SPIRAL/spiral_nemo/core/config/__pycache__/pytorch.cpython-38.pyc
+index 026abc1..20304fb 100644
+Binary files a/SPIRAL/spiral_nemo/core/config/__pycache__/pytorch.cpython-38.pyc and b/SPIRAL/spiral_nemo/core/config/__pycache__/pytorch.cpython-38.pyc differ
+diff --git a/SPIRAL/spiral_nemo/core/config/__pycache__/schedulers.cpython-38.pyc b/SPIRAL/spiral_nemo/core/config/__pycache__/schedulers.cpython-38.pyc
+index 1f11b80..2cae47d 100644
+Binary files a/SPIRAL/spiral_nemo/core/config/__pycache__/schedulers.cpython-38.pyc and b/SPIRAL/spiral_nemo/core/config/__pycache__/schedulers.cpython-38.pyc differ
+diff --git a/SPIRAL/spiral_nemo/core/config/__pycache__/set_config.cpython-38.pyc b/SPIRAL/spiral_nemo/core/config/__pycache__/set_config.cpython-38.pyc
+index f2c175b..ac87671 100644
+Binary files a/SPIRAL/spiral_nemo/core/config/__pycache__/set_config.cpython-38.pyc and b/SPIRAL/spiral_nemo/core/config/__pycache__/set_config.cpython-38.pyc differ
+diff --git a/SPIRAL/spiral_nemo/core/config/modelPT.py b/SPIRAL/spiral_nemo/core/config/modelPT.py
+index 157422f..fe5d86a 100644
+--- a/SPIRAL/spiral_nemo/core/config/modelPT.py
++++ b/SPIRAL/spiral_nemo/core/config/modelPT.py
+@@ -27,6 +27,7 @@ class SchedConfig:
+     name: str = MISSING
+     min_lr: float = 0.0
+     last_epoch: int = -1
++    warmup_steps: int = 0
+ 
+ 
+ @dataclass
+diff --git a/SPIRAL/spiral_nemo/core/neural_types/__pycache__/__init__.cpython-38.pyc b/SPIRAL/spiral_nemo/core/neural_types/__pycache__/__init__.cpython-38.pyc
+index dc59ddc..7eb0e13 100644
+Binary files a/SPIRAL/spiral_nemo/core/neural_types/__pycache__/__init__.cpython-38.pyc and b/SPIRAL/spiral_nemo/core/neural_types/__pycache__/__init__.cpython-38.pyc differ
+diff --git a/SPIRAL/spiral_nemo/core/neural_types/__pycache__/axes.cpython-38.pyc b/SPIRAL/spiral_nemo/core/neural_types/__pycache__/axes.cpython-38.pyc
+index cca252f..341d563 100644
+Binary files a/SPIRAL/spiral_nemo/core/neural_types/__pycache__/axes.cpython-38.pyc and b/SPIRAL/spiral_nemo/core/neural_types/__pycache__/axes.cpython-38.pyc differ
+diff --git a/SPIRAL/spiral_nemo/core/neural_types/__pycache__/comparison.cpython-38.pyc b/SPIRAL/spiral_nemo/core/neural_types/__pycache__/comparison.cpython-38.pyc
+index 275fde7..ea95a42 100644
+Binary files a/SPIRAL/spiral_nemo/core/neural_types/__pycache__/comparison.cpython-38.pyc and b/SPIRAL/spiral_nemo/core/neural_types/__pycache__/comparison.cpython-38.pyc differ
+diff --git a/SPIRAL/spiral_nemo/core/neural_types/__pycache__/elements.cpython-38.pyc b/SPIRAL/spiral_nemo/core/neural_types/__pycache__/elements.cpython-38.pyc
+index 742d37b..3cdd32d 100644
+Binary files a/SPIRAL/spiral_nemo/core/neural_types/__pycache__/elements.cpython-38.pyc and b/SPIRAL/spiral_nemo/core/neural_types/__pycache__/elements.cpython-38.pyc differ
+diff --git a/SPIRAL/spiral_nemo/core/neural_types/__pycache__/neural_type.cpython-38.pyc b/SPIRAL/spiral_nemo/core/neural_types/__pycache__/neural_type.cpython-38.pyc
+index 5c97ee5..2c8e222 100644
+Binary files a/SPIRAL/spiral_nemo/core/neural_types/__pycache__/neural_type.cpython-38.pyc and b/SPIRAL/spiral_nemo/core/neural_types/__pycache__/neural_type.cpython-38.pyc differ
+diff --git a/SPIRAL/spiral_nemo/core/optim/__pycache__/__init__.cpython-38.pyc b/SPIRAL/spiral_nemo/core/optim/__pycache__/__init__.cpython-38.pyc
+index 2490b2c..84ce32c 100644
+Binary files a/SPIRAL/spiral_nemo/core/optim/__pycache__/__init__.cpython-38.pyc and b/SPIRAL/spiral_nemo/core/optim/__pycache__/__init__.cpython-38.pyc differ
+diff --git a/SPIRAL/spiral_nemo/core/optim/__pycache__/lr_scheduler.cpython-38.pyc b/SPIRAL/spiral_nemo/core/optim/__pycache__/lr_scheduler.cpython-38.pyc
+index 96e222d..4c9d487 100644
+Binary files a/SPIRAL/spiral_nemo/core/optim/__pycache__/lr_scheduler.cpython-38.pyc and b/SPIRAL/spiral_nemo/core/optim/__pycache__/lr_scheduler.cpython-38.pyc differ
+diff --git a/SPIRAL/spiral_nemo/core/optim/__pycache__/optimizers.cpython-38.pyc b/SPIRAL/spiral_nemo/core/optim/__pycache__/optimizers.cpython-38.pyc
+index e51f8d3..090eef8 100644
+Binary files a/SPIRAL/spiral_nemo/core/optim/__pycache__/optimizers.cpython-38.pyc and b/SPIRAL/spiral_nemo/core/optim/__pycache__/optimizers.cpython-38.pyc differ
+diff --git a/SPIRAL/spiral_nemo/utils/__pycache__/__init__.cpython-38.pyc b/SPIRAL/spiral_nemo/utils/__pycache__/__init__.cpython-38.pyc
+index d348712..abebc39 100644
+Binary files a/SPIRAL/spiral_nemo/utils/__pycache__/__init__.cpython-38.pyc and b/SPIRAL/spiral_nemo/utils/__pycache__/__init__.cpython-38.pyc differ
+diff --git a/SPIRAL/spiral_nemo/utils/__pycache__/app_state.cpython-38.pyc b/SPIRAL/spiral_nemo/utils/__pycache__/app_state.cpython-38.pyc
+index 13a75b8..6cdbe2f 100644
+Binary files a/SPIRAL/spiral_nemo/utils/__pycache__/app_state.cpython-38.pyc and b/SPIRAL/spiral_nemo/utils/__pycache__/app_state.cpython-38.pyc differ
+diff --git a/SPIRAL/spiral_nemo/utils/__pycache__/cloud.cpython-38.pyc b/SPIRAL/spiral_nemo/utils/__pycache__/cloud.cpython-38.pyc
+index 0690f37..7b96469 100644
+Binary files a/SPIRAL/spiral_nemo/utils/__pycache__/cloud.cpython-38.pyc and b/SPIRAL/spiral_nemo/utils/__pycache__/cloud.cpython-38.pyc differ
+diff --git a/SPIRAL/spiral_nemo/utils/__pycache__/config_utils.cpython-38.pyc b/SPIRAL/spiral_nemo/utils/__pycache__/config_utils.cpython-38.pyc
+index d621e6c..a2310cd 100644
+Binary files a/SPIRAL/spiral_nemo/utils/__pycache__/config_utils.cpython-38.pyc and b/SPIRAL/spiral_nemo/utils/__pycache__/config_utils.cpython-38.pyc differ
+diff --git a/SPIRAL/spiral_nemo/utils/__pycache__/env_var_parsing.cpython-38.pyc b/SPIRAL/spiral_nemo/utils/__pycache__/env_var_parsing.cpython-38.pyc
+index 93dcb00..46d56aa 100644
+Binary files a/SPIRAL/spiral_nemo/utils/__pycache__/env_var_parsing.cpython-38.pyc and b/SPIRAL/spiral_nemo/utils/__pycache__/env_var_parsing.cpython-38.pyc differ
+diff --git a/SPIRAL/spiral_nemo/utils/__pycache__/exceptions.cpython-38.pyc b/SPIRAL/spiral_nemo/utils/__pycache__/exceptions.cpython-38.pyc
+index 32b8388..e38e62a 100644
+Binary files a/SPIRAL/spiral_nemo/utils/__pycache__/exceptions.cpython-38.pyc and b/SPIRAL/spiral_nemo/utils/__pycache__/exceptions.cpython-38.pyc differ
+diff --git a/SPIRAL/spiral_nemo/utils/__pycache__/exp_manager.cpython-38.pyc b/SPIRAL/spiral_nemo/utils/__pycache__/exp_manager.cpython-38.pyc
+index 3d9af9a..3aeb790 100644
+Binary files a/SPIRAL/spiral_nemo/utils/__pycache__/exp_manager.cpython-38.pyc and b/SPIRAL/spiral_nemo/utils/__pycache__/exp_manager.cpython-38.pyc differ
+diff --git a/SPIRAL/spiral_nemo/utils/__pycache__/export_utils.cpython-38.pyc b/SPIRAL/spiral_nemo/utils/__pycache__/export_utils.cpython-38.pyc
+index 4ae54e6..e81543e 100644
+Binary files a/SPIRAL/spiral_nemo/utils/__pycache__/export_utils.cpython-38.pyc and b/SPIRAL/spiral_nemo/utils/__pycache__/export_utils.cpython-38.pyc differ
+diff --git a/SPIRAL/spiral_nemo/utils/__pycache__/get_rank.cpython-38.pyc b/SPIRAL/spiral_nemo/utils/__pycache__/get_rank.cpython-38.pyc
+index 95a75f0..132fe88 100644
+Binary files a/SPIRAL/spiral_nemo/utils/__pycache__/get_rank.cpython-38.pyc and b/SPIRAL/spiral_nemo/utils/__pycache__/get_rank.cpython-38.pyc differ
+diff --git a/SPIRAL/spiral_nemo/utils/__pycache__/lightning_logger_patch.cpython-38.pyc b/SPIRAL/spiral_nemo/utils/__pycache__/lightning_logger_patch.cpython-38.pyc
+index 3febb13..e7bff1e 100644
+Binary files a/SPIRAL/spiral_nemo/utils/__pycache__/lightning_logger_patch.cpython-38.pyc and b/SPIRAL/spiral_nemo/utils/__pycache__/lightning_logger_patch.cpython-38.pyc differ
+diff --git a/SPIRAL/spiral_nemo/utils/__pycache__/metaclasses.cpython-38.pyc b/SPIRAL/spiral_nemo/utils/__pycache__/metaclasses.cpython-38.pyc
+index df01e3f..fcf43de 100644
+Binary files a/SPIRAL/spiral_nemo/utils/__pycache__/metaclasses.cpython-38.pyc and b/SPIRAL/spiral_nemo/utils/__pycache__/metaclasses.cpython-38.pyc differ
+diff --git a/SPIRAL/spiral_nemo/utils/__pycache__/model_utils.cpython-38.pyc b/SPIRAL/spiral_nemo/utils/__pycache__/model_utils.cpython-38.pyc
+index 6367c32..830a8b3 100644
+Binary files a/SPIRAL/spiral_nemo/utils/__pycache__/model_utils.cpython-38.pyc and b/SPIRAL/spiral_nemo/utils/__pycache__/model_utils.cpython-38.pyc differ
+diff --git a/SPIRAL/spiral_nemo/utils/__pycache__/nemo_logging.cpython-38.pyc b/SPIRAL/spiral_nemo/utils/__pycache__/nemo_logging.cpython-38.pyc
+index 32c26e5..4ed64d5 100644
+Binary files a/SPIRAL/spiral_nemo/utils/__pycache__/nemo_logging.cpython-38.pyc and b/SPIRAL/spiral_nemo/utils/__pycache__/nemo_logging.cpython-38.pyc differ
+diff --git a/SPIRAL/spiral_nemo/utils/decorators/__pycache__/__init__.cpython-38.pyc b/SPIRAL/spiral_nemo/utils/decorators/__pycache__/__init__.cpython-38.pyc
+index 4a3fc7e..a7eec3e 100644
+Binary files a/SPIRAL/spiral_nemo/utils/decorators/__pycache__/__init__.cpython-38.pyc and b/SPIRAL/spiral_nemo/utils/decorators/__pycache__/__init__.cpython-38.pyc differ
+diff --git a/SPIRAL/spiral_nemo/utils/decorators/__pycache__/deprecated.cpython-38.pyc b/SPIRAL/spiral_nemo/utils/decorators/__pycache__/deprecated.cpython-38.pyc
+index 25dffac..e5bae3b 100644
+Binary files a/SPIRAL/spiral_nemo/utils/decorators/__pycache__/deprecated.cpython-38.pyc and b/SPIRAL/spiral_nemo/utils/decorators/__pycache__/deprecated.cpython-38.pyc differ
+diff --git a/SPIRAL/spiral_nemo/utils/decorators/__pycache__/experimental.cpython-38.pyc b/SPIRAL/spiral_nemo/utils/decorators/__pycache__/experimental.cpython-38.pyc
+index 28b54cf..924280d 100644
+Binary files a/SPIRAL/spiral_nemo/utils/decorators/__pycache__/experimental.cpython-38.pyc and b/SPIRAL/spiral_nemo/utils/decorators/__pycache__/experimental.cpython-38.pyc differ
+diff --git a/SPIRAL/spiral_nemo/utils/decorators/__pycache__/port_docs.cpython-38.pyc b/SPIRAL/spiral_nemo/utils/decorators/__pycache__/port_docs.cpython-38.pyc
+index 904251e..58cc051 100644
+Binary files a/SPIRAL/spiral_nemo/utils/decorators/__pycache__/port_docs.cpython-38.pyc and b/SPIRAL/spiral_nemo/utils/decorators/__pycache__/port_docs.cpython-38.pyc differ
+diff --git a/SPIRAL/spiral_nemo/utils/formatters/__pycache__/__init__.cpython-38.pyc b/SPIRAL/spiral_nemo/utils/formatters/__pycache__/__init__.cpython-38.pyc
+index 6584fb4..30ca758 100644
+Binary files a/SPIRAL/spiral_nemo/utils/formatters/__pycache__/__init__.cpython-38.pyc and b/SPIRAL/spiral_nemo/utils/formatters/__pycache__/__init__.cpython-38.pyc differ
+diff --git a/SPIRAL/spiral_nemo/utils/formatters/__pycache__/base.cpython-38.pyc b/SPIRAL/spiral_nemo/utils/formatters/__pycache__/base.cpython-38.pyc
+index fe06acb..dc02926 100644
+Binary files a/SPIRAL/spiral_nemo/utils/formatters/__pycache__/base.cpython-38.pyc and b/SPIRAL/spiral_nemo/utils/formatters/__pycache__/base.cpython-38.pyc differ
+diff --git a/SPIRAL/spiral_nemo/utils/formatters/__pycache__/colors.cpython-38.pyc b/SPIRAL/spiral_nemo/utils/formatters/__pycache__/colors.cpython-38.pyc
+index 7bc0b16..56e3853 100644
+Binary files a/SPIRAL/spiral_nemo/utils/formatters/__pycache__/colors.cpython-38.pyc and b/SPIRAL/spiral_nemo/utils/formatters/__pycache__/colors.cpython-38.pyc differ
+diff --git a/SPIRAL/spiral_nemo/utils/formatters/__pycache__/utils.cpython-38.pyc b/SPIRAL/spiral_nemo/utils/formatters/__pycache__/utils.cpython-38.pyc
+index e39a98f..0087409 100644
+Binary files a/SPIRAL/spiral_nemo/utils/formatters/__pycache__/utils.cpython-38.pyc and b/SPIRAL/spiral_nemo/utils/formatters/__pycache__/utils.cpython-38.pyc differ

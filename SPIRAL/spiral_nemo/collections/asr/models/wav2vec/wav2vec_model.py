@@ -58,7 +58,7 @@ from spiral_nemo.core import ModelPT
 from spiral_nemo.core.classes.common import PretrainedModelInfo, typecheck
 from spiral_nemo.core.neural_types import AudioSignal, EncodedRepresentation, LossType, MaskType, NeuralType
 from spiral_nemo.core.neural_types.elements import BoolType, FloatType
-
+import IPython
 
 def buffered_arange(max):
     if not hasattr(buffered_arange, "buf"):
@@ -72,13 +72,13 @@ def buffered_arange(max):
 class Wav2VecEncoderModel(ModelPT):
     def __init__(self, cfg: DictConfig, trainer: Trainer = None):
         # Get global rank and total number of GPU workers for IterableDataset partitioning, if applicable
-        self.global_rank = 0
-        self.world_size = 1
-        self.local_rank = 0
+        self.hparams['global_rank'] = 0
+        self.hparams['world_size'] = 1
+        self.hparams['local_rank'] = 0
         if trainer is not None:
-            self.global_rank = (trainer.node_rank * trainer.num_gpus) + trainer.local_rank
-            self.world_size = trainer.num_nodes * trainer.num_gpus
-            self.local_rank = trainer.local_rank
+            self.hparams['global_rank'] = (trainer.node_rank * trainer.num_gpus) + trainer.local_rank
+            self.hparams['world_size'] = trainer.num_nodes * trainer.num_gpus
+            self.hparams['local_rank'] = trainer.local_rank
 
         super().__init__(cfg=cfg, trainer=trainer)
 
@@ -89,7 +89,8 @@ class Wav2VecEncoderModel(ModelPT):
             raise ValueError(f"cfg was type: {type(cfg)}. Expected either a dict or a DictConfig")
 
         cfg = OmegaConf.create(OmegaConf.to_container(cfg, resolve=True))
-        cfg = OmegaConf.merge(schema, cfg)
+        # IPython.embed()
+        # cfg = OmegaConf.merge(schema, cfg)
 
         feature_enc_layers = cfg.conv_feature_encoder.conv_feature_layers
         self.embed = feature_enc_layers[-1][0]  # Select last conv output layer dimension

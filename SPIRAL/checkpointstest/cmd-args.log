@@ -1,0 +1,1 @@
+run_spiral.py --config_name=w2v2_base --config_path=examples/asr/conf/spiral --model_type=w2v --num_gpus=1 --data_dir=~/frmccann/data/ --model_save_dir=./checkpointstest --resume_if_exists=False

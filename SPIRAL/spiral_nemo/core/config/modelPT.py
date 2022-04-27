@@ -27,6 +27,7 @@ class SchedConfig:
     name: str = MISSING
     min_lr: float = 0.0
     last_epoch: int = -1
+    warmup_steps: int = 0
 
 
 @dataclass

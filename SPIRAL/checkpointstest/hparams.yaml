@@ -1,0 +1,144 @@
+train_ds:
+  batch_size: 24
+  drop_last: false
+  shuffle: true
+  num_workers: 12
+  pin_memory: true
+  manifest_dir: ~/frmccann/data/
+  data_dir: ~/frmccann/data/
+  manifest_filepath: manifest_files/dutch_train.json,manifest_files/french_train.json,manifest_files/german_train.json,manifest_files/italian_train.json,manifest_files/spanish_train.json
+  sample_rate: 16000
+  max_duration: null
+  min_duration: 2.0
+  crop_size: 250000
+validation_ds:
+  batch_size: 24
+  drop_last: false
+  shuffle: false
+  num_workers: 12
+  pin_memory: true
+  manifest_dir: ~/frmccann/data/
+  data_dir: ~/frmccann/data/
+  manifest_filepath: manifest_files/dutch_test.json,manifest_files/french_test.json,manifest_files/german_test.json,manifest_files/italian_test.json,manifest_files/spanish_test.json
+  sample_rate: 16000
+  max_duration: null
+  min_duration: 2.0
+  crop_size: 250000
+test_ds:
+  batch_size: 24
+  drop_last: false
+  shuffle: false
+  num_workers: 12
+  pin_memory: true
+  manifest_dir: ~/frmccann/data/
+  data_dir: ~/frmccann/data/
+  manifest_filepath: manifest_files/dutch_test.json,manifest_files/french_test.json,manifest_files/german_test.json,manifest_files/italian_test.json,manifest_files/spanish_test.json
+  sample_rate: 16000
+  max_duration: null
+  min_duration: 2.0
+  crop_size: 250000
+optim:
+  name: adamw
+  lr: 0.003
+  sched:
+    warmup_steps: 32000
+    warmup_ratio: null
+    warmup_power: null
+    name: CosineAnnealing
+    min_lr: 0.0
+    last_epoch: -1
+    max_steps: 200000
+  betas:
+  - 0.9
+  - 0.98
+  eps: 1.0e-06
+  weight_decay: 0.01
+  amsgrad: false
+loss:
+  prob_ppl_weight: 0.1
+  feature_loss_weight: 0.0
+quantizer:
+  quantize_targets: true
+  quantize_input: false
+  same_quantizer: false
+  targets_bottleneck_dim: null
+  targets_bottleneck_act_fn: null
+  targets_bottleneck_dropout: 0.0
+  latent_vars: 320
+  latent_groups: 2
+  latent_dim: 0
+  latent_temp:
+  - 2
+  - 0.5
+  - 0.999995
+conv_feature_encoder:
+  extractor_mode: default
+  conv_bias: false
+  conv_feature_layers:
+  - - 512
+    - 10
+    - 5
+  - - 512
+    - 3
+    - 2
+  - - 512
+    - 3
+    - 2
+  - - 512
+    - 3
+    - 2
+  - - 512
+    - 3
+    - 2
+  - - 512
+    - 2
+    - 2
+  - - 512
+    - 2
+    - 2
+transformer_encoder:
+  use_pytorch_transformer: true
+  dropout: 0.1
+  conv:
+    conv_pos: 128
+    conv_pos_groups: 16
+    layer_drop: 0.0
+  encoder:
+    encoder_layers: 12
+    encoder_layerdrop: 0.05
+    embedding_dim: 768
+    ffn_embedding_dim: 3072
+    num_attention_heads: 8
+    dropout: 0.1
+    attention_dropout: 0.1
+    activation_dropout: 0.0
+    activation_fn: gelu
+    layer_norm_first: false
+masking:
+  mask_prob: 0.65
+  mask_type: static
+  mask_emb_type: zero
+  mask_other: 0
+  mask_length: 10
+  no_mask_overlap: false
+  mask_min_space: 1
+  mask_channel_prob: 0.0
+  mask_channel_type: static
+  mask_channel_other: 0
+  mask_channel_length: 10
+  no_mask_channel_overlap: false
+  mask_channel_min_space: 1
+  mask_shrink_to_batch_min: true
+  mask_channel_shrink_to_batch_min: false
+dropout_input: 0.1
+dropout_features: 0.1
+final_dim: 0
+n_negatives: 100
+cross_sample_negatives: 0
+codebook_negatives: 0
+negatives_from_everywhere: false
+logit_temp: 0.1
+target_glu: false
+feature_grad_mult: 0.1
+expected_gpu_num: 8
+target: spiral_nemo.collections.asr.models.wav2vec.wav2vec_model.Wav2VecEncoderModel

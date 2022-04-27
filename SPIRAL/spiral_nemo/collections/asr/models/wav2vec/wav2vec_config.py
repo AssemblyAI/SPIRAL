@@ -21,7 +21,9 @@ from dataclasses import dataclass, field
 from enum import Enum, auto
 from typing import Any, Dict, List, Optional
 
-
+from spiral_nemo.core.config.modelPT import ModelConfig
+from omegaconf import MISSING
+from spiral_nemo.collections.asr.models.configs.common_config import AudioDatasetConfig, OptimConfig
 class Wav2VecActivationType(Enum):
     relu = 'relu'
     gelu = 'gelu'
@@ -158,7 +160,7 @@ class Wav2VecMaskingConfig:
 
 
 @dataclass
-class Wav2VecEncoderModelConfig:
+class Wav2VecEncoderModelConfig(ModelConfig):
     loss: LossConfig = LossConfig()
     quantizer: QuantizerConfig = QuantizerConfig()
     conv_feature_encoder: ConvFeatureEncoderConfig = ConvFeatureEncoderConfig()
@@ -184,8 +186,8 @@ class Wav2VecEncoderModelConfig:
     target_glu: bool = field(default=False, metadata={'help': 'Adds project and applies GLU to targets'})
     feature_grad_mult: float = field(default=0.1, metadata={'help': 'Multiply extracted feature gradients'})
 
-    train_ds: Optional[Dict[Any, Any]] = None
-    validation_ds: Optional[Dict[Any, Any]] = None
-    test_ds: Optional[Dict[Any, Any]] = None
+    train_ds: AudioDatasetConfig = MISSING
+    validation_ds: AudioDatasetConfig = MISSING
+    test_ds: AudioDatasetConfig = MISSING
+    optim: OptimConfig = MISSING
     expected_gpu_num: int = 1
-    optim: Optional[Dict[Any, Any]] = None
