@@ -387,6 +387,7 @@ class EncDecCTCModel(ASRModel, ExportableEncDecModel):
             shuffle=shuffle,
             num_workers=config.get('num_workers', 0),
             pin_memory=config.get('pin_memory', False),
+            prefetch_factor=config.get('prefetch_factor',2)
         )
 
     def setup_training_data(self, train_data_config: Optional[Union[DictConfig, Dict]]):

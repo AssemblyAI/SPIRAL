@@ -111,6 +111,8 @@ class AudioDatasetConfig(spiral_nemo.core.classes.dataset.DatasetConfig):
     max_duration: Optional[float] = None
     min_duration: Optional[float] = None
     crop_size: Optional[int] = None
+    prefetch_factor: Optional[int] = 2
+    persistent_workers: Optional[bool] = False
 
 
 @dataclass
@@ -146,7 +148,7 @@ class NovogradParams(OptimConfig):
 
 @dataclass
 class WarmupParams:
-    warmup_steps: Optional[int] = None
+    warmup_steps: Optional[float] = None
     warmup_ratio: Optional[float] = None
     warmup_power: Optional[float] = None
 

@@ -89,8 +89,6 @@ class Wav2VecEncoderModel(ModelPT):
             raise ValueError(f"cfg was type: {type(cfg)}. Expected either a dict or a DictConfig")
 
         cfg = OmegaConf.create(OmegaConf.to_container(cfg, resolve=True))
-        # IPython.embed()
-        # cfg = OmegaConf.merge(schema, cfg)
 
         feature_enc_layers = cfg.conv_feature_encoder.conv_feature_layers
         self.embed = feature_enc_layers[-1][0]  # Select last conv output layer dimension
@@ -596,4 +594,5 @@ class Wav2VecEncoderModel(ModelPT):
             shuffle=shuffle,
             num_workers=config.get('num_workers', 0),
             pin_memory=config.get('pin_memory', False),
+            prefetch_factor=config.get('prefetch_factor',512)
         )

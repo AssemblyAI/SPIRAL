@@ -172,38 +172,40 @@ model.loss = LossConfig(
 model.train_ds = AudioDatasetConfig(
     manifest_filepath='manifest_files/dutch_train.json,manifest_files/french_train.json,manifest_files/german_train.json,manifest_files/italian_train.json,manifest_files/spanish_train.json',
     sample_rate=sample_rate,
-    batch_size=128,
+    batch_size=8,
     min_duration=2.0,
     crop_size=250000,
     shuffle=True,
-    num_workers=16,
-    pin_memory=True,
-    prefetch_factor=16
+    num_workers=64,
+    prefetch_factor=4,
+    persistent_workers=True
 )
 
 model.validation_ds = AudioDatasetConfig(
     manifest_filepath='manifest_files/dutch_test.json,manifest_files/french_test.json,manifest_files/german_test.json,manifest_files/italian_test.json,manifest_files/spanish_test.json',
     sample_rate=sample_rate,
-    batch_size=128,
+    batch_size=8,
     min_duration=2.0,
     crop_size=250000,
     shuffle=False,
-    num_workers=16,
-    prefetch_factor=16
+    num_workers=64,
+    prefetch_factor=4,
+    persistent_workers=True
 )
 
 model.test_ds = AudioDatasetConfig(
     manifest_filepath='manifest_files/dutch_test.json,manifest_files/french_test.json,manifest_files/german_test.json,manifest_files/italian_test.json,manifest_files/spanish_test.json',
     sample_rate=sample_rate,
-    batch_size=128,
+    batch_size=8,
     min_duration=2.0,
     crop_size=250000,
     shuffle=False,
-    num_workers=16,
-    prefetch_factor=16
+    num_workers=64,
+    prefetch_factor=4,
+    persistent_workers=True
 )
 
-model.expected_gpu_num = 8
+model.expected_gpu_num = 1
 model.optim = AdamWParams(
     lr=0.003,
     eps=1e-6,
@@ -217,9 +219,9 @@ model.optim = AdamWParams(
 )
 
 trainer = TrainerConfig(
-    gpus=8,
+    gpus=1,
     max_epochs=280,
-    accelerator='ddp',
+    accelerator='gpu',
     accumulate_grad_batches=1,
     checkpoint_callback=False, # Provided by exp_manager
     logger=None,  # Provided by exp_manager

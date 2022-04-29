@@ -221,7 +221,6 @@ class ST2VecPretrainModel(ModelPT):
             return None
 
         dataset = audio_to_text_dataset.get_audio_dataset(config=config, augmentor=augmentor, return_both=return_both)
-
         return torch.utils.data.DataLoader(
             dataset=dataset,
             batch_size=config['batch_size'],
@@ -230,4 +229,6 @@ class ST2VecPretrainModel(ModelPT):
             shuffle=shuffle,
             num_workers=config.get('num_workers', 0),
             pin_memory=config.get('pin_memory', False),
+            # prefetch_factor=config.get('prefetch_factor',2),
+            # persistent_workers=config.get('persistent_workers',True)
         )
