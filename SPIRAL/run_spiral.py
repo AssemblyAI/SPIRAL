@@ -20,7 +20,6 @@ from importlib import import_module
 
 from hydra.experimental import compose, initialize
 from omegaconf import OmegaConf, ValidationError
-import IPython
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description='Run training',
