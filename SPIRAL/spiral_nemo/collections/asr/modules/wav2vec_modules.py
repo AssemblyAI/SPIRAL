@@ -34,8 +34,8 @@ import torch.nn.functional as F
 from torch import nn
 
 from spiral_nemo.collections.asr.models.wav2vec.wav2vec_config import Wav2VecMaskType
-from spiral_nemo.core import NeuralModule
-from spiral_nemo.core.neural_types import EncodedRepresentation, LossType, NeuralType
+from nemo.core import NeuralModule
+from nemo.core.neural_types import EncodedRepresentation, LossType, NeuralType
 
 
 class GumbelVectorQuantizer(NeuralModule):

@@ -21,7 +21,7 @@ from spiral_nemo.collections.asr.models.spec2vec.spec2vec_config import FeatureE
     NoisePerturbConfig
 from spiral_nemo.collections.asr.models.wav2vec.wav2vec_config import LossConfig, Wav2VecTransformerConfig, \
     Wav2VecMaskingConfig, QuantizerConfig
-from spiral_nemo.collections.asr.modules.audio_preprocessing import AudioToMelSpectrogramPreprocessorConfig
+from nemo.collections.asr.modules.audio_preprocessing import AudioToMelSpectrogramPreprocessorConfig
 from spiral_nemo.core.config.modelPT import ModelConfig
 
 

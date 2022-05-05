@@ -20,7 +20,7 @@
 import torch
 from torch import nn
 
-from spiral_nemo.core.classes import Serialization, Typing, typecheck
+from nemo.core.classes import Serialization, Typing, typecheck
 from spiral_nemo.core.neural_types import LabelsType, LengthsType, LogprobsType, LossType, NeuralType
 from spiral_nemo.utils.decorators import experimental
 

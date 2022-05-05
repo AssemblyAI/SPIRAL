@@ -18,8 +18,8 @@ from typing import Any, Dict, List, Optional, Tuple
 
 from omegaconf import MISSING
 
-import spiral_nemo.core.classes.dataset
-from spiral_nemo.core.config.modelPT import SchedConfig, OptimConfig
+import nemo.core.classes.dataset
+from nemo.core.config.modelPT import SchedConfig, OptimConfig
 
 __all__ = ['Conv2dNormAct', 'Conv1dNormAct', 'Conv2dBlock', 'DatasetConfig', 'OptimConfig', 'NovogradParams',
            'WarmupParams', 'WarmupHoldParams', 'PolynomialDecayAnnealingParams', 'PolynomialHoldDecayAnnealingParams',
@@ -73,7 +73,7 @@ class Conv2dBlock:
 
 
 @dataclass
-class DatasetConfig(spiral_nemo.core.classes.dataset.DatasetConfig):
+class DatasetConfig(nemo.core.classes.dataset.DatasetConfig):
     manifest_dir: str = MISSING
     data_dir: str = MISSING
     manifest_filepath: str = MISSING
@@ -101,7 +101,7 @@ class DatasetConfig(spiral_nemo.core.classes.dataset.DatasetConfig):
 
 
 @dataclass
-class AudioDatasetConfig(spiral_nemo.core.classes.dataset.DatasetConfig):
+class AudioDatasetConfig(nemo.core.classes.dataset.DatasetConfig):
     manifest_dir: str = MISSING
     data_dir: str = MISSING
     manifest_filepath: str = MISSING
@@ -118,7 +118,7 @@ class AudioDatasetConfig(spiral_nemo.core.classes.dataset.DatasetConfig):
 @dataclass
 class AdamWParams(OptimConfig):
     name: str = 'adamw'
-
+    lr: float = 1e-3
     betas: Tuple[float, float] = (0.9, 0.999)
     eps: float = 1e-08
     weight_decay: float = 0
@@ -173,7 +173,7 @@ class PolynomialHoldDecayAnnealingParams(PolynomialDecayAnnealingParams, WarmupH
 
 
 @dataclass
-class CosineAnnealingParams(SchedConfig, WarmupParams):
+class CosineAnnealingParams(SchedConfig):
     name: str = 'CosineAnnealing'
     max_steps: int = MISSING
 

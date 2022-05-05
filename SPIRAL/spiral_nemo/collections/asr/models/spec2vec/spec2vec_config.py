@@ -22,7 +22,7 @@ from spiral_nemo.collections.asr.models.configs.common_config import Conv2dBlock
 from spiral_nemo.collections.asr.models.wav2vec.wav2vec_config import LossConfig, QuantizerConfig, Wav2VecTransformerConfig, \
     Wav2VecMaskingConfig
 from spiral_nemo.collections.asr.modules.audio_preprocessing import AudioToMelSpectrogramPreprocessorConfig
-from spiral_nemo.core.config.modelPT import ModelConfig
+from nemo.core.config.modelPT import ModelConfig
 
 
 @dataclass

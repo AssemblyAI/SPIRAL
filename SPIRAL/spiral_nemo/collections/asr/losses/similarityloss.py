@@ -15,7 +15,7 @@
 
 import torch
 
-from spiral_nemo.core import Loss
+from nemo.core import Loss
 
 
 class NegativeCosineSimilarityLoss(Loss):

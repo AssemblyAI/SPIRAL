@@ -37,6 +37,7 @@ import torch.nn.functional as F
 from spiral_nemo.collections.asr.models.wav2vec.wav2vec_config import Wav2VecConvExtractorMode, Wav2VecTransformerConfig
 from spiral_nemo.collections.asr.parts.layer_norm import LayerNorm
 from spiral_nemo.collections.asr.parts.multihead_attention import MultiheadAttention
+# from nemo.collections.nlp.modules.common.transformer.transformer_modules import MultiHeadAttention as MultiheadAttention
 
 
 class TransposeLast(torch.nn.Module):

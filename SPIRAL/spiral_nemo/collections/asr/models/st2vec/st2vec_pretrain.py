@@ -51,8 +51,11 @@ from spiral_nemo.collections.asr.data import audio_to_text_dataset
 from spiral_nemo.collections.asr.losses.similarityloss import NegativeCosineSimilarityLoss
 from spiral_nemo.collections.asr.losses.wav2vecloss import Wav2VecLoss
 from spiral_nemo.collections.asr.models.st2vec.st2vec_model import ST2VecEncoder
-from spiral_nemo.collections.asr.parts.perturb import process_augmentations, RandomNoisePerturbation, AudioAugmentor
-from spiral_nemo.core import ModelPT
+from spiral_nemo.collections.asr.parts.perturb import RandomNoisePerturbation#, AudioAugmentor
+from nemo.collections.asr.parts.preprocessing.perturb import AudioAugmentor
+
+
+from nemo.core import ModelPT # TODO maybe switch to regular nemo
 from spiral_nemo.core.classes.common import PretrainedModelInfo
 import IPython
 
@@ -68,13 +71,13 @@ def buffered_arange(max):
 class ST2VecPretrainModel(ModelPT):
     def __init__(self, cfg: DictConfig, trainer: Trainer = None):
         # Get global rank and total number of GPU workers for IterableDataset partitioning, if applicable
-        self.hparams['global_rank'] = 0
-        self.hparams['world_size'] = 1
-        self.hparams['local_rank'] = 0
-        if trainer is not None:
-            self.hparams['global_rank'] = (trainer.node_rank * trainer.num_gpus) + trainer.local_rank
-            self.hparams['world_size'] = trainer.num_nodes * trainer.num_gpus
-            self.hparams['local_rank'] = trainer.local_rank
+        # self.hparams['global_rank'] = 0
+        # self.hparams['world_size'] = 1
+        # self.hparams['local_rank'] = 0
+        # if trainer is not None:
+        #     self.hparams['global_rank'] = (trainer.node_rank * trainer.num_gpus) + trainer.local_rank
+        #     self.hparams['world_size'] = trainer.num_nodes * trainer.num_gpus
+        #     self.hparams['local_rank'] = trainer.local_rank
 
         super().__init__(cfg=cfg, trainer=trainer)
 
@@ -118,18 +121,18 @@ class ST2VecPretrainModel(ModelPT):
 
     def validation_step(self, batch, batch_idx, dataloader_idx=0):
         loss, contrastive_loss, prob_ppl_loss, _, prob_ppl, accuracy = self._step(batch)
-        self.log('val_loss', loss, prog_bar=True, on_epoch=True, sync_dist=True)
+        self.log('val_loss', loss.detach(), prog_bar=True, on_epoch=True, sync_dist=True)
         if prob_ppl is not None:
-            self.log('val_contrastive_loss', contrastive_loss, prog_bar=False, on_step=False, on_epoch=True, sync_dist=False)
-            self.log('val_prob_ppl', prob_ppl, prog_bar=False, on_step=False, on_epoch=True, sync_dist=False)
+            self.log('val_contrastive_loss', contrastive_loss.detach(), prog_bar=False, on_step=False, on_epoch=True, sync_dist=False)
+            self.log('val_prob_ppl', prob_ppl.detach(), prog_bar=False, on_step=False, on_epoch=True, sync_dist=False)
         if accuracy is not None:
             self.log('val_accuracy', accuracy, prog_bar=True, on_step=False, on_epoch=True, sync_dist=False)
 
     def test_step(self, batch, batch_idx, dataloader_idx=0):
         loss, contrastive_loss, prob_ppl_loss, _, _, accuracy = self._step(batch)
-        self.log('test_loss', loss, prog_bar=True, on_epoch=True, sync_dist=True)
+        self.log('test_loss', loss.detach(), prog_bar=True, on_epoch=True, sync_dist=True)
         if accuracy is not None:
-            self.log('test_accuracy', accuracy, prog_bar=True, on_step=False, on_epoch=True, sync_dist=False)
+            self.log('test_accuracy', accuracy.detach(), prog_bar=True, on_step=False, on_epoch=True, sync_dist=False)
 
     def _step(self, batch):
         if len(batch) == 4:
@@ -228,7 +231,7 @@ class ST2VecPretrainModel(ModelPT):
             drop_last=config.get('drop_last', False),
             shuffle=shuffle,
             num_workers=config.get('num_workers', 0),
-            pin_memory=config.get('pin_memory', False),
-            # prefetch_factor=config.get('prefetch_factor',2),
-            # persistent_workers=config.get('persistent_workers',True)
+            pin_memory=False,#config.get('pin_memory', False),
+            prefetch_factor=config.get('prefetch_factor',2),
+            persistent_workers=False#config.get('persistent_workers',True)
         )

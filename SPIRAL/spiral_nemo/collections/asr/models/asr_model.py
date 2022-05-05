@@ -18,9 +18,9 @@ from typing import List, Optional, Union
 import torch
 from omegaconf import OmegaConf
 
-from spiral_nemo.core.classes import ModelPT
-from spiral_nemo.core.classes.exportable import Exportable
-from spiral_nemo.utils import model_utils
+from nemo.core.classes import ModelPT
+from nemo.core.classes.exportable import Exportable
+from nemo.utils import model_utils
 
 __all__ = ['ASRModel']
 

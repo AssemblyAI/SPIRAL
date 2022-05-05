@@ -30,8 +30,7 @@
 import torch
 import torch.nn.functional as F
 
-from spiral_nemo.core import Loss, typecheck
-from spiral_nemo.core.neural_types import EncodedRepresentation, LossType, NeuralType
+from nemo.core import Loss, typecheck
 
 
 class Wav2VecLoss(Loss):

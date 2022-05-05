@@ -15,7 +15,7 @@
 
 __all__ = ['experimental']
 
-from spiral_nemo.utils import logging
+from nemo.utils import logging
 
 
 def experimental(cls):

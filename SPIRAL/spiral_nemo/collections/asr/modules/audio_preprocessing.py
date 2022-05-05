@@ -29,9 +29,10 @@ from typing import Any, Optional
 import torch
 from packaging import version
 
-from spiral_nemo.collections.asr.parts.features import FilterbankFeatures
-from spiral_nemo.collections.asr.parts.spectr_augment import SpecAugment, SpecCutout
-from spiral_nemo.core.classes import NeuralModule, typecheck
+from nemo.collections.asr.parts.features import FilterbankFeatures
+# from spiral_nemo.collections.asr.parts.spectr_augment import SpecAugment, SpecCutout
+from nemo.collections.asr.parts.submodules.spectr_augment import SpecAugment, SpecCutout
+from nemo.core.classes import NeuralModule, typecheck
 from spiral_nemo.core.neural_types import (
     AudioSignal,
     LengthsType,
@@ -40,7 +41,7 @@ from spiral_nemo.core.neural_types import (
     NeuralType,
     SpectrogramType,
 )
-from spiral_nemo.utils import logging
+from nemo.utils import logging
 
 try:
     import torchaudio
@@ -565,7 +566,7 @@ class CropOrPadSpectrogramAugmentation(NeuralModule):
 
 @dataclass
 class AudioToMelSpectrogramPreprocessorConfig:
-    _target_: str = "spiral_nemo.collections.asr.modules.AudioToMelSpectrogramPreprocessor"
+    _target_: str = "nemo.collections.asr.modules.AudioToMelSpectrogramPreprocessor"
     sample_rate: int = 16000
     window_size: float = 0.02
     window_stride: float = 0.01
@@ -594,7 +595,7 @@ class AudioToMelSpectrogramPreprocessorConfig:
 
 @dataclass
 class SpectrogramAugmentationConfig:
-    _target_: str = "spiral_nemo.collections.asr.modules.SpectrogramAugmentation"
+    _target_: str = "nemo.collections.asr.modules.SpectrogramAugmentation"
     freq_masks: int = 0
     time_masks: Any = 0
     max_time_masks: int = 20

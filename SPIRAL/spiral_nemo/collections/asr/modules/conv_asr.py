@@ -39,9 +39,9 @@ from spiral_nemo.collections.asr.parts.jasper import (
     init_weights,
     jasper_activations,
 )
-from spiral_nemo.core.classes.common import typecheck
-from spiral_nemo.core.classes.exportable import Exportable
-from spiral_nemo.core.classes.module import NeuralModule
+from nemo.core.classes.common import typecheck
+from nemo.core.classes.exportable import Exportable
+from nemo.core.classes.module import NeuralModule
 from spiral_nemo.core.neural_types import (
     AcousticEncodedRepresentation,
     LengthsType,
@@ -50,7 +50,7 @@ from spiral_nemo.core.neural_types import (
     NeuralType,
     SpectrogramType,
     VoidType)
-from spiral_nemo.utils import logging
+from nemo.utils import logging
 
 __all__ = ['ConvASRDecoder', 'ConvASREncoder', 'ConvASRDecoderClassification']
 

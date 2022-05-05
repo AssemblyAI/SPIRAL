@@ -21,7 +21,7 @@ from dataclasses import dataclass, field
 from enum import Enum, auto
 from typing import Any, Dict, List, Optional
 
-from spiral_nemo.core.config.modelPT import ModelConfig
+from nemo.core.config.modelPT import ModelConfig
 from omegaconf import MISSING
 from spiral_nemo.collections.asr.models.configs.common_config import AudioDatasetConfig, OptimConfig
 class Wav2VecActivationType(Enum):

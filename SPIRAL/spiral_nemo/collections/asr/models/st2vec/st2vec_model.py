@@ -50,8 +50,7 @@ from spiral_nemo.collections.asr.models.st2vec.st2vec_config import ShiftPerturb
 from spiral_nemo.collections.asr.modules.wav2vec_modules import compute_mask_indices, GumbelVectorQuantizer
 from spiral_nemo.collections.asr.parts.spec2vec import Projector
 from spiral_nemo.collections.asr.parts.spectr_augment import GAUSSIAN_MASK
-from spiral_nemo.collections.asr.parts.wav2vec import TransformerEncoder
-from spiral_nemo.core.classes.common import Serialization
+from nemo.core.classes.common import Serialization
 
 
 def buffered_arange(max):

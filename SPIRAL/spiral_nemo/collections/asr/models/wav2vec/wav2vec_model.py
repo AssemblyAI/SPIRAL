@@ -54,7 +54,7 @@ from spiral_nemo.collections.asr.modules.wav2vec_modules import GumbelVectorQuan
 from spiral_nemo.collections.asr.parts.perturb import process_augmentations
 from spiral_nemo.collections.asr.parts.wav2vec import ConvFeatureEncoder, GradMultiply, Wav2VecTransformerEncoder, \
     TransformerEncoder
-from spiral_nemo.core import ModelPT
+from nemo.core import ModelPT
 from spiral_nemo.core.classes.common import PretrainedModelInfo, typecheck
 from spiral_nemo.core.neural_types import AudioSignal, EncodedRepresentation, LossType, MaskType, NeuralType
 from spiral_nemo.core.neural_types.elements import BoolType, FloatType
@@ -72,14 +72,14 @@ def buffered_arange(max):
 class Wav2VecEncoderModel(ModelPT):
     def __init__(self, cfg: DictConfig, trainer: Trainer = None):
         # Get global rank and total number of GPU workers for IterableDataset partitioning, if applicable
-        self.hparams['global_rank'] = 0
-        self.hparams['world_size'] = 1
-        self.hparams['local_rank'] = 0
-        if trainer is not None:
-            self.hparams['global_rank'] = (trainer.node_rank * trainer.num_gpus) + trainer.local_rank
-            self.hparams['world_size'] = trainer.num_nodes * trainer.num_gpus
-            self.hparams['local_rank'] = trainer.local_rank
-
+        # self.hparams['global_rank'] = 0
+        # self.hparams['world_size'] = 1
+        # self.hparams['local_rank'] = 0
+        # if trainer is not None:
+        #     self.hparams['global_rank'] = (trainer.node_rank * trainer.num_gpus) + trainer.local_rank
+        #     self.hparams['world_size'] = trainer.num_nodes * trainer.num_gpus
+        #     self.hparams['local_rank'] = trainer.local_rank
+        IPython.embed()
         super().__init__(cfg=cfg, trainer=trainer)
 
         schema = OmegaConf.structured(Wav2VecEncoderModelConfig)

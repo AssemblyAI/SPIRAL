@@ -17,24 +17,24 @@ from typing import Any, Dict, Optional
 
 from omegaconf import MISSING
 
-from spiral_nemo.core import config
-from spiral_nemo.core.classes.dataset import DatasetConfig
-from spiral_nemo.utils import exp_manager
+from nemo.core import config
+from nemo.core.classes.dataset import DatasetConfig
+from nemo.utils import exp_manager
+from nemo.core.config.modelPT import SchedConfig, OptimConfig
+
+# @dataclass
+# class SchedConfig:
+#     name: str = MISSING
+#     min_lr: float = 0.0
+#     last_epoch: int = -1
+#     warmup_steps: int = 0
 
 
-@dataclass
-class SchedConfig:
-    name: str = MISSING
-    min_lr: float = 0.0
-    last_epoch: int = -1
-    warmup_steps: int = 0
-
-
-@dataclass
-class OptimConfig:
-    name: str = MISSING
-    lr: float = MISSING
-    sched: Optional[SchedConfig] = None
+# @dataclass
+# class OptimConfig:
+#     name: str = MISSING
+#     lr: float = MISSING
+#     sched: Optional[SchedConfig] = None
 
 
 @dataclass
