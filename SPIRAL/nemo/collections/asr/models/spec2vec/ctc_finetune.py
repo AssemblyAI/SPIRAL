@@ -46,6 +46,7 @@ import torch
 from omegaconf import DictConfig, OmegaConf, open_dict, ListConfig
 from pytorch_lightning import Trainer
 from tqdm.auto import tqdm
+import werkzeug
 
 from nemo.collections.asr.data import audio_to_text_dataset
 from nemo.collections.asr.losses.ctc import CTCLoss
@@ -54,7 +55,7 @@ from nemo.collections.asr.metrics.wer_bpe import WERBPE
 from nemo.collections.asr.models.asr_model import ASRModel
 from nemo.collections.asr.parts.perturb import process_augmentations, RandomNoisePerturbation, AudioAugmentor
 from nemo.utils import logging
-
+import IPython
 
 class CTCFinetuneModel(ASRModel):
     def __init__(self, cfg: DictConfig, trainer: Trainer = None):
@@ -130,7 +131,9 @@ class CTCFinetuneModel(ASRModel):
                 log_prediction=self._cfg.get("log_prediction", False),
                 strip_end_space=self.add_end_space,
             )
+        self._prev_log_step = -1
 
+    
     @torch.no_grad()
     def transcribe(
         self, paths2audio_files: List[str], batch_size: int = 4, logprobs=False, return_hypotheses: bool = False
@@ -165,17 +168,17 @@ class CTCFinetuneModel(ASRModel):
         # Model's mode and device
         mode = self.training
         device = next(self.parameters()).device
-        dither_value = self.preprocessor.featurizer.dither
-        pad_to_value = self.preprocessor.featurizer.pad_to
+        dither_value = self.encoder.wav2spec.featurizer.dither
+        pad_to_value = self.encoder.wav2spec.featurizer.pad_to
 
         try:
-            self.preprocessor.featurizer.dither = 0.0
-            self.preprocessor.featurizer.pad_to = 0
+            self.encoder.wav2spec.featurizer.dither = 0.0
+            self.encoder.wav2spec.featurizer.pad_to = 0
             # Switch model to evaluation mode
             self.eval()
             # Freeze the encoder and decoder modules
-            self.encoder.freeze()
-            self.decoder.freeze()
+            self.encoder = self.encoder.eval()
+            self.decoder = self.decoder.eval()
             logging_level = logging.get_verbosity()
             logging.set_verbosity(logging.WARNING)
             # Work in tmp directory - will store manifest file there
@@ -189,8 +192,8 @@ class CTCFinetuneModel(ASRModel):
 
                 temporary_datalayer = self._setup_transcribe_dataloader(config)
                 for test_batch in tqdm(temporary_datalayer, desc="Transcribing"):
-                    logits, logits_len, greedy_predictions = self.forward(
-                        input_signal=test_batch[0].to(device), input_signal_length=test_batch[1].to(device)
+                    logits, logits_len, greedy_predictions, _ = self.forward(
+                        input_signal=test_batch[0].to(device), input_signal_length=test_batch[1].to(device), global_step=None
                     )
                     if logprobs:
                         # dump log probs per file
@@ -214,12 +217,12 @@ class CTCFinetuneModel(ASRModel):
         finally:
             # set mode back to its original value
             self.train(mode=mode)
-            self.preprocessor.featurizer.dither = dither_value
-            self.preprocessor.featurizer.pad_to = pad_to_value
-            if mode is True:
-                self.encoder.unfreeze()
-                self.decoder.unfreeze()
-            logging.set_verbosity(logging_level)
+            self.encoder.wav2spec.featurizer.dither = dither_value
+            self.encoder.wav2spec.featurizer.pad_to = pad_to_value
+            # if mode is True:
+            #     self.encoder.unfreeze()
+            #     self.decoder.unfreeze()
+            # logging.set_verbosity(logging_level)
         return hypotheses
 
     def change_vocabulary(self, new_vocabulary: List[str]):
@@ -411,16 +414,21 @@ class CTCFinetuneModel(ASRModel):
         # Ensure that shape mismatch does not occur due to padding
         # Due to padding and subsequent downsampling, it may be possible that
         # max sequence length computed does not match the actual max sequence length
+        encoded_len = torch.clamp(encoded_len, min=None, max=encoded.shape[2]) 
         max_output_len = encoded_len.max()
         if encoded.shape[2] != max_output_len:
-            encoded = encoded.narrow(dim=2, start=0, length=max_output_len).contiguous()
-
+            try:
+                encoded = encoded.narrow(dim=2, start=0, length=max_output_len).contiguous()
+            except:
+                IPython.embed()
         logits, encoded_len = self.decoder(encoder_output=encoded, lens=encoded_len, log_prob=False)
+        # torch.nn.functional.log_softmax
+        # logits = torch.squeeze(logits)
         log_probs = torch.nn.functional.log_softmax(logits, dim=-1)
 
         with torch.no_grad():
             greedy_predictions = log_probs.argmax(dim=-1, keepdim=False)
-
+        # IPython.embed()
         return log_probs, encoded_len, greedy_predictions, logits
 
     def training_step(self, batch, batch_nb):
@@ -432,10 +440,16 @@ class CTCFinetuneModel(ASRModel):
         loss_value = self.loss(
             log_probs=log_probs, targets=transcript, input_lengths=encoded_len, target_lengths=transcript_len
         )
+        # IPython.embed()
+        # print(loss_value)
+        if self.global_step > self._prev_log_step:
+            self._prev_log_step = self.global_step
+            self._prev_log_step = self.global_step
+            tensorboard = self.logger.experiment
+            tensorboard.add_scalar('train_loss', loss_value, self.global_step)
+            tensorboard.add_scalar('learning_rate',self._optimizer.param_groups[0]['lr'], self.global_step )
 
-        tensorboard_logs = {'train_loss': loss_value, 'learning_rate': self._optimizer.param_groups[0]['lr']}
-
-        return {'loss': loss_value, 'log': tensorboard_logs}
+        return {'loss': loss_value}#, 'log': tensorboard_logs}
 
     def validation_step(self, batch, batch_idx, dataloader_idx=0, decode_results=None):
         signal, signal_len, transcript, transcript_len = batch
@@ -444,10 +458,15 @@ class CTCFinetuneModel(ASRModel):
         loss_value = self.loss(
             log_probs=log_probs, targets=transcript, input_lengths=encoded_len, target_lengths=transcript_len
         )
+        # IPython.embed()
         self._wer.update(
             predictions=predictions, targets=transcript, target_lengths=transcript_len, predictions_lengths=encoded_len,
             log_prediction=batch_idx < 3, decode_results=decode_results)
         wer, wer_num, wer_denom = self._wer.compute()
+        tensorboard = self.logger.experiment
+        tensorboard.add_scalar('val_wer', wer, self.global_step)
+        self.log('val_wer', wer, prog_bar=True, on_epoch=True, sync_dist=True)
+        # print('validating yo')
         return {
             'val_loss': loss_value,
             'val_wer_num': wer_num,
@@ -461,6 +480,7 @@ class CTCFinetuneModel(ASRModel):
     def test_step(self, batch, batch_idx, dataloader_idx=0):
         decode_results = {}
         logs = self.validation_step(batch, batch_idx, dataloader_idx=dataloader_idx, decode_results=decode_results)
+        # self.log('val_wer', logs['val_wer'], prog_bar=True, on_epoch=True, sync_dist=True)
         test_logs = {
             'test_loss': logs['val_loss'],
             'test_wer_num': logs['val_wer_num'],
@@ -497,11 +517,12 @@ class CTCFinetuneModel(ASRModel):
         assert not self.use_bpe
         dl_config = {
             'manifest_filepath': os.path.join(config['temp_dir'], 'manifest.json'),
-            'sample_rate': self.preprocessor._sample_rate,
+            'sample_rate': self.encoder.wav2spec._sample_rate,
             'labels': self.decoder.vocabulary,
             'batch_size': min(config['batch_size'], len(config['paths2audio_files'])),
-            'trim_silence': True,
+            'trim_silence': False,
             'shuffle': False,
+            'load_audio': True,
         }
 
         temporary_datalayer = self._setup_dataloader_from_config(config=DictConfig(dl_config), noise_perturb_config=None)

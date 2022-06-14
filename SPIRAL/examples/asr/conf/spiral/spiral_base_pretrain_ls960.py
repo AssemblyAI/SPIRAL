@@ -166,39 +166,43 @@ model.loss = LossConfig(
     prob_ppl_weight=0.0
 )
 
-
 model.train_ds = AudioDatasetConfig(
-    manifest_filepath='manifest_json/librivox-train-clean-100.json,manifest_json/librivox-train-clean-360.json,manifest_json/librivox-train-other-500.json',
+    manifest_filepath='manifest_files/french_train.json,manifest_files/dutch_train.json,manifest_files/german_train.json,manifest_files/italian_train.json,manifest_files/spanish_train.json',
     sample_rate=sample_rate,
-    batch_size=24,
+    batch_size=32,
     min_duration=2.0,
     crop_size=250000,
     shuffle=True,
-    num_workers=4,
-    pin_memory=True,
+    num_workers=15,
+    prefetch_factor=2,
+    persistent_workers=True
 )
 
 model.validation_ds = AudioDatasetConfig(
-    manifest_filepath='manifest_json/librivox-dev-clean.json',
+    manifest_filepath='manifest_files/french_test.json,manifest_files/dutch_test.json,manifest_files/german_test.json,manifest_files/italian_test.json,manifest_files/spanish_test.json',
     sample_rate=sample_rate,
-    batch_size=24,
+    batch_size=32,
     min_duration=2.0,
     crop_size=250000,
     shuffle=False,
-    num_workers=4,
+    num_workers=15,
+    prefetch_factor=2,
+    persistent_workers=True
 )
 
 model.test_ds = AudioDatasetConfig(
-    manifest_filepath='manifest_json/librivox-test-clean.json',
+    manifest_filepath='manifest_files/french_test.json,manifest_files/dutch_test.json,manifest_files/german_test.json,manifest_files/italian_test.json,manifest_files/spanish_test.json',
     sample_rate=sample_rate,
-    batch_size=24,
+    batch_size=32,
     min_duration=2.0,
     crop_size=250000,
     shuffle=False,
-    num_workers=4,
+    num_workers=15,
+    prefetch_factor=2,
+    persistent_workers=True
 )
 
-model.expected_gpu_num = 16
+model.expected_gpu_num = 8
 model.optim = AdamWParams(
     lr=0.003,
     eps=1e-6,
@@ -210,18 +214,21 @@ model.optim = AdamWParams(
         max_steps=max_steps,
     ),
 )
-
 trainer = TrainerConfig(
-    gpus=1,
-    max_epochs=280,
+    gpus=8,
+    max_epochs=5,
     accelerator='ddp',
+    # limit_train_batches = .001,
+    # limit_val_batches= .001,
+    # limit_test_batches=.001,
     accumulate_grad_batches=1,
     checkpoint_callback=False, # Provided by exp_manager
     logger=False,  # Provided by exp_manager
-    log_every_n_steps=50,
+    log_every_n_steps=100,
     progress_bar_refresh_rate=50,
     num_sanity_val_steps=0,
-    check_val_every_n_epoch=4
+    check_val_every_n_epoch=1,
+    profiler = 'simple',
 )
 
 exp_manager = ExpManagerConfig(

@@ -170,42 +170,42 @@ model.loss = LossConfig(
 
 
 model.train_ds = AudioDatasetConfig(
-    manifest_filepath='manifest_files/spanish_train_extra.json',
+    manifest_filepath='voxpop_manifest_files/_train.json,manifest_files/spanish_train_extra.json',
     sample_rate=sample_rate,
-    batch_size=128,
+    batch_size=32,
     min_duration=2.0,
     crop_size=250000,
     shuffle=True,
-    num_workers=13,
+    num_workers=16,
     pin_memory=True,
 )
 
 model.validation_ds = AudioDatasetConfig(
-    manifest_filepath='manifest_files/spanish_test_extra.json',
+    manifest_filepath='voxpop_manifest_files/_test.json',
     sample_rate=sample_rate,
-    batch_size=128,
+    batch_size=32,
     min_duration=2.0,
     crop_size=250000,
     shuffle=False,
-    num_workers=13,
+    num_workers=16,
 )
 
 model.test_ds = AudioDatasetConfig(
-    manifest_filepath='manifest_files/spanish_test_extra.json',
+    manifest_filepath='voxpop_manifest_files/_test.json',
     sample_rate=sample_rate,
-    batch_size=128,
+    batch_size=32,
     min_duration=2.0,
     crop_size=250000,
     shuffle=False,
-    num_workers=13,
+    num_workers=16,
 )
 
 model.expected_gpu_num = 8
 model.optim = AdamWParams(
-    lr=0.00075,
+    lr=0.0005,
     eps=1e-6,
     betas=[0.9, 0.98],
-    weight_decay=0.1,
+    weight_decay=0.01,
     sched=CosineAnnealingParams(
         min_lr=0.0,
         warmup_steps=10000,
@@ -233,8 +233,9 @@ trainer = TrainerConfig(
     log_every_n_steps=50,
     progress_bar_refresh_rate=50,
     num_sanity_val_steps=0,
-    check_val_every_n_epoch=4,
-    amp_level = 'O0'  # backward compatible, todo: remove in v1.0.0
+    check_val_every_n_epoch=1,
+    amp_level = 'O0',  # backward compatible, todo: remove in v1.0.0,
+    limit_val_batches=0.15
 )
 
 exp_manager = ExpManagerConfig(

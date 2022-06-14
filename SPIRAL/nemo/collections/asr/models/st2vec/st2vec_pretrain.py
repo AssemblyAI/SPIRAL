@@ -66,7 +66,7 @@ def buffered_arange(max):
 
 
 class ST2VecPretrainModel(ModelPT):
-    def __init__(self, cfg: DictConfig, trainer: Trainer = None):
+    def __init__(self, cfg: DictConfig, trainer: Trainer = None, l2=0.0001):
         # Get global rank and total number of GPU workers for IterableDataset partitioning, if applicable
         self.global_rank = 0
         self.world_size = 1
@@ -77,7 +77,7 @@ class ST2VecPretrainModel(ModelPT):
             self.local_rank = trainer.local_rank
 
         super().__init__(cfg=cfg, trainer=trainer)
-
+        self.l2 = l2
         if isinstance(cfg, dict):
             cfg = OmegaConf.create(cfg)
         elif not isinstance(cfg, DictConfig):
@@ -100,14 +100,24 @@ class ST2VecPretrainModel(ModelPT):
             )
 
         self._prev_log_step = -1
+    
+    def w2_reg(self):
+        l2_reg = None
+        for W in self.parameters():
+            if l2_reg is None:
+                l2_reg = W.norm(2)
+            else:
+                l2_reg = l2_reg + W.norm(2)
+        return l2_reg
 
     def training_step(self, batch, batch_idx):
-        loss, contrastive_loss, prob_ppl_loss, cur_temp, prob_ppl, _ = self._step(batch)
+        loss, contrastive_loss, prob_ppl_loss, cur_temp, prob_ppl, _, l2_loss = self._step(batch)
 
         if self.global_step > self._prev_log_step:
             self._prev_log_step = self.global_step
             tensorboard = self.logger.experiment
             tensorboard.add_scalar('loss', loss, self.global_step)
+            tensorboard.add_scalar('l2_loss', l2_loss, self.global_step)
             if prob_ppl_loss is not None:
                 tensorboard.add_scalar('contrastive_loss', contrastive_loss, self.global_step)
                 tensorboard.add_scalar('prob_ppl_loss', prob_ppl_loss, self.global_step)
@@ -117,7 +127,7 @@ class ST2VecPretrainModel(ModelPT):
         return {'loss': loss}
 
     def validation_step(self, batch, batch_idx, dataloader_idx=0):
-        loss, contrastive_loss, prob_ppl_loss, _, prob_ppl, accuracy = self._step(batch)
+        loss, contrastive_loss, prob_ppl_loss, _, prob_ppl, accuracy, _ = self._step(batch)
         self.log('val_loss', loss, prog_bar=True, on_epoch=True, sync_dist=True)
         if prob_ppl is not None:
             self.log('val_contrastive_loss', contrastive_loss, prog_bar=False, on_step=False, on_epoch=True, sync_dist=False)
@@ -126,7 +136,7 @@ class ST2VecPretrainModel(ModelPT):
             self.log('val_accuracy', accuracy, prog_bar=True, on_step=False, on_epoch=True, sync_dist=False)
 
     def test_step(self, batch, batch_idx, dataloader_idx=0):
-        loss, contrastive_loss, prob_ppl_loss, _, _, accuracy = self._step(batch)
+        loss, contrastive_loss, prob_ppl_loss, _, _, accuracy, _ = self._step(batch)
         self.log('test_loss', loss, prog_bar=True, on_epoch=True, sync_dist=True)
         if accuracy is not None:
             self.log('test_accuracy', accuracy, prog_bar=True, on_step=False, on_epoch=True, sync_dist=False)
@@ -154,7 +164,9 @@ class ST2VecPretrainModel(ModelPT):
                 feature_loss=None,
                 compute_accuracy=not self.training
             )
-        return loss, contrastive_loss, prob_ppl_loss, cur_temp, prob_ppl, accuracy
+            l2_loss = self.w2_reg()
+            # loss += l2_loss
+        return loss, contrastive_loss, prob_ppl_loss, cur_temp, prob_ppl, accuracy, l2_loss
 
     @classmethod
     def list_available_models(cls) -> Optional[PretrainedModelInfo]:
@@ -230,4 +242,6 @@ class ST2VecPretrainModel(ModelPT):
             shuffle=shuffle,
             num_workers=config.get('num_workers', 0),
             pin_memory=config.get('pin_memory', False),
+            # persistent_workers = config.get('persistent_workers', False),
+            # prefetch_factor = config.get('prefetch_factor', 2)
         )

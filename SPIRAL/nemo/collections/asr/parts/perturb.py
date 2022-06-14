@@ -521,15 +521,22 @@ class RandomNoisePerturbation(Perturbation):
         for fp in manifest_fps:
             manifest_files.append(pandas.read_csv(fp, encoding='utf-8'))
         manifest = pandas.concat(manifest_files)
-
+        import json
+        with open(manifest_fps[0]) as json_file:
+            row_list = list(map(json.loads, json_file))
+        manifest = pandas.DataFrame(row_list)
+        # import IPython
+        # IPython.embed()
         orig_noise_num = len(manifest)
         wav_header_size = 44
         # only use noise with duration longer than 1 second
-        manifest = manifest[manifest['wav_filesize'] > (1 * 16000 * 2 + wav_header_size)]
+        # manifest = manifest[manifest['wav_filesize'] > (1 * 16000 * 2 + wav_header_size)]
+        manifest = manifest[manifest['duration'] > (1)]
         print('filter noise less than 1s: from {} to {} samples'.format(orig_noise_num, len(manifest)))
-        wav_data_size = manifest['wav_filesize'].values - wav_header_size
-        print('noise duration sum: {}h'.format(wav_data_size.sum() / (16000 * 2) / 60 / 60))
+        wav_data_size = manifest['duration'].values
+        # print('noise duration sum: {}h'.format(wav_data_size.sum() / (16000 * 2) / 60 / 60))
         noise_weights = wav_data_size / wav_data_size.sum()
+        manifest['wav_filename'] = manifest['audio_filepath']
         return manifest, noise_weights.tolist()
 
     def perturb(self, data):

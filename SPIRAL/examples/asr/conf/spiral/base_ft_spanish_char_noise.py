@@ -29,18 +29,28 @@ model = ST2VecCTCFinetuneModelConfig()
 
 LABELS = [" ", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m",
           "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "'"]
-model.labels = LABELS
+LABELS = [" ", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "\u00e1", "\u00e9", "\u00ed", "\u00f1", "\u00f3", "\u00fa", "\u00fc"]
+# LABELS = []
+# model.labels = LABELS
 model.tokenizer = None
+
+from transformers import Wav2Vec2CTCTokenizer
+# model.tokenizer = Wav2Vec2CTCTokenizer("/home/cirrascale/frmccann/data/es_vocab_no_punc.json", unk_token="[UNK]", pad_token="[PAD]", word_delimiter_token="|")
+# model.tokenizer = Tokenizer(
+#     file='vocab_spm/spm_1k_libri_unigram_bos_mask',
+#     prepend_unk_to_vocab=False
+# )
 model.add_end_space = True
 
 from .spiral_base_pretrain_ls960 import st2vec_encoder
 encoder = st2vec_encoder
 # encoder.freeze_feature_encoder = False
-encoder.masking.mask_prob = 0.3
+encoder.masking.mask_prob = 0.5
 encoder.masking.mask_length = 4
 encoder.masking.mask_channel_prob = 0.3
 encoder.masking.mask_channel_length = 20
 transformer0 = encoder.feature_encoder.conv_transformer_blocks[-2].transformer_block
+transformer0.encoder.encoder_layerdrop = 0.1
 transformer0.encoder.activation_dropout = 0.1
 transformer0.encoder.dropout = 0.1
 transformer = encoder.feature_encoder.conv_transformer_blocks[-1].transformer_block
@@ -58,13 +68,13 @@ model.decoder = ConvASRDecoderConfig(
     feat_in=enc_output_dim,
     proj_upsampling=ProjUpsampling(rate=4, filters=512, kernel_size=(5,), norm_type='ln', act_func='relu', dropout=0.1),
     conv_layers=[Conv1dNormAct(filters=512, kernel_size=(5,), stride=(1,),
-                               norm_type=None, dropout=0.1,
+                               norm_type='ln', dropout=0.1,
                                act_func='relu'),
                  Conv1dNormAct(filters=512, kernel_size=(5,), stride=(1,),
-                               norm_type=None, dropout=0.1,
+                               norm_type='ln', dropout=0.1,
                                act_func='relu'),
              Conv1dNormAct(filters=512, kernel_size=(5,), stride=(1,),
-                               norm_type=None, dropout=0.1,
+                               norm_type='ln', dropout=0.1,
                                act_func='relu'),
              ],
     vocabulary=LABELS,
@@ -72,36 +82,33 @@ model.decoder = ConvASRDecoderConfig(
 )
 
 model.train_ds = DatasetConfig(
-    manifest_filepath='manifest_files/train_clean_100.json',
+    manifest_filepath='manifest_files/manifest_filestraines_mls.json,manifest_files/cv_es_train.json',
     labels=LABELS,
     sample_rate=sample_rate,
-    batch_size=14,
+    batch_size=18,
     shuffle=True,
-    max_duration=24.0,
+    max_duration=42.0,
     num_workers=4,
     pin_memory=True,
 )
-
 model.validation_ds = DatasetConfig(
-    manifest_filepath='manifest_files/dev_other.json',
+    manifest_filepath='manifest_files/manifest_filesdeves_mls.json,manifest_files/cv_es_test.json',
     labels=LABELS,
     sample_rate=sample_rate,
-    batch_size=14,
+    batch_size=18,
     shuffle=False,
     num_workers=4,
 )
-
 model.test_ds = DatasetConfig(
-    manifest_filepath='manifest_files/test_clean.json',
+    manifest_filepath='manifest_files/manifest_filestestes_mls.json,manifest_files/cv_es_test.json',
     labels=LABELS,
     sample_rate=sample_rate,
-    batch_size=14,
+    batch_size=18,
     shuffle=False,
     num_workers=4,
 )
-
 model.expected_gpu_num = 8
-lr = 0.00003
+lr = 0.0003
 model.optim = AdamWParams(
     lr=lr,
     eps=1e-6,
@@ -111,12 +118,12 @@ model.optim = AdamWParams(
         min_lr=lr * 0.05,
         warmup_ratio=0.1,
         hold_ratio=0.4,
-        max_steps=80000,
+        max_steps=300000,
     ),
 )
 trainer = TrainerConfig(
-    gpus=1,
-    max_epochs=320,
+    gpus=8,
+    max_epochs=393,
     accelerator='ddp',
     accumulate_grad_batches=1,
     checkpoint_callback=False, # Provided by exp_manager
@@ -124,7 +131,9 @@ trainer = TrainerConfig(
     log_every_n_steps=50,
     progress_bar_refresh_rate=50,
     num_sanity_val_steps=0,
-    check_val_every_n_epoch=1
+    check_val_every_n_epoch=1,
+    # limit_val_batches=0.15,
+    # limit_train_batches=0.01,
 )
 exp_manager = ExpManagerConfig(
     name=config_name,
@@ -141,3 +150,5 @@ cfg = ModelPTConfig(
     trainer=trainer,
     exp_manager=exp_manager
 )
+
+# python run_spiral.py --config_name=base_ft_spanish_char_noise --config_path=examples/asr/conf/spiral --model_type=ctc_finetune --num_nodes=1 --num_gpus=1 --data_dir=/home/cirrascale/frmccann/data/ --model_save_dir=spanish_voxpopuli_ft_jun8_new_tok --init_chkpt_dir=spanish_voxpopuli_yt_no_noise_5e4 --init_chkpt_file=checkpoints/st2vec--val_loss=2.6545-epoch=4.ckpt

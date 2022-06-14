@@ -29,7 +29,7 @@ from omegaconf import OmegaConf
 from nemo.collections.asr.parts import compute_wer
 from nemo.utils import logging
 from nemo.utils.exp_manager import exp_manager
-
+import IPython
 
 """
 Pre-train a wav2vec 2.0 transformer model on audio. Uses a contrastive loss function to pre-train on unlabelled audio,

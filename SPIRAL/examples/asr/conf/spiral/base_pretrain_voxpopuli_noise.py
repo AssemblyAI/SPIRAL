@@ -170,58 +170,58 @@ model.loss = LossConfig(
 
 
 model.train_ds = AudioDatasetConfig(
-    manifest_filepath='manifest_files/spanish_train_extra.json',
+    manifest_filepath='voxpop_manifest_files/_train.json,manifest_files/spanish_train_extra.json',
     sample_rate=sample_rate,
-    batch_size=128,
+    batch_size=64,
     min_duration=2.0,
     crop_size=250000,
     shuffle=True,
-    num_workers=13,
+    num_workers=32,
     pin_memory=True,
 )
 
 model.validation_ds = AudioDatasetConfig(
-    manifest_filepath='manifest_files/spanish_test_extra.json',
+    manifest_filepath='voxpop_manifest_files/_test.json',
     sample_rate=sample_rate,
-    batch_size=128,
+    batch_size=64,
     min_duration=2.0,
     crop_size=250000,
     shuffle=False,
-    num_workers=13,
+    num_workers=32,
 )
 
 model.test_ds = AudioDatasetConfig(
-    manifest_filepath='manifest_files/spanish_test_extra.json',
+    manifest_filepath='voxpop_manifest_files/_test.json',
     sample_rate=sample_rate,
-    batch_size=128,
+    batch_size=64,
     min_duration=2.0,
     crop_size=250000,
     shuffle=False,
-    num_workers=13,
+    num_workers=32,
 )
 
 model.expected_gpu_num = 8
 model.optim = AdamWParams(
-    lr=0.00075,
+    lr=0.00005,
     eps=1e-6,
     betas=[0.9, 0.98],
-    weight_decay=0.1,
+    weight_decay=0.01,
     sched=CosineAnnealingParams(
         min_lr=0.0,
-        warmup_steps=10000,
+        warmup_steps=50000,
         max_steps=max_steps,
     ),
 )
 
-# model.noise_perturb = NoisePerturbConfig(
-#     manifest_path=["/home/cirrascale/frmccann/data/manifest_files/DNS-noise-train.json"],
-#     min_snr_db=0.,
-#     max_snr_db=20.,
-#     ratio=0.5,
-#     target_sr=sample_rate,
-#     data_dir=noise_dir,
-#     cache_noise=True,
-# )
+model.noise_perturb = NoisePerturbConfig(
+    manifest_path=["/home/cirrascale/frmccann/data/manifest_files/DNS-noise-train.json"],
+    min_snr_db=0.,
+    max_snr_db=20.,
+    ratio=0.5,
+    target_sr=sample_rate,
+    data_dir=noise_dir,
+    cache_noise=True,
+)
 
 trainer = TrainerConfig(
     gpus=8,
@@ -233,8 +233,9 @@ trainer = TrainerConfig(
     log_every_n_steps=50,
     progress_bar_refresh_rate=50,
     num_sanity_val_steps=0,
-    check_val_every_n_epoch=4,
-    amp_level = 'O0'  # backward compatible, todo: remove in v1.0.0
+    check_val_every_n_epoch=1,
+    amp_level = 'O0',  # backward compatible, todo: remove in v1.0.0,
+    limit_val_batches=0.15
 )
 
 exp_manager = ExpManagerConfig(

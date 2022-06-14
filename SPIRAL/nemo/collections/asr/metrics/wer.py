@@ -28,7 +28,7 @@ from pytorch_lightning.metrics import Metric
 
 from nemo.collections.asr.parts.rnnt_utils import Hypothesis
 from nemo.utils import logging
-
+import IPython
 __all__ = ['word_error_rate', 'WER']
 
 
@@ -44,6 +44,7 @@ def word_error_rate(hypotheses: List[str], references: List[str], use_cer=False)
     Returns:
       (float) average word error rate
     """
+    IPython.embed()
     scores = 0
     words = 0
     if len(hypotheses) != len(references):
@@ -250,7 +251,6 @@ class WER(Metric):
         if decode_results is not None:
             decode_results['references'] = references
             decode_results['hypotheses'] = hypotheses
-
         for h, r in zip(hypotheses, references):
             if self.use_cer:
                 h_list = list(h)
@@ -260,6 +260,8 @@ class WER(Metric):
                 r_list = r.split()
             words += len(r_list)
             # Compute Levenstein's distance
+            # print(editdistance.eval(h_list, r_list))
+            # print('words ', len(r_list))
             scores += editdistance.eval(h_list, r_list)
 
         self.scores = torch.tensor(scores, device=self.scores.device, dtype=self.scores.dtype)

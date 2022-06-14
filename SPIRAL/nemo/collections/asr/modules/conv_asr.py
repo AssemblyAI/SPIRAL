@@ -51,7 +51,7 @@ from nemo.core.neural_types import (
     SpectrogramType,
     VoidType)
 from nemo.utils import logging
-
+import IPython
 __all__ = ['ConvASRDecoder', 'ConvASREncoder', 'ConvASRDecoderClassification']
 
 
@@ -323,6 +323,7 @@ class ConvASRDecoder(NeuralModule, Exportable):
             encoder_output = encoder_output.transpose(1, 2)
 
         logits = self.decoder_layers(encoder_output).transpose(1, 2)
+        # IPython.embed()
         if log_prob:
             return torch.nn.functional.log_softmax(logits, dim=-1), lens
         else:

@@ -89,20 +89,20 @@ install_requires = req_file("requirements.txt")
 
 extras_require = {
     # User packages
-    'test': req_file("requirements_test.txt"),
+    # 'test': req_file("requirements_test.txt"),
     # Collections Packages
     'asr': req_file("requirements_asr.txt"),
-    'cv': req_file("requirements_cv.txt"),
-    'nlp': req_file("requirements_nlp.txt"),
-    'tts': req_file("requirements_tts.txt"),
+    # 'cv': req_file("requirements_cv.txt"),
+    # 'nlp': req_file("requirements_nlp.txt"),
+    # 'tts': req_file("requirements_tts.txt"),
 }
 
 extras_require['all'] = list(chain(extras_require.values()))
 
 # TTS depends on ASR
-extras_require['tts'] = list(chain([extras_require['tts'], extras_require['asr']]))
+# extras_require['tts'] = list(chain([extras_require['tts'], extras_require['asr']]))
 
-tests_requirements = extras_require["test"]
+# tests_requirements = extras_require["test"]
 
 
 ###############################################################################
@@ -234,7 +234,7 @@ setuptools.setup(
     packages=setuptools.find_packages(),
     install_requires=install_requires,
     setup_requires=['pytest-runner'],
-    tests_require=tests_requirements,
+    # tests_require=tests_requirements,
     # List additional groups of dependencies here (e.g. development
     # dependencies). You can install these using the following syntax,
     # $ pip install -e ".[all]"

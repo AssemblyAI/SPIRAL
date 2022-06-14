@@ -19,16 +19,22 @@ from nemo.collections.asr.models.configs.ctc_models_config import ConvASRDecoder
 from nemo.core.config import TrainerConfig
 from nemo.core.config.modelPT import ModelPTConfig
 from nemo.utils.exp_manager import ExpManagerConfig, CallbackParams
-
+import json 
 config_name = 'st2vec_ctc'
 
 sample_rate = 16000
 num_features = 128
 
 model = ST2VecCTCFinetuneModelConfig()
+vocab_f = open('/home/cirrascale/frmccann/data/es_vocab.json')
+label_dict = json.load(vocab_f)
+LABELS = []
+label = 1
+while label in label_dict:
+    LABELS.append(label_dict[label])
+    label+=1
+LABELS = [ "a", "b", "c", "d", "e" , "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "\u00e1", "\u00e9", "\u00ed", "\u00f1", "\u00f3", "\u00fa", "\u00fc", "[UNK]", "[PAD]"]
 
-LABELS = [" ", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m",
-          "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "'"]
 model.labels = LABELS
 model.tokenizer = None
 model.add_end_space = True
@@ -72,32 +78,32 @@ model.decoder = ConvASRDecoderConfig(
 )
 
 model.train_ds = DatasetConfig(
-    manifest_filepath='manifest_files/train_clean_100.json',
+    manifest_filepath='manifest_files/cv_es_train.json',
     labels=LABELS,
     sample_rate=sample_rate,
-    batch_size=14,
+    batch_size=32,
     shuffle=True,
     max_duration=24.0,
-    num_workers=4,
+    num_workers=12,
     pin_memory=True,
 )
 
 model.validation_ds = DatasetConfig(
-    manifest_filepath='manifest_files/dev_other.json',
+    manifest_filepath='manifest_files/cv_es_train.json',
     labels=LABELS,
     sample_rate=sample_rate,
-    batch_size=14,
+    batch_size=32,
     shuffle=False,
-    num_workers=4,
+    num_workers=12,
 )
 
 model.test_ds = DatasetConfig(
-    manifest_filepath='manifest_files/test_clean.json',
+    manifest_filepath='manifest_files/cv_es_train.json',
     labels=LABELS,
     sample_rate=sample_rate,
-    batch_size=14,
+    batch_size=32,
     shuffle=False,
-    num_workers=4,
+    num_workers=12,
 )
 
 model.expected_gpu_num = 8
@@ -115,16 +121,17 @@ model.optim = AdamWParams(
     ),
 )
 trainer = TrainerConfig(
-    gpus=1,
-    max_epochs=320,
+    gpus=8,
+    max_epochs=300,
     accelerator='ddp',
     accumulate_grad_batches=1,
     checkpoint_callback=False, # Provided by exp_manager
     logger=False,  # Provided by exp_manager
     log_every_n_steps=50,
     progress_bar_refresh_rate=50,
-    num_sanity_val_steps=0,
-    check_val_every_n_epoch=1
+    num_sanity_val_steps=100,
+    check_val_every_n_epoch=1,
+    flush_logs_every_n_steps=50
 )
 exp_manager = ExpManagerConfig(
     name=config_name,

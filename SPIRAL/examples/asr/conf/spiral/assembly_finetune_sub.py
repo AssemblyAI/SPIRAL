@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from nemo.collections.asr.models.configs.common_config import AdamWParams, DatasetConfig, Tokenizer, \
-    PolynomialHoldDecayAnnealingParams, Conv1dNormAct, ProjUpsampling
+    PolynomialHoldDecayAnnealingParams, Conv1dNormAct
 from nemo.collections.asr.models.spec2vec.spec2vec_config import ST2VecCTCFinetuneModelConfig
 from nemo.collections.asr.models.configs.ctc_models_config import ConvASRDecoderConfig
 from nemo.core.config import TrainerConfig
@@ -22,16 +22,18 @@ from nemo.utils.exp_manager import ExpManagerConfig, CallbackParams
 
 config_name = 'st2vec_ctc'
 
+LABELS = []
+
 sample_rate = 16000
 num_features = 128
 
 model = ST2VecCTCFinetuneModelConfig()
 
-LABELS = [" ", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m",
-          "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "'"]
 model.labels = LABELS
-model.tokenizer = None
-model.add_end_space = True
+model.tokenizer = Tokenizer(
+    dir='/home/cirrascale/frmccann/data/es_vocab.txt',
+    prepend_unk_to_vocab=False
+)
 
 from .spiral_base_pretrain_ls960 import st2vec_encoder
 encoder = st2vec_encoder
@@ -56,11 +58,7 @@ enc_output_dim = transformer.encoder.embedding_dim
 
 model.decoder = ConvASRDecoderConfig(
     feat_in=enc_output_dim,
-    proj_upsampling=ProjUpsampling(rate=4, filters=512, kernel_size=(5,), norm_type='ln', act_func='relu', dropout=0.1),
     conv_layers=[Conv1dNormAct(filters=512, kernel_size=(5,), stride=(1,),
-                               norm_type=None, dropout=0.1,
-                               act_func='relu'),
-                 Conv1dNormAct(filters=512, kernel_size=(5,), stride=(1,),
                                norm_type=None, dropout=0.1,
                                act_func='relu'),
              Conv1dNormAct(filters=512, kernel_size=(5,), stride=(1,),
@@ -68,11 +66,11 @@ model.decoder = ConvASRDecoderConfig(
                                act_func='relu'),
              ],
     vocabulary=LABELS,
-    blank_pos='after_vocab_last'
+    blank_pos='vocab_first'
 )
 
 model.train_ds = DatasetConfig(
-    manifest_filepath='manifest_files/train_clean_100.json',
+    manifest_filepath='manifest_files/cv_es_train.json',
     labels=LABELS,
     sample_rate=sample_rate,
     batch_size=14,
@@ -83,7 +81,7 @@ model.train_ds = DatasetConfig(
 )
 
 model.validation_ds = DatasetConfig(
-    manifest_filepath='manifest_files/dev_other.json',
+    manifest_filepath='manifest_files/cv_es_test.json',
     labels=LABELS,
     sample_rate=sample_rate,
     batch_size=14,
@@ -92,7 +90,7 @@ model.validation_ds = DatasetConfig(
 )
 
 model.test_ds = DatasetConfig(
-    manifest_filepath='manifest_files/test_clean.json',
+    manifest_filepath='manifest_files/cv_es_test.json',
     labels=LABELS,
     sample_rate=sample_rate,
     batch_size=14,
@@ -114,9 +112,10 @@ model.optim = AdamWParams(
         max_steps=80000,
     ),
 )
+
 trainer = TrainerConfig(
     gpus=1,
-    max_epochs=320,
+    max_epochs=3,
     accelerator='ddp',
     accumulate_grad_batches=1,
     checkpoint_callback=False, # Provided by exp_manager
@@ -126,6 +125,7 @@ trainer = TrainerConfig(
     num_sanity_val_steps=0,
     check_val_every_n_epoch=1
 )
+
 exp_manager = ExpManagerConfig(
     name=config_name,
     create_checkpoint_callback=True,
