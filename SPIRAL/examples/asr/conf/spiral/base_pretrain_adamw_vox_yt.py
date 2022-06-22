@@ -172,7 +172,7 @@ model.loss = LossConfig(
 model.train_ds = AudioDatasetConfig(
     manifest_filepath='voxpop_manifest_files/_train.json,manifest_files/spanish_train_extra.json',
     sample_rate=sample_rate,
-    batch_size=32,
+    batch_size=64,
     min_duration=2.0,
     crop_size=250000,
     shuffle=True,
@@ -181,9 +181,9 @@ model.train_ds = AudioDatasetConfig(
 )
 
 model.validation_ds = AudioDatasetConfig(
-    manifest_filepath='voxpop_manifest_files/_test.json',
+    manifest_filepath='voxpop_manifest_files/_test.json,manifest_files/spanish_test_extra.json',
     sample_rate=sample_rate,
-    batch_size=32,
+    batch_size=64,
     min_duration=2.0,
     crop_size=250000,
     shuffle=False,
@@ -191,9 +191,9 @@ model.validation_ds = AudioDatasetConfig(
 )
 
 model.test_ds = AudioDatasetConfig(
-    manifest_filepath='voxpop_manifest_files/_test.json',
+    manifest_filepath='voxpop_manifest_files/_test.json,manifest_files/spanish_test_extra.json',
     sample_rate=sample_rate,
-    batch_size=32,
+    batch_size=64,
     min_duration=2.0,
     crop_size=250000,
     shuffle=False,

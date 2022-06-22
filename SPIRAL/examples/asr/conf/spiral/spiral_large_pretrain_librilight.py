@@ -168,39 +168,37 @@ model.loss = LossConfig(
 
 
 model.train_ds = AudioDatasetConfig(
-    manifest_filepath=','.join(['librilight_manifest_json/librilight_unlab600.json',
-                       'librilight_manifest_json/librilight_unlab6k.json',
-                       'librilight_manifest_json/librilight_unlab60k.json']),
+    manifest_filepath='manifest_files/spanish_yt_train.json',
     sample_rate=sample_rate,
-    batch_size=20,
+    batch_size=80,
     min_duration=2.0,
     crop_size=256000,
     shuffle=True,
-    num_workers=4,
+    num_workers=14,
     pin_memory=True,
 )
 
 model.validation_ds = AudioDatasetConfig(
-    manifest_filepath='manifest_json/librivox-dev-clean.json',
+    manifest_filepath='manifest_files/spanish_yt_test.json',
     sample_rate=sample_rate,
-    batch_size=20,
+    batch_size=80,
     min_duration=2.0,
     crop_size=256000,
     shuffle=False,
-    num_workers=4,
+    num_workers=14,
 )
 
 model.test_ds = AudioDatasetConfig(
-    manifest_filepath='manifest_json/librivox-test-clean.json',
+    manifest_filepath='manifest_files/spanish_yt_test.json',
     sample_rate=sample_rate,
-    batch_size=20,
+    batch_size=80,
     min_duration=2.0,
     crop_size=256000,
     shuffle=False,
-    num_workers=4,
+    num_workers=14,
 )
 
-model.expected_gpu_num = 32
+model.expected_gpu_num = 8
 model.optim = AdamWParams(
     lr=0.003,
     eps=1e-6,
@@ -214,7 +212,7 @@ model.optim = AdamWParams(
 )
 
 trainer = TrainerConfig(
-    gpus=1,
+    gpus=8,
     max_epochs=700,
     accelerator='ddp',
     accumulate_grad_batches=1,
