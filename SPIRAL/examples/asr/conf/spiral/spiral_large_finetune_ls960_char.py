@@ -29,6 +29,8 @@ model = ST2VecCTCFinetuneModelConfig()
 
 LABELS = [" ", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m",
           "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "'"]
+LABELS = [" ", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "\u00e1", "\u00e9", "\u00ed", "\u00f1", "\u00f3", "\u00fa", "\u00fc"]
+
 model.labels = LABELS
 model.tokenizer = None
 model.add_end_space = True
@@ -73,7 +75,7 @@ model.decoder = ConvASRDecoderConfig(
 )
 
 model.train_ds = DatasetConfig(
-    manifest_filepath='manifest_json/librivox-train-clean-100.json,manifest_json/librivox-train-clean-360.json,manifest_json/librivox-train-other-500.json',
+    manifest_filepath='cv_es_test.json',
     labels=LABELS,
     sample_rate=sample_rate,
     batch_size=10,
@@ -84,7 +86,7 @@ model.train_ds = DatasetConfig(
 )
 
 model.validation_ds = DatasetConfig(
-    manifest_filepath='manifest_json/librivox-dev-other.json',
+    manifest_filepath='cv_es_test.json',
     labels=LABELS,
     sample_rate=sample_rate,
     batch_size=10,
@@ -92,7 +94,7 @@ model.validation_ds = DatasetConfig(
     num_workers=4,
 )
 model.test_ds = DatasetConfig(
-    manifest_filepath='manifest_json/librivox-test-clean.json',
+    manifest_filepath='cv_es_test.json',
     labels=LABELS,
     sample_rate=sample_rate,
     batch_size=10,

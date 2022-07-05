@@ -102,7 +102,6 @@ class CTCFinetuneModel(ASRModel):
         self.decoder = CTCFinetuneModel.from_config_dict(self._cfg.decoder)
 
         self.freeze_finetune_updates = self._cfg.freeze_finetune_updates
-
         self.loss = CTCLoss(
             blank_id=self.decoder.blank_idx,
             zero_infinity=True,
@@ -132,8 +131,95 @@ class CTCFinetuneModel(ASRModel):
                 strip_end_space=self.add_end_space,
             )
         self._prev_log_step = -1
+    def set_to_eval(self):
+        self.encoder.wav2spec.featurizer.dither = 0.0 # could be source of discrepenct
+        self.encoder.wav2spec.featurizer.pad_to = 0
+        # Switch model to evaluation mode
+        self.eval()
+        # Freeze the encoder and decoder modules
+        self.encoder = self.encoder.eval()
+        self.decoder = self.decoder.eval()
 
-    
+    @torch.no_grad()
+    def transcribe_wav_values(
+        self, input_wav, input_wav_length, logprobs=False, return_hypotheses: bool = False
+    ) -> List[str]:
+        """
+        Uses greedy decoding to transcribe audio files. Use this method for debugging and prototyping.
+
+        Args:
+            paths2audio_files: (a list) of paths to audio files. \
+                Recommended length per file is between 5 and 25 seconds. \
+                But it is possible to pass a few hours long file if enough GPU memory is available.
+            batch_size: (int) batch size to use during inference.
+                Bigger will result in better throughput performance but would use more memory.
+            logprobs: (bool) pass True to get log probabilities instead of transcripts.
+            return_hypotheses: (bool) Either return hypotheses or text
+                With hypotheses can do some postprocessing like getting timestamp or rescoring
+
+        Returns:
+            A list of transcriptions (or raw log probabilities if logprobs is True) in the same order as paths2audio_files
+        """
+
+        if return_hypotheses and logprobs:
+            raise ValueError(
+                "Either `return_hypotheses` or `logprobs` can be True at any given time."
+                "Returned hypotheses will contain the logprobs."
+            )
+
+        # We will store transcriptions here
+        hypotheses = []
+        # Model's mode and device
+        mode = self.training
+        device = next(self.parameters()).device
+        dither_value = self.encoder.wav2spec.featurizer.dither
+        pad_to_value = self.encoder.wav2spec.featurizer.pad_to
+
+        try:
+            self.encoder.wav2spec.featurizer.dither = 0.0 # could be source of discrepenct
+            self.encoder.wav2spec.featurizer.pad_to = 0
+            # Switch model to evaluation mode
+            self.eval()
+            # Freeze the encoder and decoder modules
+            self.encoder = self.encoder.eval()
+            self.decoder = self.decoder.eval()
+            logging_level = logging.get_verbosity()
+            logging.set_verbosity(logging.WARNING)
+            # Work in tmp directory - will store manifest file there
+
+            logits, logits_len, greedy_predictions, _ = self.forward(
+                input_signal=input_wav.to(device), input_signal_length=input_wav_length.to(device), global_step=None
+            )
+            if logprobs:
+                # dump log probs per file
+                for idx in range(logits.shape[0]):
+                    hypotheses.append(logits[idx][: logits_len[idx]])
+            else:
+                current_hypotheses = self._wer.ctc_decoder_predictions_tensor(
+                    greedy_predictions, predictions_len=logits_len, return_hypotheses=return_hypotheses,
+                )
+
+                if return_hypotheses:
+                    # dump log probs per file
+                    for idx in range(logits.shape[0]):
+                        current_hypotheses[idx].y_sequence = logits[idx][: logits_len[idx]]
+
+                hypotheses += current_hypotheses
+
+            del greedy_predictions
+            del logits
+        finally:
+            # set mode back to its original value
+            # self.train(mode=mode)
+            # self.encoder.wav2spec.featurizer.dither = dither_value
+            # self.encoder.wav2spec.featurizer.pad_to = pad_to_value
+            print('done')
+            # if mode is True:
+            #     self.encoder.unfreeze()
+            #     self.decoder.unfreeze()
+            # logging.set_verbosity(logging_level)
+        return hypotheses
+
     @torch.no_grad()
     def transcribe(
         self, paths2audio_files: List[str], batch_size: int = 4, logprobs=False, return_hypotheses: bool = False
@@ -558,6 +644,7 @@ class CTCFinetuneModel(ASRModel):
                 encoder_state = {k[len(encoder_param_prefix):]: v for k, v in checkpoint['state_dict'].items() if k.startswith(encoder_param_prefix)}
             else:
                 encoder_state = checkpoint['state_dict']
+            # IPython.embed()
             encoder.load_state_dict(encoder_state, strict=strict)
         finally:
             cls._set_model_restore_state(is_being_restored=False)

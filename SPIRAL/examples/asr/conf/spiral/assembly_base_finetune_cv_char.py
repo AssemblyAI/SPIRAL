@@ -26,7 +26,7 @@ sample_rate = 16000
 num_features = 128
 
 model = ST2VecCTCFinetuneModelConfig()
-vocab_f = open('/home/cirrascale/frmccann/data/es_vocab.json')
+vocab_f = open('/home/cirrascale/frmccann/vocabs/spanish.json')
 label_dict = json.load(vocab_f)
 LABELS = []
 label = 1
@@ -106,7 +106,7 @@ model.test_ds = DatasetConfig(
     num_workers=12,
 )
 
-model.expected_gpu_num = 8
+model.expected_gpu_num = 1
 lr = 0.00003
 model.optim = AdamWParams(
     lr=lr,

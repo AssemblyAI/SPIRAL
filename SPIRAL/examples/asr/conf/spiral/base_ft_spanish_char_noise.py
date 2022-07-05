@@ -82,7 +82,7 @@ model.decoder = ConvASRDecoderConfig(
 )
 
 model.train_ds = DatasetConfig(
-    manifest_filepath='manifest_files/manifest_filestraines_mls.json,manifest_files/cv_es_train.json',
+    manifest_filepath='cv_es_test.json',
     labels=LABELS,
     sample_rate=sample_rate,
     batch_size=18,
@@ -92,7 +92,7 @@ model.train_ds = DatasetConfig(
     pin_memory=True,
 )
 model.validation_ds = DatasetConfig(
-    manifest_filepath='manifest_files/manifest_filesdeves_mls.json,manifest_files/cv_es_test.json',
+    manifest_filepath='cv_es_test.json',
     labels=LABELS,
     sample_rate=sample_rate,
     batch_size=18,
@@ -100,7 +100,7 @@ model.validation_ds = DatasetConfig(
     num_workers=4,
 )
 model.test_ds = DatasetConfig(
-    manifest_filepath='manifest_files/manifest_filestestes_mls.json,manifest_files/cv_es_test.json',
+    manifest_filepath='cv_es_test.json',
     labels=LABELS,
     sample_rate=sample_rate,
     batch_size=18,
