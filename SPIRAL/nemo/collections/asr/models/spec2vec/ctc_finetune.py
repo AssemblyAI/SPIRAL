@@ -420,7 +420,7 @@ class CTCFinetuneModel(ASRModel):
             try:
                 encoded = encoded.narrow(dim=2, start=0, length=max_output_len).contiguous()
             except:
-                IPython.embed()
+                ()
         logits, encoded_len = self.decoder(encoder_output=encoded, lens=encoded_len, log_prob=False)
         # torch.nn.functional.log_softmax
         # logits = torch.squeeze(logits)
