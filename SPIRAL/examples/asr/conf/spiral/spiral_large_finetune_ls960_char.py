@@ -102,7 +102,7 @@ model.test_ds = DatasetConfig(
     num_workers=4,
 )
 
-model.expected_gpu_num = 16
+model.expected_gpu_num = 8
 lr = 0.00003
 model.optim = AdamWParams(
     lr=lr,

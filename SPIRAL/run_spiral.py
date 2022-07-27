@@ -20,7 +20,7 @@ from importlib import import_module
 
 from hydra.experimental import compose, initialize
 from omegaconf import OmegaConf, ValidationError
-
+import sys
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description='Run training',
@@ -60,6 +60,7 @@ def main(argv=None):
         manifest_dir = args.manifest_dir
 
     if args.structured_config:
+        sys.path.remove('/home/cirrascale/frmccann/fairseq')
         cfg_module = import_module(os.path.join(args.config_path, args.config_name).replace('/', '.'))
         cfg = cfg_module.cfg
 

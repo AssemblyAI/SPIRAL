@@ -131,6 +131,7 @@ class CTCFinetuneModel(ASRModel):
                 strip_end_space=self.add_end_space,
             )
         self._prev_log_step = -1
+        
     def set_to_eval(self):
         self.encoder.wav2spec.featurizer.dither = 0.0 # could be source of discrepenct
         self.encoder.wav2spec.featurizer.pad_to = 0
