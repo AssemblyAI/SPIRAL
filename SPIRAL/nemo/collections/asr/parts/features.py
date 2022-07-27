@@ -52,7 +52,7 @@ import torch.nn.functional as F
 from librosa.util import tiny
 from torch.autograd import Variable
 from torch_stft import STFT
-
+import IPython
 try:
     import torch.cuda.amp
     AMP_AVAILABLE = hasattr(torch.cuda.amp, 'autocast')
@@ -304,7 +304,7 @@ class FilterbankFeatures(nn.Module):
                     hop_length=self.hop_length,
                     win_length=self.win_length,
                     center=False if stft_exact_pad else True,
-                    window=self.window.to(dtype=torch.float),
+                    window=self.window.to(x.device, dtype=torch.float),
                 )
             else:
                 self.stft = lambda x: torch.stft(
@@ -313,7 +313,7 @@ class FilterbankFeatures(nn.Module):
                     hop_length=self.hop_length,
                     win_length=self.win_length,
                     center=False if stft_exact_pad else True,
-                    window=self.window.to(dtype=torch.float),
+                    window=self.window.to(x.device, dtype=torch.float),
                     return_complex=False,
                 )
 
@@ -404,6 +404,7 @@ class FilterbankFeatures(nn.Module):
         if AMP_AVAILABLE:
             # disable autocast to get full range of stft values
             with torch.cuda.amp.autocast(enabled=False):
+                # IPython.embed()
                 x = self.stft(x)
         else:
             x = self.stft(x)
