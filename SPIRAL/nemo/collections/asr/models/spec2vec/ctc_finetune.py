@@ -574,3 +574,12 @@ class CTCFinetuneModel(ASRModel):
         test_logits = [x['test_logits'] for x in outputs]
         return {'test_loss': val_loss_mean, 'log': tensorboard_logs, 'decode_results': (references, hypotheses),
                 'test_logprob': test_logprob, 'test_logprob_len': test_logprob_len, 'test_logits': test_logits}
+
+    def set_to_eval(self):
+        self.encoder.wav2spec.featurizer.dither = 0.0 # could be source of discrepenct
+        self.encoder.wav2spec.featurizer.pad_to = 0
+        # Switch model to evaluation mode
+        self.eval()
+        # Freeze the encoder and decoder modules
+        self.encoder = self.encoder.eval()
+        self.decoder = self.decoder.eval()
