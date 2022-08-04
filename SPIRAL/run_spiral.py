@@ -11,7 +11,8 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
+import numba
+import torch
 import argparse
 import glob
 import os
@@ -60,7 +61,7 @@ def main(argv=None):
         manifest_dir = args.manifest_dir
 
     if args.structured_config:
-        sys.path.remove('/home/cirrascale/frmccann/fairseq')
+        # sys.path.remove('/home/cirrascale/frmccann/fairseq')
         cfg_module = import_module(os.path.join(args.config_path, args.config_name).replace('/', '.'))
         cfg = cfg_module.cfg
 
